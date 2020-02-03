@@ -1,0 +1,6 @@
+framework module Pods_Swipe {
+  umbrella header "Pods-Swipe-umbrella.h"
+
+  export *
+  module * { export * }
+}
