@@ -1,5 +1,5 @@
 //
-//  ForgotVC.swift
+//  WelcomeSwipeVC.swift
 //  Swipe
 //
 //  Created by My Mac on 14/11/1941 .
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class ForgotVC: Main {
+class WelcomeSwipeVC: Main {
     
     //MARK:- Outlets
-    
+   
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,7 @@ class ForgotVC: Main {
     }
     
     
-    
+   
     
     @IBAction func btnRegister_Action(_ sender: UIButton) {
         self.view.endEditing(true)
@@ -31,7 +31,7 @@ class ForgotVC: Main {
     
     @IBAction func btnLogin_Action(_ sender: UIButton) {
         self.view.endEditing(true)
-        self.performSegue(withIdentifier: "toForgot", sender: nil)
+        self.performSegue(withIdentifier: "toLogin", sender: nil)
     }
     
     @IBAction func btnTerms_Action(_ sender: UIButton) {
@@ -39,11 +39,17 @@ class ForgotVC: Main {
     }
     
     @IBAction func btnPrivacy_Action(_ sender: UIButton) {
-        
+
         self.performSegue(withIdentifier: "toStatic", sender: "policy")
     }
     
     //MARK:- Other Function
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toStatic"{
+            let vc = segue.destination as! StaticPagesVC
+            vc.comeFrom = sender as! String
+        }
+    }
     
     //MARK:- Web Service Calling
     
