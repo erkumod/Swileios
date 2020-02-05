@@ -35,9 +35,9 @@ class LoginVC: Main {
     
     @IBAction func btnContinue_Action(_ sender: Any) {
         self.view.endEditing(true)
-        if checkValidation(){
-            
-        }
+        //if checkValidation(){
+            ChangeMainRoot()
+        //}
     }
     
     @IBAction func btnForgot_Action(_ sender: Any) {
@@ -72,13 +72,34 @@ class LoginVC: Main {
             tfEmail.becomeFirstResponder()
             self.showAlertView("Please enter valid email address")
             return false
-        }else if !validate(value: tfPass.text!){
-            tfPass.becomeFirstResponder()
-            self.showAlertView("Please enter valid password")
-            return false
         }else{
             return true
         }
+        
+        
+//        else if !validate(value: tfPass.text!){
+//            tfPass.becomeFirstResponder()
+//            self.showAlertView("Please enter valid password")
+//            return false
+//        }
+//
+    }
+    
+    func ChangeMainRoot() {
+        let homeSB = UIStoryboard(name: "Main", bundle: nil)
+        let desiredViewController = homeSB.instantiateViewController(withIdentifier: "SideMenuNavigation") as! SideMenuNavigation
+        let appdel = UIApplication.shared.delegate as! AppDelegate
+        let snapshot:UIView = (appdel.window?.snapshotView(afterScreenUpdates: true))!
+        desiredViewController.view.addSubview(snapshot)
+        appdel.window?.rootViewController = desiredViewController;
+        
+        UIView.animate(withDuration: 0.3, animations: {() in
+            snapshot.layer.opacity = 0;
+            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5);
+        }, completion: {
+            (value: Bool) in
+            snapshot.removeFromSuperview();
+        });
     }
     
     func checkValidation_continue() -> Bool{
