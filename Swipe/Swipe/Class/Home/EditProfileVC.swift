@@ -25,6 +25,14 @@ class EditProfileVC: Main {
         ChangeLoginRoot()
     }
     
+    @IBAction func btnChangePassword_Action(_ sender: Any) {
+        self.performSegue(withIdentifier: "toPassword", sender: nil)
+    }
+    
+    @IBAction func btnAccountSetting_Action(_ sender: Any) {
+        self.performSegue(withIdentifier: "toAccount", sender: nil)
+    }
+    
     func ChangeLoginRoot() {
         let homeSB = UIStoryboard(name: "Main", bundle: nil)
         let desiredViewController = homeSB.instantiateViewController(withIdentifier: "MainNavigation") as! UINavigationController

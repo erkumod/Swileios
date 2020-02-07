@@ -30,8 +30,8 @@ class SideMenuVC : UIViewController {
     
     //MARK:- Button Actions
     @IBAction func btnEditProfile_Action(_ sender: Any) {
-//        let next1 = self.storyboard?.instantiateViewController(withIdentifier: "EditProfileVC") as? EditProfileVC
-//        sideMenuController()?.setContentViewController(next1!)
+        let next1 = self.storyboard?.instantiateViewController(withIdentifier: "EditProfileVC") as? EditProfileVC
+        sideMenuController()?.setContentViewController(next1!)
     }
     //Used to open facebook url.
     

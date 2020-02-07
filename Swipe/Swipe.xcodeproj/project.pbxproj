@@ -11,6 +11,9 @@
 		1F0AFAC123E9954B00923FAE /* SideMenuNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0AFABF23E9954A00923FAE /* SideMenuNavigation.swift */; };
 		1F0AFAC523E9974300923FAE /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0AFAC423E9974300923FAE /* HomeVC.swift */; };
 		1F530D9623EAE2BD004F3981 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F530D9523EAE2BD004F3981 /* EditProfileVC.swift */; };
+		1F5AC62423ED563F0000986B /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5AC62323ED563F0000986B /* ChangePasswordVC.swift */; };
+		1F5AC62623ED56660000986B /* AccountSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5AC62523ED56660000986B /* AccountSettingVC.swift */; };
+		1F5AC62823EDBC830000986B /* PromoCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5AC62723EDBC830000986B /* PromoCodeVC.swift */; };
 		1FE388FE23E808430078BDE7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE388FD23E808430078BDE7 /* AppDelegate.swift */; };
 		1FE3890323E808430078BDE7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE3890123E808430078BDE7 /* Main.storyboard */; };
 		1FE3890523E808460078BDE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FE3890423E808460078BDE7 /* Assets.xcassets */; };
@@ -55,6 +58,9 @@
 		1F0AFABF23E9954A00923FAE /* SideMenuNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuNavigation.swift; sourceTree = "<group>"; };
 		1F0AFAC423E9974300923FAE /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		1F530D9523EAE2BD004F3981 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
+		1F5AC62323ED563F0000986B /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
+		1F5AC62523ED56660000986B /* AccountSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingVC.swift; sourceTree = "<group>"; };
+		1F5AC62723EDBC830000986B /* PromoCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCodeVC.swift; sourceTree = "<group>"; };
 		1FE388FA23E808430078BDE7 /* Swipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swipe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE388FD23E808430078BDE7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FE3890223E808430078BDE7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -145,7 +151,10 @@
 			isa = PBXGroup;
 			children = (
 				1F0AFAC423E9974300923FAE /* HomeVC.swift */,
+				1F5AC62723EDBC830000986B /* PromoCodeVC.swift */,
 				1F530D9523EAE2BD004F3981 /* EditProfileVC.swift */,
+				1F5AC62323ED563F0000986B /* ChangePasswordVC.swift */,
+				1F5AC62523ED56660000986B /* AccountSettingVC.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -442,15 +451,18 @@
 				1FE3894523E823430078BDE7 /* SubClass.swift in Sources */,
 				1FE3891E23E8232A0078BDE7 /* WelcomeSwipeVC.swift in Sources */,
 				1FE3895423E823430078BDE7 /* SWActionSheet.m in Sources */,
+				1F5AC62623ED56660000986B /* AccountSettingVC.swift in Sources */,
 				1FE3894B23E823430078BDE7 /* LocationManager.swift in Sources */,
 				1FE388FE23E808430078BDE7 /* AppDelegate.swift in Sources */,
 				1FE3895223E823430078BDE7 /* ActionSheetDistancePicker.m in Sources */,
 				1FE3895123E823430078BDE7 /* ActionSheetLocalePicker.m in Sources */,
+				1F5AC62823EDBC830000986B /* PromoCodeVC.swift in Sources */,
 				1FE3894423E823430078BDE7 /* UINavigationView.swift in Sources */,
 				1FE3895D23E83C720078BDE7 /* ForgotVC.swift in Sources */,
 				1FE3895623E823430078BDE7 /* DistancePickerView.m in Sources */,
 				1FE3894923E823430078BDE7 /* DGLocalization.swift in Sources */,
 				1FE3894323E823430078BDE7 /* Constants.swift in Sources */,
+				1F5AC62423ED563F0000986B /* ChangePasswordVC.swift in Sources */,
 				1FE3895523E823430078BDE7 /* ActionSheetStringPicker.m in Sources */,
 				1FE3895923E83C550078BDE7 /* RegisterVC.swift in Sources */,
 				1FE3895723E823430078BDE7 /* AbstractActionSheetPicker.m in Sources */,

@@ -16,6 +16,8 @@ class HomeVC: Main {
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var tfSource: UITextField!
     @IBOutlet weak var vwBooking: CustomUIView!
+    @IBOutlet weak var vwNotes: UIView!
+    @IBOutlet weak var blurView: UIImageView!
     
     let locationManager = CLLocationManager()
     
@@ -23,6 +25,8 @@ class HomeVC: Main {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        blurView.isHidden = true
+        vwNotes.isHidden = true
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -37,6 +41,29 @@ class HomeVC: Main {
     
     @IBAction func btnSideMenu_Action(_ sender: UIButton) {
         toggleSideMenuView()
+    }
+    
+    @IBAction func btnClose_Action(_ sender: Any) {
+        blurView.isHidden = true
+        vwNotes.isHidden = true
+    }
+    
+    @IBAction func btnSubmitNote_Action(_ sender: Any) {
+        blurView.isHidden = true
+        vwNotes.isHidden = true
+    }
+    
+    @IBAction func btnNote_ACtion(_ sender: Any) {
+        blurView.isHidden = false
+        vwNotes.isHidden = false
+    }
+    
+    @IBAction func btnPromo_Action(_ sender: Any) {
+        self.performSegue(withIdentifier: "toPromo", sender: nil)
+    }
+    
+    @IBAction func btnCard_Action(_ sender: Any) {
+        
     }
     
     //MARK:- Other Function
