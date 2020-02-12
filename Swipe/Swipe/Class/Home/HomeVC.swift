@@ -32,11 +32,25 @@ class HomeVC: Main {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         
-        let padding = UIEdgeInsets(top:0, left: 0, bottom: 370, right: 0)
+        let padding = UIEdgeInsets(top:0, left: 5, bottom: 305, right: 5)
         mapView.padding = padding
         mapView.settings.myLocationButton = true
         mapView.isMyLocationEnabled = true
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if #available(iOS 13.0, *) {
+            let app = UIApplication.shared
+            
+            let statusbarView = UIView(frame: app.statusBarFrame)
+            statusbarView.backgroundColor = AppColors.cyan
+            app.statusBarUIView?.addSubview(statusbarView)
+            
+        } else {
+            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+            statusBar?.backgroundColor = AppColors.cyan
+        }
     }
     
     @IBAction func btnSideMenu_Action(_ sender: UIButton) {
@@ -63,7 +77,7 @@ class HomeVC: Main {
     }
     
     @IBAction func btnCard_Action(_ sender: Any) {
-        
+        self.performSegue(withIdentifier: "toWallet", sender: "Home")
     }
     
     //MARK:- Other Function
@@ -74,6 +88,12 @@ class HomeVC: Main {
             locationManager.requestAlwaysAuthorization()
         } else {
             return
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toWallet"{
+            let vc = segue.destination as! WalletVC
+            vc.comeFrom = sender as! String
         }
     }
     
