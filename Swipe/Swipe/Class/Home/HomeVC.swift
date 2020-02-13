@@ -18,6 +18,8 @@ class HomeVC: Main {
     @IBOutlet weak var vwBooking: CustomUIView!
     @IBOutlet weak var vwNotes: UIView!
     @IBOutlet weak var blurView: UIImageView!
+    @IBOutlet weak var ivRightSwipe: UIImageView!
+    @IBOutlet weak var btnSwipe: CustomButton!
     
     let locationManager = CLLocationManager()
     
@@ -36,6 +38,42 @@ class HomeVC: Main {
         mapView.padding = padding
         mapView.settings.myLocationButton = true
         mapView.isMyLocationEnabled = true
+        
+        let swipeRight = UIPanGestureRecognizer(target: self, action: #selector(Swiped))
+        //swipeRight.direction = UIPanGestureRecognizer//.//Direction.right
+        self.ivRightSwipe.addGestureRecognizer(swipeRight)
+        
+    }
+    
+    @objc func Swiped(gestureRecognizer: UIPanGestureRecognizer) -> Void {
+//        if let swipeGesture = gesture as? UISwipeGestureRecognizer{
+//            switch swipeGesture.direction {
+//            case UISwipeGestureRecognizer.Direction.right:
+//                print("right swipe")
+//            case UISwipeGestureRecognizer.Direction.left:
+//                print("left swipe")
+//            default:
+//                print("other swipe")
+//            }
+//        }
+//
+        
+        
+        if gestureRecognizer.state == UIGestureRecognizer.State.began || gestureRecognizer.state == UIGestureRecognizer.State.changed {
+            
+            let translation = gestureRecognizer.translation(in: self.view)
+            print(gestureRecognizer.view!.center.x)
+            
+            if(gestureRecognizer.view!.center.x < btnSwipe.frame.maxX - 50) {
+                
+                gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x  + translation.x, y: gestureRecognizer.view!.center.y)
+                print("moving")
+            }else {
+                gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x, y:gestureRecognizer.view!.center.y)
+                print("reached")
+            }
+            //gestureRecognizer.setTranslation(CGPoint(x: 0, y: 0), in: self.view)
+        }
         
     }
     
