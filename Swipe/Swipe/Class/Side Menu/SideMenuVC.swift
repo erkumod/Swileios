@@ -19,7 +19,7 @@ class SideMenuVC : UIViewController {
     @IBOutlet weak var tblVeiwSideMenu: UITableView!
     
     //MARK:- Global Variables
-    var arrOptions = ["Wallet", "My Vehicles", "Rewards","Bookings", "Notification", "Help Center"]
+    var arrOptions = ["Wallet", "My Vehicles", "Rewards","Bookings", "Notification", "Help Center","Join us"]
     
   
     //MARK:- View LifeCycle Method
@@ -88,6 +88,26 @@ extension SideMenuVC : UITableViewDelegate,UITableViewDataSource{
             break
         case 1:
             let next1 = self.storyboard?.instantiateViewController(withIdentifier: "ViewVehicleVC") as? ViewVehicleVC
+            sideMenuController()?.setContentViewController(next1!)
+            break
+        case 2:
+            let next1 = self.storyboard?.instantiateViewController(withIdentifier: "RewardVC") as? RewardVC
+            sideMenuController()?.setContentViewController(next1!)
+            break
+        case 3:
+            let next1 = self.storyboard?.instantiateViewController(withIdentifier: "BookingVC") as? BookingVC
+            sideMenuController()?.setContentViewController(next1!)
+            break
+        case 4:
+            let next1 = self.storyboard?.instantiateViewController(withIdentifier: "NotificationVC") as? NotificationVC
+            sideMenuController()?.setContentViewController(next1!)
+            break
+        case 5:
+            let next1 = self.storyboard?.instantiateViewController(withIdentifier: "HelpCenterVC") as? HelpCenterVC
+            sideMenuController()?.setContentViewController(next1!)
+            break
+        case 6:
+            let next1 = self.storyboard?.instantiateViewController(withIdentifier: "JoinUsVC") as? JoinUsVC
             sideMenuController()?.setContentViewController(next1!)
             break
         default: break

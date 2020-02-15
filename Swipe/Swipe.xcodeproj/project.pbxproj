@@ -10,6 +10,8 @@
 		1F0AFAC023E9954B00923FAE /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0AFABE23E9954A00923FAE /* SideMenuVC.swift */; };
 		1F0AFAC123E9954B00923FAE /* SideMenuNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0AFABF23E9954A00923FAE /* SideMenuNavigation.swift */; };
 		1F0AFAC523E9974300923FAE /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0AFAC423E9974300923FAE /* HomeVC.swift */; };
+		1F0DE65C23F7CB85000B64DE /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE65B23F7CB85000B64DE /* NotificationVC.swift */; };
+		1F0DE65E23F7EE48000B64DE /* BookingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE65D23F7EE48000B64DE /* BookingVC.swift */; };
 		1F530D9623EAE2BD004F3981 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F530D9523EAE2BD004F3981 /* EditProfileVC.swift */; };
 		1F5A519523EED21D008F10A0 /* WalletVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A519423EED21D008F10A0 /* WalletVC.swift */; };
 		1F5A519723EEEF4C008F10A0 /* AddEditVehicleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A519623EEEF4C008F10A0 /* AddEditVehicleVC.swift */; };
@@ -18,7 +20,10 @@
 		1F5AC62423ED563F0000986B /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5AC62323ED563F0000986B /* ChangePasswordVC.swift */; };
 		1F5AC62623ED56660000986B /* AccountSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5AC62523ED56660000986B /* AccountSettingVC.swift */; };
 		1F5AC62823EDBC830000986B /* PromoCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5AC62723EDBC830000986B /* PromoCodeVC.swift */; };
+		1F66388023F80BDE00C7E311 /* HelpCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66387F23F80BDE00C7E311 /* HelpCenterVC.swift */; };
+		1F66388223F8100B00C7E311 /* JoinUsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66388123F8100B00C7E311 /* JoinUsVC.swift */; };
 		1FB3FF7E23EF1787002DB7C3 /* ViewVehicleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB3FF7D23EF1786002DB7C3 /* ViewVehicleVC.swift */; };
+		1FCB946D23F6C23800A340AD /* RewardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB946C23F6C23800A340AD /* RewardVC.swift */; };
 		1FE388FE23E808430078BDE7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE388FD23E808430078BDE7 /* AppDelegate.swift */; };
 		1FE3890323E808430078BDE7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE3890123E808430078BDE7 /* Main.storyboard */; };
 		1FE3890523E808460078BDE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FE3890423E808460078BDE7 /* Assets.xcassets */; };
@@ -62,6 +67,8 @@
 		1F0AFABE23E9954A00923FAE /* SideMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
 		1F0AFABF23E9954A00923FAE /* SideMenuNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuNavigation.swift; sourceTree = "<group>"; };
 		1F0AFAC423E9974300923FAE /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		1F0DE65B23F7CB85000B64DE /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
+		1F0DE65D23F7EE48000B64DE /* BookingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingVC.swift; sourceTree = "<group>"; };
 		1F530D9523EAE2BD004F3981 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		1F5A519423EED21D008F10A0 /* WalletVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletVC.swift; sourceTree = "<group>"; };
 		1F5A519623EEEF4C008F10A0 /* AddEditVehicleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditVehicleVC.swift; sourceTree = "<group>"; };
@@ -70,7 +77,10 @@
 		1F5AC62323ED563F0000986B /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		1F5AC62523ED56660000986B /* AccountSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingVC.swift; sourceTree = "<group>"; };
 		1F5AC62723EDBC830000986B /* PromoCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCodeVC.swift; sourceTree = "<group>"; };
+		1F66387F23F80BDE00C7E311 /* HelpCenterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterVC.swift; sourceTree = "<group>"; };
+		1F66388123F8100B00C7E311 /* JoinUsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinUsVC.swift; sourceTree = "<group>"; };
 		1FB3FF7D23EF1786002DB7C3 /* ViewVehicleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewVehicleVC.swift; sourceTree = "<group>"; };
+		1FCB946C23F6C23800A340AD /* RewardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardVC.swift; sourceTree = "<group>"; };
 		1FE388FA23E808430078BDE7 /* Swipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swipe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE388FD23E808430078BDE7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FE3890223E808430078BDE7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -170,6 +180,11 @@
 				1F530D9523EAE2BD004F3981 /* EditProfileVC.swift */,
 				1F5AC62323ED563F0000986B /* ChangePasswordVC.swift */,
 				1F5AC62523ED56660000986B /* AccountSettingVC.swift */,
+				1FCB946C23F6C23800A340AD /* RewardVC.swift */,
+				1F0DE65B23F7CB85000B64DE /* NotificationVC.swift */,
+				1F0DE65D23F7EE48000B64DE /* BookingVC.swift */,
+				1F66387F23F80BDE00C7E311 /* HelpCenterVC.swift */,
+				1F66388123F8100B00C7E311 /* JoinUsVC.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -478,6 +493,7 @@
 				1FE3894423E823430078BDE7 /* UINavigationView.swift in Sources */,
 				1FE3895D23E83C720078BDE7 /* ForgotVC.swift in Sources */,
 				1FE3895623E823430078BDE7 /* DistancePickerView.m in Sources */,
+				1F0DE65E23F7EE48000B64DE /* BookingVC.swift in Sources */,
 				1F5A519923EEF327008F10A0 /* AddCardVC.swift in Sources */,
 				1FE3894923E823430078BDE7 /* DGLocalization.swift in Sources */,
 				1FE3894323E823430078BDE7 /* Constants.swift in Sources */,
@@ -485,15 +501,19 @@
 				1FE3895523E823430078BDE7 /* ActionSheetStringPicker.m in Sources */,
 				1FE3895923E83C550078BDE7 /* RegisterVC.swift in Sources */,
 				1F5A519723EEEF4C008F10A0 /* AddEditVehicleVC.swift in Sources */,
+				1F66388023F80BDE00C7E311 /* HelpCenterVC.swift in Sources */,
 				1FE3895723E823430078BDE7 /* AbstractActionSheetPicker.m in Sources */,
 				1F0AFAC123E9954B00923FAE /* SideMenuNavigation.swift in Sources */,
+				1FCB946D23F6C23800A340AD /* RewardVC.swift in Sources */,
 				1FE3894D23E823430078BDE7 /* ENSideMenuNavigationController.swift in Sources */,
 				1FE3895F23E83C7E0078BDE7 /* StaticPagesVC.swift in Sources */,
+				1F66388223F8100B00C7E311 /* JoinUsVC.swift in Sources */,
 				1F0AFAC023E9954B00923FAE /* SideMenuVC.swift in Sources */,
 				1FE3894723E823430078BDE7 /* APIManager.swift in Sources */,
 				1FE3894A23E823430078BDE7 /* UserModel.swift in Sources */,
 				1FE3894823E823430078BDE7 /* extension.swift in Sources */,
 				1FE3895023E823430078BDE7 /* ActionSheetDatePicker.m in Sources */,
+				1F0DE65C23F7CB85000B64DE /* NotificationVC.swift in Sources */,
 				1FE3895B23E83C660078BDE7 /* LoginVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
