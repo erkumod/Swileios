@@ -60,6 +60,7 @@
 		1FE3895B23E83C660078BDE7 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3895A23E83C660078BDE7 /* LoginVC.swift */; };
 		1FE3895D23E83C720078BDE7 /* ForgotVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3895C23E83C720078BDE7 /* ForgotVC.swift */; };
 		1FE3895F23E83C7E0078BDE7 /* StaticPagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3895E23E83C7E0078BDE7 /* StaticPagesVC.swift */; };
+		1FE7E6A123F8466E00E7E402 /* BookingDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE7E6A023F8466E00E7E402 /* BookingDetailVC.swift */; };
 		F57B7952F185B4D4DC751A87 /* Pods_Swipe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F8F6F8304E01AB97BDFEF5 /* Pods_Swipe.framework */; };
 /* End PBXBuildFile section */
 
@@ -129,6 +130,7 @@
 		1FE3895A23E83C660078BDE7 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		1FE3895C23E83C720078BDE7 /* ForgotVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotVC.swift; sourceTree = "<group>"; };
 		1FE3895E23E83C7E0078BDE7 /* StaticPagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticPagesVC.swift; sourceTree = "<group>"; };
+		1FE7E6A023F8466E00E7E402 /* BookingDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingDetailVC.swift; sourceTree = "<group>"; };
 		27F8F6F8304E01AB97BDFEF5 /* Pods_Swipe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swipe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E8999F0CE26E53B7C56F1C3 /* Pods-Swipe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swipe.debug.xcconfig"; path = "Target Support Files/Pods-Swipe/Pods-Swipe.debug.xcconfig"; sourceTree = "<group>"; };
 		C0C38B4C6577A3E955348576 /* Pods-Swipe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swipe.release.xcconfig"; path = "Target Support Files/Pods-Swipe/Pods-Swipe.release.xcconfig"; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				1F0DE65D23F7EE48000B64DE /* BookingVC.swift */,
 				1F66387F23F80BDE00C7E311 /* HelpCenterVC.swift */,
 				1F66388123F8100B00C7E311 /* JoinUsVC.swift */,
+				1FE7E6A023F8466E00E7E402 /* BookingDetailVC.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -498,6 +501,7 @@
 				1FE3894923E823430078BDE7 /* DGLocalization.swift in Sources */,
 				1FE3894323E823430078BDE7 /* Constants.swift in Sources */,
 				1F5AC62423ED563F0000986B /* ChangePasswordVC.swift in Sources */,
+				1FE7E6A123F8466E00E7E402 /* BookingDetailVC.swift in Sources */,
 				1FE3895523E823430078BDE7 /* ActionSheetStringPicker.m in Sources */,
 				1FE3895923E83C550078BDE7 /* RegisterVC.swift in Sources */,
 				1F5A519723EEEF4C008F10A0 /* AddEditVehicleVC.swift in Sources */,

@@ -114,17 +114,25 @@ extension RewardVC : UICollectionViewDelegate, UICollectionViewDataSource, UICol
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if collectionView == cvRedemption{
+            
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RedemptionCell", for: indexPath) as! RedemptionCell
             
             return cell
+            
         }else if collectionView == cvAvailable{
+            
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AvailableCell", for: indexPath) as! AvailableCell
             
+           
             return cell
+            
         }else{
+            
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HistoryCell", for: indexPath) as! HistoryCell
             
+         
             return cell
+            
         }
         
         
@@ -136,9 +144,9 @@ extension RewardVC : UICollectionViewDelegate, UICollectionViewDataSource, UICol
         if collectionView == cvRedemption{
             return CGSize(width: self.cvRedemption.frame.size.width / 5, height: self.cvRedemption.frame.size.width / 5)
         }else if collectionView == cvAvailable{
-            return CGSize(width: self.cvAvailable.frame.size.width / 2 - 15, height: 175)
+            return CGSize(width: self.cvAvailable.frame.size.width / 2 - 15, height: 200)
         }else{
-            return CGSize(width: self.cvHistory.frame.size.width / 2 - 15, height: 175)
+            return CGSize(width: self.cvHistory.frame.size.width / 2 - 15, height: 200)
         }
         
     }
