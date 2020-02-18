@@ -18,9 +18,13 @@ class JoinUsVC: Main {
     var click_Back = false
     var click_Face_NIRC = false
     
+    @IBOutlet weak var vwConfirm: UIView!
+    @IBOutlet weak var blurView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        blurView.isHidden = true
+        vwConfirm.isHidden = true
        
     }
     
@@ -50,6 +54,16 @@ class JoinUsVC: Main {
         openGallery_Camera()
     }
     
+    @IBAction func btnSignUp_Action(_ sender: Any) {
+        blurView.isHidden = false
+        vwConfirm.isHidden = false
+    }
+    
+    @IBAction func btnConfirmOk_Action(_ sender: Any) {
+        blurView.isHidden = true
+        vwConfirm.isHidden = true
+        (UIApplication.shared.delegate as! AppDelegate).ChangeToHome()
+    }
     
     func openGallery_Camera(){
         let actionSheet = UIAlertController(title: "Choose Option", message: nil, preferredStyle: .actionSheet)

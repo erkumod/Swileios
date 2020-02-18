@@ -23,6 +23,7 @@ class HomeVC: Main {
     @IBOutlet weak var btnSwipe: TransitionButton!
     
     let locationManager = CLLocationManager()
+    var flag = false
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -42,35 +43,33 @@ class HomeVC: Main {
         mapView.isMyLocationEnabled = true
         
         let swipeRight = UIPanGestureRecognizer(target: self, action: #selector(Swiped))
-        //swipeRight.direction = UIPanGestureRecognizer//.//Direction.right
         self.ivRightSwipe.addGestureRecognizer(swipeRight)
         
     }
     
     @objc func Swiped(gestureRecognizer: UIPanGestureRecognizer) -> Void {
-        var flag = false
-        if gestureRecognizer.state == UIGestureRecognizer.State.began || gestureRecognizer.state == UIGestureRecognizer.State.changed {
+        
+        if (gestureRecognizer.state == UIGestureRecognizer.State.began || gestureRecognizer.state == UIGestureRecognizer.State.changed) && !flag {
             
             let translation = gestureRecognizer.translation(in: self.view)
             print(gestureRecognizer.view!.center.x)
             
-            if(gestureRecognizer.view!.center.x < btnSwipe.frame.maxX - 50) {
-                if !flag{
-                    gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x  + translation.x, y: gestureRecognizer.view!.center.y)
-                    print("moving")
-                }
+            if(gestureRecognizer.view!.center.x < btnSwipe.frame.width) && !flag{
+                gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x  + translation.x, y: gestureRecognizer.view!.center.y)
+                print("moving")
             }else {
                 gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x, y:gestureRecognizer.view!.center.y)
                 print("reached")
                 flag = true
+                
                 btnSwipe.startAnimation() // 2: Then start the animation when the user tap the button
+                btnSwipe.disabledBackgroundColor = UIColor.white
                 let qualityOfServiceClass = DispatchQoS.QoSClass.background
                 let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
                 backgroundQueue.async(execute: {
-                    sleep(UInt32(1.5))
+                    sleep(UInt32(2.0))
                     DispatchQueue.main.async(execute: { () -> Void in
-                        self.btnSwipe.stopAnimation(animationStyle: .expand, completion: {
-
+                        self.btnSwipe.stopAnimation(animationStyle: .normal, completion: {
                         })
                     })
                 })

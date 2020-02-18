@@ -12,6 +12,12 @@
 		1F0AFAC523E9974300923FAE /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0AFAC423E9974300923FAE /* HomeVC.swift */; };
 		1F0DE65C23F7CB85000B64DE /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE65B23F7CB85000B64DE /* NotificationVC.swift */; };
 		1F0DE65E23F7EE48000B64DE /* BookingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE65D23F7EE48000B64DE /* BookingVC.swift */; };
+		1F43877C23FBE9A2008BE798 /* SideMenu1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43877A23FBE9A2008BE798 /* SideMenu1VC.swift */; };
+		1F43877D23FBE9A2008BE798 /* WasherNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43877B23FBE9A2008BE798 /* WasherNavigation.swift */; };
+		1F43877F23FBED0B008BE798 /* Booking_washer_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43877E23FBED0B008BE798 /* Booking_washer_VC.swift */; };
+		1F43878123FBFD1D008BE798 /* EnterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43878023FBFD1D008BE798 /* EnterVC.swift */; };
+		1F43878323FC0716008BE798 /* ExitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43878223FC0716008BE798 /* ExitVC.swift */; };
+		1F43878523FC1CC1008BE798 /* EarningVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43878423FC1CC1008BE798 /* EarningVC.swift */; };
 		1F530D9623EAE2BD004F3981 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F530D9523EAE2BD004F3981 /* EditProfileVC.swift */; };
 		1F5A519523EED21D008F10A0 /* WalletVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A519423EED21D008F10A0 /* WalletVC.swift */; };
 		1F5A519723EEEF4C008F10A0 /* AddEditVehicleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A519623EEEF4C008F10A0 /* AddEditVehicleVC.swift */; };
@@ -70,6 +76,12 @@
 		1F0AFAC423E9974300923FAE /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		1F0DE65B23F7CB85000B64DE /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		1F0DE65D23F7EE48000B64DE /* BookingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingVC.swift; sourceTree = "<group>"; };
+		1F43877A23FBE9A2008BE798 /* SideMenu1VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenu1VC.swift; sourceTree = "<group>"; };
+		1F43877B23FBE9A2008BE798 /* WasherNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WasherNavigation.swift; sourceTree = "<group>"; };
+		1F43877E23FBED0B008BE798 /* Booking_washer_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booking_washer_VC.swift; sourceTree = "<group>"; };
+		1F43878023FBFD1D008BE798 /* EnterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterVC.swift; sourceTree = "<group>"; };
+		1F43878223FC0716008BE798 /* ExitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitVC.swift; sourceTree = "<group>"; };
+		1F43878423FC1CC1008BE798 /* EarningVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningVC.swift; sourceTree = "<group>"; };
 		1F530D9523EAE2BD004F3981 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		1F5A519423EED21D008F10A0 /* WalletVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletVC.swift; sourceTree = "<group>"; };
 		1F5A519623EEEF4C008F10A0 /* AddEditVehicleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditVehicleVC.swift; sourceTree = "<group>"; };
@@ -169,7 +181,7 @@
 			path = Landing;
 			sourceTree = "<group>";
 		};
-		1F0AFAC323E9973100923FAE /* Home */ = {
+		1F0AFAC323E9973100923FAE /* Customer */ = {
 			isa = PBXGroup;
 			children = (
 				1F0AFAC423E9974300923FAE /* HomeVC.swift */,
@@ -188,8 +200,28 @@
 				1F66387F23F80BDE00C7E311 /* HelpCenterVC.swift */,
 				1F66388123F8100B00C7E311 /* JoinUsVC.swift */,
 				1FE7E6A023F8466E00E7E402 /* BookingDetailVC.swift */,
+				1F0AFABD23E9954A00923FAE /* Side Menu */,
 			);
-			path = Home;
+			path = Customer;
+			sourceTree = "<group>";
+		};
+		1F43877823FBE9A2008BE798 /* Washer */ = {
+			isa = PBXGroup;
+			children = (
+				1F43877E23FBED0B008BE798 /* Booking_washer_VC.swift */,
+				1F43878423FC1CC1008BE798 /* EarningVC.swift */,
+				1F43877923FBE9A2008BE798 /* Side Menu Washer */,
+			);
+			path = Washer;
+			sourceTree = "<group>";
+		};
+		1F43877923FBE9A2008BE798 /* Side Menu Washer */ = {
+			isa = PBXGroup;
+			children = (
+				1F43877A23FBE9A2008BE798 /* SideMenu1VC.swift */,
+				1F43877B23FBE9A2008BE798 /* WasherNavigation.swift */,
+			);
+			path = "Side Menu Washer";
 			sourceTree = "<group>";
 		};
 		1FE388F123E808430078BDE7 = {
@@ -243,8 +275,10 @@
 			isa = PBXGroup;
 			children = (
 				1F0AFAC223E9972800923FAE /* Landing */,
-				1F0AFAC323E9973100923FAE /* Home */,
-				1F0AFABD23E9954A00923FAE /* Side Menu */,
+				1F0AFAC323E9973100923FAE /* Customer */,
+				1F43878023FBFD1D008BE798 /* EnterVC.swift */,
+				1F43878223FC0716008BE798 /* ExitVC.swift */,
+				1F43877823FBE9A2008BE798 /* Washer */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -486,6 +520,8 @@
 				1FE3891E23E8232A0078BDE7 /* WelcomeSwipeVC.swift in Sources */,
 				1FE3895423E823430078BDE7 /* SWActionSheet.m in Sources */,
 				1F5AC62623ED56660000986B /* AccountSettingVC.swift in Sources */,
+				1F43878323FC0716008BE798 /* ExitVC.swift in Sources */,
+				1F43877C23FBE9A2008BE798 /* SideMenu1VC.swift in Sources */,
 				1FE3894B23E823430078BDE7 /* LocationManager.swift in Sources */,
 				1F5A519523EED21D008F10A0 /* WalletVC.swift in Sources */,
 				1FE388FE23E808430078BDE7 /* AppDelegate.swift in Sources */,
@@ -495,6 +531,7 @@
 				1F5AC62823EDBC830000986B /* PromoCodeVC.swift in Sources */,
 				1FE3894423E823430078BDE7 /* UINavigationView.swift in Sources */,
 				1FE3895D23E83C720078BDE7 /* ForgotVC.swift in Sources */,
+				1F43878123FBFD1D008BE798 /* EnterVC.swift in Sources */,
 				1FE3895623E823430078BDE7 /* DistancePickerView.m in Sources */,
 				1F0DE65E23F7EE48000B64DE /* BookingVC.swift in Sources */,
 				1F5A519923EEF327008F10A0 /* AddCardVC.swift in Sources */,
@@ -505,12 +542,14 @@
 				1FE3895523E823430078BDE7 /* ActionSheetStringPicker.m in Sources */,
 				1FE3895923E83C550078BDE7 /* RegisterVC.swift in Sources */,
 				1F5A519723EEEF4C008F10A0 /* AddEditVehicleVC.swift in Sources */,
+				1F43877F23FBED0B008BE798 /* Booking_washer_VC.swift in Sources */,
 				1F66388023F80BDE00C7E311 /* HelpCenterVC.swift in Sources */,
 				1FE3895723E823430078BDE7 /* AbstractActionSheetPicker.m in Sources */,
 				1F0AFAC123E9954B00923FAE /* SideMenuNavigation.swift in Sources */,
 				1FCB946D23F6C23800A340AD /* RewardVC.swift in Sources */,
 				1FE3894D23E823430078BDE7 /* ENSideMenuNavigationController.swift in Sources */,
 				1FE3895F23E83C7E0078BDE7 /* StaticPagesVC.swift in Sources */,
+				1F43877D23FBE9A2008BE798 /* WasherNavigation.swift in Sources */,
 				1F66388223F8100B00C7E311 /* JoinUsVC.swift in Sources */,
 				1F0AFAC023E9954B00923FAE /* SideMenuVC.swift in Sources */,
 				1FE3894723E823430078BDE7 /* APIManager.swift in Sources */,
@@ -518,6 +557,7 @@
 				1FE3894823E823430078BDE7 /* extension.swift in Sources */,
 				1FE3895023E823430078BDE7 /* ActionSheetDatePicker.m in Sources */,
 				1F0DE65C23F7CB85000B64DE /* NotificationVC.swift in Sources */,
+				1F43878523FC1CC1008BE798 /* EarningVC.swift in Sources */,
 				1FE3895B23E83C660078BDE7 /* LoginVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

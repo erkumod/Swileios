@@ -5,6 +5,7 @@ PODS:
   - GoogleMaps/Base (3.7.0)
   - GoogleMaps/Maps (3.7.0):
     - GoogleMaps/Base
+  - IHProgressHUD (0.1.4)
   - IQKeyboardManager (6.5.4)
   - Kingfisher (4.10.1)
   - KMPlaceholderTextView (1.4.0)
@@ -14,6 +15,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - GoogleMaps
+  - IHProgressHUD
   - IQKeyboardManager
   - Kingfisher (~> 4.0)
   - KMPlaceholderTextView (~> 1.4.0)
@@ -24,6 +26,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - GoogleMaps
+    - IHProgressHUD
     - IQKeyboardManager
     - Kingfisher
     - KMPlaceholderTextView
@@ -33,12 +36,13 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   GoogleMaps: 55da829c68aa931f3ae982b9e341cc2f3d89c587
+  IHProgressHUD: a01846bfbb581c761c79747c67b08387c3bdfae3
   IQKeyboardManager: 72b359cd7e777e3a984cedbe05f8da45320cbb63
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   KMPlaceholderTextView: 2206c3df39979e9396e2d96fa9f427a8951121b0
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: 8e7ada49927e4c1d138a86dfb13e07c35dbba68c
+PODFILE CHECKSUM: fb8d65c82d0f690bf9c97f0a0513b39ec730aaad
 
 COCOAPODS: 1.8.4

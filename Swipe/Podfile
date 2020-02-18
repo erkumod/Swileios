@@ -13,6 +13,7 @@ pod 'Kingfisher', '~> 4.0'
 pod 'GoogleMaps'
 pod 'SkyFloatingLabelTextField', '~> 3.0'
 pod 'TransitionButton'
+pod 'IHProgressHUD'
 
 
 end

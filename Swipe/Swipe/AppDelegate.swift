@@ -86,6 +86,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         });
     }
     
+    func ChangeToWasher() {
+        let homeSB = UIStoryboard(name: "Main", bundle: nil)
+        let desiredViewController = homeSB.instantiateViewController(withIdentifier: "WasherNavigation") as! WasherNavigation
+        let appdel = UIApplication.shared.delegate as! AppDelegate
+        let snapshot:UIView = (appdel.window?.snapshotView(afterScreenUpdates: true))!
+        desiredViewController.view.addSubview(snapshot)
+        appdel.window?.rootViewController = desiredViewController;
+        
+        UIView.animate(withDuration: 0.3, animations: {() in
+            snapshot.layer.opacity = 0;
+            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5);
+        }, completion: {
+            (value: Bool) in
+            snapshot.removeFromSuperview();
+        });
+    }
+    
 
 }
 

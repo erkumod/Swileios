@@ -22,7 +22,7 @@ class SideMenuNavigation: ENSideMenuNavigationController, ENSideMenuDelegate {
         let VC = sideMenuSB.instantiateViewController(withIdentifier: "SideMenuVC") as! SideMenuVC
         sideMenu = ENSideMenu(sourceView: self.view, menuViewController: VC, menuPosition:.left)
         //sideMenu?.delegate = self //optional
-        sideMenu?.menuWidth = self.view.frame.size.width * 0.70 // optional, default is 160
+        sideMenu?.menuWidth = self.view.frame.size.width * 0.75 // optional, default is 160
         sideMenu?.bouncingEnabled = false
         sideMenu?.allowPanGesture = true
         // make navigation bar showing over side menu
