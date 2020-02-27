@@ -10,6 +10,7 @@ import UIKit
 
 class RedemptionCell : UICollectionViewCell{
     
+    @IBOutlet weak var ivPic: CustomImageView!
 }
 
 class AvailableCell : UICollectionViewCell{
@@ -116,6 +117,11 @@ extension RewardVC : UICollectionViewDelegate, UICollectionViewDataSource, UICol
         if collectionView == cvRedemption{
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RedemptionCell", for: indexPath) as! RedemptionCell
+            
+//            if indexPath.row == 0{
+//                cell.ivPic.backgroundColor = AppColors.cyan
+//                cell.ivPic.image = UIImage(named: "")
+//            }
             
             return cell
             

@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "color_visa.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "color_visa.png",
       "scale" : "2x"
     },
     {

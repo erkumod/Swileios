@@ -10,19 +10,37 @@ import UIKit
 
 class EditProfileVC: Main {
 
+    @IBOutlet weak var vwLogout: UIView!
+    @IBOutlet weak var blurView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        blurView.isHidden = true
+        vwLogout.isHidden = true
+    }
 
     @IBAction func btnBack_Action(_ sender: Any) {
-        ChangeHomeRoot()
+        (UIApplication.shared.delegate as! AppDelegate).ChangeToHome()
     }
     
     @IBAction func btnLogOut_Action(_ sender: Any) {
-        ChangeLoginRoot()
+        blurView.isHidden = false
+        vwLogout.isHidden = false
+    }
+    
+    @IBAction func btnCancel_Action(_ sender: Any) {
+        blurView.isHidden = true
+        vwLogout.isHidden = true
+    }
+    
+    @IBAction func btnLogout_Action(_ sender: Any) {
+        blurView.isHidden = true
+        vwLogout.isHidden = true
+        (UIApplication.shared.delegate as! AppDelegate).ChangeToLogin()
     }
     
     @IBAction func btnChangePassword_Action(_ sender: Any) {
@@ -33,37 +51,5 @@ class EditProfileVC: Main {
         self.performSegue(withIdentifier: "toAccount", sender: nil)
     }
     
-    func ChangeLoginRoot() {
-        let homeSB = UIStoryboard(name: "Main", bundle: nil)
-        let desiredViewController = homeSB.instantiateViewController(withIdentifier: "MainNavigation") as! UINavigationController
-        let appdel = UIApplication.shared.delegate as! AppDelegate
-        let snapshot:UIView = (appdel.window?.snapshotView(afterScreenUpdates: true))!
-        desiredViewController.view.addSubview(snapshot)
-        appdel.window?.rootViewController = desiredViewController;
-        
-        UIView.animate(withDuration: 0.3, animations: {() in
-            snapshot.layer.opacity = 0;
-            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5);
-        }, completion: {
-            (value: Bool) in
-            snapshot.removeFromSuperview();
-        });
-    }
     
-    func ChangeHomeRoot() {
-        let homeSB = UIStoryboard(name: "Main", bundle: nil)
-        let desiredViewController = homeSB.instantiateViewController(withIdentifier: "SideMenuNavigation") as! SideMenuNavigation
-        let appdel = UIApplication.shared.delegate as! AppDelegate
-        let snapshot:UIView = (appdel.window?.snapshotView(afterScreenUpdates: true))!
-        desiredViewController.view.addSubview(snapshot)
-        appdel.window?.rootViewController = desiredViewController;
-        
-        UIView.animate(withDuration: 0.3, animations: {() in
-            snapshot.layer.opacity = 0;
-            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5);
-        }, completion: {
-            (value: Bool) in
-            snapshot.removeFromSuperview();
-        });
-    }
 }

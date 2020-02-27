@@ -10,8 +10,18 @@
 		1F0AFAC023E9954B00923FAE /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0AFABE23E9954A00923FAE /* SideMenuVC.swift */; };
 		1F0AFAC123E9954B00923FAE /* SideMenuNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0AFABF23E9954A00923FAE /* SideMenuNavigation.swift */; };
 		1F0AFAC523E9974300923FAE /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0AFAC423E9974300923FAE /* HomeVC.swift */; };
+		1F0C527E24041DAD00B4CFB9 /* WasherProfileDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0C527D24041DAD00B4CFB9 /* WasherProfileDetailVC.swift */; };
+		1F0C5280240420E700B4CFB9 /* BankAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0C527F240420E700B4CFB9 /* BankAccountVC.swift */; };
+		1F0C52822404343200B4CFB9 /* WasherStaticPagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0C52812404343200B4CFB9 /* WasherStaticPagesVC.swift */; };
 		1F0DE65C23F7CB85000B64DE /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE65B23F7CB85000B64DE /* NotificationVC.swift */; };
 		1F0DE65E23F7EE48000B64DE /* BookingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE65D23F7EE48000B64DE /* BookingVC.swift */; };
+		1F0F958D2403E35600B135FB /* HelpCenterDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0F958C2403E35600B135FB /* HelpCenterDetailVC.swift */; };
+		1F0F958F2403EEA000B135FB /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0F958E2403EEA000B135FB /* ChatVC.swift */; };
+		1F0F95912403EF2D00B135FB /* WasherProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0F95902403EF2D00B135FB /* WasherProfileVC.swift */; };
+		1F1226E22406CB18009336D0 /* WasherHelpCenterDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1226E02406CB18009336D0 /* WasherHelpCenterDetailVC.swift */; };
+		1F1226E32406CB18009336D0 /* WasherHelpCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1226E12406CB18009336D0 /* WasherHelpCenterVC.swift */; };
+		1F2CB4A823FEF5AF0049067D /* Notification_WasherVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CB4A723FEF5AF0049067D /* Notification_WasherVC.swift */; };
+		1F2CB4AA23FEF6BD0049067D /* SwipeBoxVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CB4A923FEF6BD0049067D /* SwipeBoxVC.swift */; };
 		1F43877C23FBE9A2008BE798 /* SideMenu1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43877A23FBE9A2008BE798 /* SideMenu1VC.swift */; };
 		1F43877D23FBE9A2008BE798 /* WasherNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43877B23FBE9A2008BE798 /* WasherNavigation.swift */; };
 		1F43877F23FBED0B008BE798 /* Booking_washer_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43877E23FBED0B008BE798 /* Booking_washer_VC.swift */; };
@@ -28,8 +38,10 @@
 		1F5AC62823EDBC830000986B /* PromoCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5AC62723EDBC830000986B /* PromoCodeVC.swift */; };
 		1F66388023F80BDE00C7E311 /* HelpCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66387F23F80BDE00C7E311 /* HelpCenterVC.swift */; };
 		1F66388223F8100B00C7E311 /* JoinUsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66388123F8100B00C7E311 /* JoinUsVC.swift */; };
+		1F6F28CC23FD396100961EF9 /* BookingDetail_WasherVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6F28CB23FD396100961EF9 /* BookingDetail_WasherVC.swift */; };
 		1FB3FF7E23EF1787002DB7C3 /* ViewVehicleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB3FF7D23EF1786002DB7C3 /* ViewVehicleVC.swift */; };
 		1FCB946D23F6C23800A340AD /* RewardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB946C23F6C23800A340AD /* RewardVC.swift */; };
+		1FCEBF34240544C400A7077B /* VehiclePhotoSubmissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCEBF33240544C400A7077B /* VehiclePhotoSubmissionVC.swift */; };
 		1FE388FE23E808430078BDE7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE388FD23E808430078BDE7 /* AppDelegate.swift */; };
 		1FE3890323E808430078BDE7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE3890123E808430078BDE7 /* Main.storyboard */; };
 		1FE3890523E808460078BDE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FE3890423E808460078BDE7 /* Assets.xcassets */; };
@@ -67,6 +79,7 @@
 		1FE3895D23E83C720078BDE7 /* ForgotVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3895C23E83C720078BDE7 /* ForgotVC.swift */; };
 		1FE3895F23E83C7E0078BDE7 /* StaticPagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3895E23E83C7E0078BDE7 /* StaticPagesVC.swift */; };
 		1FE7E6A123F8466E00E7E402 /* BookingDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE7E6A023F8466E00E7E402 /* BookingDetailVC.swift */; };
+		1FFADE7423FFEC9F002BB455 /* RedemptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFADE7323FFEC9F002BB455 /* RedemptionVC.swift */; };
 		F57B7952F185B4D4DC751A87 /* Pods_Swipe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F8F6F8304E01AB97BDFEF5 /* Pods_Swipe.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,8 +87,18 @@
 		1F0AFABE23E9954A00923FAE /* SideMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
 		1F0AFABF23E9954A00923FAE /* SideMenuNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuNavigation.swift; sourceTree = "<group>"; };
 		1F0AFAC423E9974300923FAE /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		1F0C527D24041DAD00B4CFB9 /* WasherProfileDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasherProfileDetailVC.swift; sourceTree = "<group>"; };
+		1F0C527F240420E700B4CFB9 /* BankAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountVC.swift; sourceTree = "<group>"; };
+		1F0C52812404343200B4CFB9 /* WasherStaticPagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasherStaticPagesVC.swift; sourceTree = "<group>"; };
 		1F0DE65B23F7CB85000B64DE /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		1F0DE65D23F7EE48000B64DE /* BookingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingVC.swift; sourceTree = "<group>"; };
+		1F0F958C2403E35600B135FB /* HelpCenterDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterDetailVC.swift; sourceTree = "<group>"; };
+		1F0F958E2403EEA000B135FB /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
+		1F0F95902403EF2D00B135FB /* WasherProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasherProfileVC.swift; sourceTree = "<group>"; };
+		1F1226E02406CB18009336D0 /* WasherHelpCenterDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WasherHelpCenterDetailVC.swift; sourceTree = "<group>"; };
+		1F1226E12406CB18009336D0 /* WasherHelpCenterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WasherHelpCenterVC.swift; sourceTree = "<group>"; };
+		1F2CB4A723FEF5AF0049067D /* Notification_WasherVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification_WasherVC.swift; sourceTree = "<group>"; };
+		1F2CB4A923FEF6BD0049067D /* SwipeBoxVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBoxVC.swift; sourceTree = "<group>"; };
 		1F43877A23FBE9A2008BE798 /* SideMenu1VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenu1VC.swift; sourceTree = "<group>"; };
 		1F43877B23FBE9A2008BE798 /* WasherNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WasherNavigation.swift; sourceTree = "<group>"; };
 		1F43877E23FBED0B008BE798 /* Booking_washer_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booking_washer_VC.swift; sourceTree = "<group>"; };
@@ -92,8 +115,10 @@
 		1F5AC62723EDBC830000986B /* PromoCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCodeVC.swift; sourceTree = "<group>"; };
 		1F66387F23F80BDE00C7E311 /* HelpCenterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterVC.swift; sourceTree = "<group>"; };
 		1F66388123F8100B00C7E311 /* JoinUsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinUsVC.swift; sourceTree = "<group>"; };
+		1F6F28CB23FD396100961EF9 /* BookingDetail_WasherVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingDetail_WasherVC.swift; sourceTree = "<group>"; };
 		1FB3FF7D23EF1786002DB7C3 /* ViewVehicleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewVehicleVC.swift; sourceTree = "<group>"; };
 		1FCB946C23F6C23800A340AD /* RewardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardVC.swift; sourceTree = "<group>"; };
+		1FCEBF33240544C400A7077B /* VehiclePhotoSubmissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclePhotoSubmissionVC.swift; sourceTree = "<group>"; };
 		1FE388FA23E808430078BDE7 /* Swipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swipe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE388FD23E808430078BDE7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FE3890223E808430078BDE7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -143,6 +168,7 @@
 		1FE3895C23E83C720078BDE7 /* ForgotVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotVC.swift; sourceTree = "<group>"; };
 		1FE3895E23E83C7E0078BDE7 /* StaticPagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticPagesVC.swift; sourceTree = "<group>"; };
 		1FE7E6A023F8466E00E7E402 /* BookingDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingDetailVC.swift; sourceTree = "<group>"; };
+		1FFADE7323FFEC9F002BB455 /* RedemptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedemptionVC.swift; sourceTree = "<group>"; };
 		27F8F6F8304E01AB97BDFEF5 /* Pods_Swipe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swipe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E8999F0CE26E53B7C56F1C3 /* Pods-Swipe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swipe.debug.xcconfig"; path = "Target Support Files/Pods-Swipe/Pods-Swipe.debug.xcconfig"; sourceTree = "<group>"; };
 		C0C38B4C6577A3E955348576 /* Pods-Swipe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swipe.release.xcconfig"; path = "Target Support Files/Pods-Swipe/Pods-Swipe.release.xcconfig"; sourceTree = "<group>"; };
@@ -198,8 +224,10 @@
 				1F0DE65B23F7CB85000B64DE /* NotificationVC.swift */,
 				1F0DE65D23F7EE48000B64DE /* BookingVC.swift */,
 				1F66387F23F80BDE00C7E311 /* HelpCenterVC.swift */,
+				1F0F958C2403E35600B135FB /* HelpCenterDetailVC.swift */,
 				1F66388123F8100B00C7E311 /* JoinUsVC.swift */,
 				1FE7E6A023F8466E00E7E402 /* BookingDetailVC.swift */,
+				1F0F958E2403EEA000B135FB /* ChatVC.swift */,
 				1F0AFABD23E9954A00923FAE /* Side Menu */,
 			);
 			path = Customer;
@@ -208,8 +236,19 @@
 		1F43877823FBE9A2008BE798 /* Washer */ = {
 			isa = PBXGroup;
 			children = (
+				1F1226E02406CB18009336D0 /* WasherHelpCenterDetailVC.swift */,
+				1F1226E12406CB18009336D0 /* WasherHelpCenterVC.swift */,
 				1F43877E23FBED0B008BE798 /* Booking_washer_VC.swift */,
+				1F6F28CB23FD396100961EF9 /* BookingDetail_WasherVC.swift */,
 				1F43878423FC1CC1008BE798 /* EarningVC.swift */,
+				1F2CB4A723FEF5AF0049067D /* Notification_WasherVC.swift */,
+				1F2CB4A923FEF6BD0049067D /* SwipeBoxVC.swift */,
+				1FFADE7323FFEC9F002BB455 /* RedemptionVC.swift */,
+				1F0F95902403EF2D00B135FB /* WasherProfileVC.swift */,
+				1F0C527D24041DAD00B4CFB9 /* WasherProfileDetailVC.swift */,
+				1F0C527F240420E700B4CFB9 /* BankAccountVC.swift */,
+				1F0C52812404343200B4CFB9 /* WasherStaticPagesVC.swift */,
+				1FCEBF33240544C400A7077B /* VehiclePhotoSubmissionVC.swift */,
 				1F43877923FBE9A2008BE798 /* Side Menu Washer */,
 			);
 			path = Washer;
@@ -518,17 +557,24 @@
 				1FE3894623E823430078BDE7 /* NetworkManager.swift in Sources */,
 				1FE3894523E823430078BDE7 /* SubClass.swift in Sources */,
 				1FE3891E23E8232A0078BDE7 /* WelcomeSwipeVC.swift in Sources */,
+				1F0F958F2403EEA000B135FB /* ChatVC.swift in Sources */,
 				1FE3895423E823430078BDE7 /* SWActionSheet.m in Sources */,
+				1F2CB4AA23FEF6BD0049067D /* SwipeBoxVC.swift in Sources */,
 				1F5AC62623ED56660000986B /* AccountSettingVC.swift in Sources */,
 				1F43878323FC0716008BE798 /* ExitVC.swift in Sources */,
 				1F43877C23FBE9A2008BE798 /* SideMenu1VC.swift in Sources */,
 				1FE3894B23E823430078BDE7 /* LocationManager.swift in Sources */,
+				1F0C5280240420E700B4CFB9 /* BankAccountVC.swift in Sources */,
+				1F6F28CC23FD396100961EF9 /* BookingDetail_WasherVC.swift in Sources */,
+				1F0F958D2403E35600B135FB /* HelpCenterDetailVC.swift in Sources */,
+				1FFADE7423FFEC9F002BB455 /* RedemptionVC.swift in Sources */,
 				1F5A519523EED21D008F10A0 /* WalletVC.swift in Sources */,
 				1FE388FE23E808430078BDE7 /* AppDelegate.swift in Sources */,
 				1FE3895223E823430078BDE7 /* ActionSheetDistancePicker.m in Sources */,
 				1FB3FF7E23EF1787002DB7C3 /* ViewVehicleVC.swift in Sources */,
 				1FE3895123E823430078BDE7 /* ActionSheetLocalePicker.m in Sources */,
 				1F5AC62823EDBC830000986B /* PromoCodeVC.swift in Sources */,
+				1F0F95912403EF2D00B135FB /* WasherProfileVC.swift in Sources */,
 				1FE3894423E823430078BDE7 /* UINavigationView.swift in Sources */,
 				1FE3895D23E83C720078BDE7 /* ForgotVC.swift in Sources */,
 				1F43878123FBFD1D008BE798 /* EnterVC.swift in Sources */,
@@ -536,15 +582,19 @@
 				1F0DE65E23F7EE48000B64DE /* BookingVC.swift in Sources */,
 				1F5A519923EEF327008F10A0 /* AddCardVC.swift in Sources */,
 				1FE3894923E823430078BDE7 /* DGLocalization.swift in Sources */,
+				1F1226E22406CB18009336D0 /* WasherHelpCenterDetailVC.swift in Sources */,
+				1F2CB4A823FEF5AF0049067D /* Notification_WasherVC.swift in Sources */,
 				1FE3894323E823430078BDE7 /* Constants.swift in Sources */,
 				1F5AC62423ED563F0000986B /* ChangePasswordVC.swift in Sources */,
 				1FE7E6A123F8466E00E7E402 /* BookingDetailVC.swift in Sources */,
 				1FE3895523E823430078BDE7 /* ActionSheetStringPicker.m in Sources */,
 				1FE3895923E83C550078BDE7 /* RegisterVC.swift in Sources */,
 				1F5A519723EEEF4C008F10A0 /* AddEditVehicleVC.swift in Sources */,
+				1FCEBF34240544C400A7077B /* VehiclePhotoSubmissionVC.swift in Sources */,
 				1F43877F23FBED0B008BE798 /* Booking_washer_VC.swift in Sources */,
 				1F66388023F80BDE00C7E311 /* HelpCenterVC.swift in Sources */,
 				1FE3895723E823430078BDE7 /* AbstractActionSheetPicker.m in Sources */,
+				1F1226E32406CB18009336D0 /* WasherHelpCenterVC.swift in Sources */,
 				1F0AFAC123E9954B00923FAE /* SideMenuNavigation.swift in Sources */,
 				1FCB946D23F6C23800A340AD /* RewardVC.swift in Sources */,
 				1FE3894D23E823430078BDE7 /* ENSideMenuNavigationController.swift in Sources */,
@@ -552,9 +602,11 @@
 				1F43877D23FBE9A2008BE798 /* WasherNavigation.swift in Sources */,
 				1F66388223F8100B00C7E311 /* JoinUsVC.swift in Sources */,
 				1F0AFAC023E9954B00923FAE /* SideMenuVC.swift in Sources */,
+				1F0C52822404343200B4CFB9 /* WasherStaticPagesVC.swift in Sources */,
 				1FE3894723E823430078BDE7 /* APIManager.swift in Sources */,
 				1FE3894A23E823430078BDE7 /* UserModel.swift in Sources */,
 				1FE3894823E823430078BDE7 /* extension.swift in Sources */,
+				1F0C527E24041DAD00B4CFB9 /* WasherProfileDetailVC.swift in Sources */,
 				1FE3895023E823430078BDE7 /* ActionSheetDatePicker.m in Sources */,
 				1F0DE65C23F7CB85000B64DE /* NotificationVC.swift in Sources */,
 				1F43878523FC1CC1008BE798 /* EarningVC.swift in Sources */,

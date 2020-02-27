@@ -8,12 +8,21 @@
 
 import UIKit
 
+class HelpCell : UITableViewCell{
+    @IBOutlet weak var lblTitle: UILabel!
+}
+
 class HelpCenterVC: Main {
 
+    @IBOutlet weak var tblHelp: UITableView!
+    
+    var arr = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        tblHelp.tableFooterView = UIView()
+        arr = ["What is Swipe ?" , "Is my Credit/Debit card information is safe?","Do i need to meet washer?","Why isn't my booking is accepted","How long does it take from start to end ?","Topic"]
     }
     
 
@@ -21,4 +30,29 @@ class HelpCenterVC: Main {
         (UIApplication.shared.delegate as! AppDelegate).ChangeToHome()
     }
 
+}
+
+extension HelpCenterVC : UITableViewDelegate, UITableViewDataSource{
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arr.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HelpCell", for: indexPath) as! HelpCell
+        
+        cell.lblTitle.text = arr[indexPath.row]
+        
+        return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0{
+            self.performSegue(withIdentifier: "toDetail", sender: nil)
+        }
+    }
+    
 }

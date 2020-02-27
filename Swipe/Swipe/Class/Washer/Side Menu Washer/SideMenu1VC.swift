@@ -2,7 +2,6 @@
 //  SideMenuVC.swift
 
 import UIKit
-import TransitionButton
 
 //UITableViewCell for side menu items
 class SideMenuOption1 : UITableViewCell {
@@ -19,11 +18,11 @@ class SideMenu1VC : UIViewController {
     @IBOutlet weak var tblVeiwSideMenu: UITableView!
     
     @IBOutlet weak var ivRightSwipe: UIImageView!
-    @IBOutlet weak var btnSwipe: TransitionButton!
+    @IBOutlet weak var btnSwipe: UIButton!
     
     //MARK:- Global Variables
-    var arrOptions = ["Earnings", "Swipe Box", "Notifications","Support"]
-    var arrImg = ["earning","swipe","notification","support"]
+    var arrOptions = ["Earnings", "SwipeBox", "Notifications","Support"]
+    var arrImg = ["earning","swipe","notification","ic_support"]
     var flag = false
     
     //MARK:- View LifeCycle Method
@@ -42,32 +41,43 @@ class SideMenu1VC : UIViewController {
             let translation = gestureRecognizer.translation(in: self.view)
             print(gestureRecognizer.view!.center.x)
             
-            if(gestureRecognizer.view!.center.x < btnSwipe.frame.width) && !flag{
+            if gestureRecognizer.view!.center.x <= 0{
+                ivRightSwipe.center = CGPoint(x: 15 , y: gestureRecognizer.view!.center.y)
+                return
+            }
+            
+            if(gestureRecognizer.view!.center.x < btnSwipe.frame.size.width) && !flag{
                 gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x  + translation.x, y: gestureRecognizer.view!.center.y)
                 print("moving")
             }else {
                 gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x, y:gestureRecognizer.view!.center.y)
                 print("reached")
+                ivRightSwipe.center = CGPoint(x: 15 , y: gestureRecognizer.view!.center.y)
                 flag = true
                 
-                btnSwipe.startAnimation() // 2: Then start the animation when the user tap the button
-                btnSwipe.disabledBackgroundColor = UIColor.white
-                let qualityOfServiceClass = DispatchQoS.QoSClass.background
-                let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
-                backgroundQueue.async(execute: {
-                    sleep(UInt32(2.0))
-                    DispatchQueue.main.async(execute: { () -> Void in
-                        self.btnSwipe.stopAnimation(animationStyle: .normal, completion: {
+//                btnSwipe.startAnimation() // 2: Then start the animation when the user tap the button
+//                btnSwipe.disabledBackgroundColor = UIColor.white
+//                let qualityOfServiceClass = DispatchQoS.QoSClass.background
+//                let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
+//                backgroundQueue.async(execute: {
+//                    sleep(UInt32(2.0))
+//                    DispatchQueue.main.async(execute: { () -> Void in
+//                        self.btnSwipe.stopAnimation(animationStyle: .normal, completion: {
                             let next1 = self.storyboard?.instantiateViewController(withIdentifier: "ExitVC") as? ExitVC
                             self.sideMenuController()?.setContentViewController(next1!)
-                        })
-                    })
-                })
+//                        })
+//                    })
+//                })
             }
         }
     }
     
     //MARK:- Button Actions
+    @IBAction func btnProfile_Action(_ sender: Any) {
+        let next1 = self.storyboard?.instantiateViewController(withIdentifier: "WasherProfileVC") as? WasherProfileVC
+        sideMenuController()?.setContentViewController(next1!)
+    }
+    
     @IBAction func btnEditProfile_Action(_ sender: Any) {
         let next1 = self.storyboard?.instantiateViewController(withIdentifier: "EditProfileVC") as? EditProfileVC
         sideMenuController()?.setContentViewController(next1!)
@@ -119,13 +129,29 @@ extension SideMenu1VC : UITableViewDelegate,UITableViewDataSource{
     
     //Delegate Method. Automatically executed when user select any item from side menu options.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         switch indexPath.row {
         case 0:
             let next1 = self.storyboard?.instantiateViewController(withIdentifier: "EarningVC") as? EarningVC
             sideMenuController()?.setContentViewController(next1!)
             break
-        default: break
-
+        case 1:
+            let next1 = self.storyboard?.instantiateViewController(withIdentifier: "SwipeBoxVC") as? SwipeBoxVC
+            sideMenuController()?.setContentViewController(next1!)
+            break
+        case 2:
+            let next1 = self.storyboard?.instantiateViewController(withIdentifier: "Notification_WasherVC") as? Notification_WasherVC
+            sideMenuController()?.setContentViewController(next1!)
+            break
+        case 3:
+            let next1 = self.storyboard?.instantiateViewController(withIdentifier: "WasherHelpCenterVC") as? WasherHelpCenterVC
+            sideMenuController()?.setContentViewController(next1!)
+            break
+        default:
+            let next1 = self.storyboard?.instantiateViewController(withIdentifier: "EarningVC") as? EarningVC
+            sideMenuController()?.setContentViewController(next1!)
+            break
         }
+        
     }
 }
