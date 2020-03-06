@@ -36,10 +36,14 @@
 		1F5AC62423ED563F0000986B /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5AC62323ED563F0000986B /* ChangePasswordVC.swift */; };
 		1F5AC62623ED56660000986B /* AccountSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5AC62523ED56660000986B /* AccountSettingVC.swift */; };
 		1F5AC62823EDBC830000986B /* PromoCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5AC62723EDBC830000986B /* PromoCodeVC.swift */; };
+		1F5F2BCE2410F62F0071E1C7 /* MonthYearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F2BCD2410F62E0071E1C7 /* MonthYearPickerView.swift */; };
 		1F66388023F80BDE00C7E311 /* HelpCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66387F23F80BDE00C7E311 /* HelpCenterVC.swift */; };
 		1F66388223F8100B00C7E311 /* JoinUsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66388123F8100B00C7E311 /* JoinUsVC.swift */; };
-		1F6F28CC23FD396100961EF9 /* BookingDetail_WasherVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6F28CB23FD396100961EF9 /* BookingDetail_WasherVC.swift */; };
+		1F6F28CC23FD396100961EF9 /* ConfWasherBookingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6F28CB23FD396100961EF9 /* ConfWasherBookingVC.swift */; };
+		1F812E572408F4AB00393A48 /* AvailWasherBookingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F812E562408F4AB00393A48 /* AvailWasherBookingVC.swift */; };
 		1FB3FF7E23EF1787002DB7C3 /* ViewVehicleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB3FF7D23EF1786002DB7C3 /* ViewVehicleVC.swift */; };
+		1FB9C58C240D0D47001B4EAF /* SwipeBoxDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9C58B240D0D47001B4EAF /* SwipeBoxDetailVC.swift */; };
+		1FB9C58E240D1299001B4EAF /* BookingHistoryDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9C58D240D1299001B4EAF /* BookingHistoryDetailVC.swift */; };
 		1FCB946D23F6C23800A340AD /* RewardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB946C23F6C23800A340AD /* RewardVC.swift */; };
 		1FCEBF34240544C400A7077B /* VehiclePhotoSubmissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCEBF33240544C400A7077B /* VehiclePhotoSubmissionVC.swift */; };
 		1FE388FE23E808430078BDE7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE388FD23E808430078BDE7 /* AppDelegate.swift */; };
@@ -54,12 +58,10 @@
 		1FE3891B23E822370078BDE7 /* arialbd.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FE3891523E822370078BDE7 /* arialbd.ttf */; };
 		1FE3891E23E8232A0078BDE7 /* WelcomeSwipeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3891D23E8232A0078BDE7 /* WelcomeSwipeVC.swift */; };
 		1FE3894323E823430078BDE7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3892023E823430078BDE7 /* Constants.swift */; };
-		1FE3894423E823430078BDE7 /* UINavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3892123E823430078BDE7 /* UINavigationView.swift */; };
 		1FE3894523E823430078BDE7 /* SubClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3892223E823430078BDE7 /* SubClass.swift */; };
 		1FE3894623E823430078BDE7 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3892323E823430078BDE7 /* NetworkManager.swift */; };
 		1FE3894723E823430078BDE7 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3892423E823430078BDE7 /* APIManager.swift */; };
 		1FE3894823E823430078BDE7 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3892523E823430078BDE7 /* extension.swift */; };
-		1FE3894923E823430078BDE7 /* DGLocalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3892623E823430078BDE7 /* DGLocalization.swift */; };
 		1FE3894A23E823430078BDE7 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3892723E823430078BDE7 /* UserModel.swift */; };
 		1FE3894B23E823430078BDE7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3892823E823430078BDE7 /* LocationManager.swift */; };
 		1FE3894C23E823430078BDE7 /* ENSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3892B23E823430078BDE7 /* ENSideMenu.swift */; };
@@ -113,10 +115,15 @@
 		1F5AC62323ED563F0000986B /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		1F5AC62523ED56660000986B /* AccountSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingVC.swift; sourceTree = "<group>"; };
 		1F5AC62723EDBC830000986B /* PromoCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCodeVC.swift; sourceTree = "<group>"; };
+		1F5F2BCD2410F62E0071E1C7 /* MonthYearPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthYearPickerView.swift; sourceTree = "<group>"; };
 		1F66387F23F80BDE00C7E311 /* HelpCenterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterVC.swift; sourceTree = "<group>"; };
 		1F66388123F8100B00C7E311 /* JoinUsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinUsVC.swift; sourceTree = "<group>"; };
-		1F6F28CB23FD396100961EF9 /* BookingDetail_WasherVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingDetail_WasherVC.swift; sourceTree = "<group>"; };
+		1F6F28CB23FD396100961EF9 /* ConfWasherBookingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfWasherBookingVC.swift; sourceTree = "<group>"; };
+		1F812E562408F4AB00393A48 /* AvailWasherBookingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailWasherBookingVC.swift; sourceTree = "<group>"; };
 		1FB3FF7D23EF1786002DB7C3 /* ViewVehicleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewVehicleVC.swift; sourceTree = "<group>"; };
+		1FB4775A240E6BD4004E0087 /* Swipe_Bridge_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Swipe_Bridge_Header.h; sourceTree = "<group>"; };
+		1FB9C58B240D0D47001B4EAF /* SwipeBoxDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBoxDetailVC.swift; sourceTree = "<group>"; };
+		1FB9C58D240D1299001B4EAF /* BookingHistoryDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingHistoryDetailVC.swift; sourceTree = "<group>"; };
 		1FCB946C23F6C23800A340AD /* RewardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardVC.swift; sourceTree = "<group>"; };
 		1FCEBF33240544C400A7077B /* VehiclePhotoSubmissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclePhotoSubmissionVC.swift; sourceTree = "<group>"; };
 		1FE388FA23E808430078BDE7 /* Swipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swipe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,12 +140,10 @@
 		1FE3891523E822370078BDE7 /* arialbd.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = arialbd.ttf; sourceTree = "<group>"; };
 		1FE3891D23E8232A0078BDE7 /* WelcomeSwipeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSwipeVC.swift; sourceTree = "<group>"; };
 		1FE3892023E823430078BDE7 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		1FE3892123E823430078BDE7 /* UINavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationView.swift; sourceTree = "<group>"; };
 		1FE3892223E823430078BDE7 /* SubClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubClass.swift; sourceTree = "<group>"; };
 		1FE3892323E823430078BDE7 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		1FE3892423E823430078BDE7 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		1FE3892523E823430078BDE7 /* extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
-		1FE3892623E823430078BDE7 /* DGLocalization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGLocalization.swift; sourceTree = "<group>"; };
 		1FE3892723E823430078BDE7 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		1FE3892823E823430078BDE7 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		1FE3892B23E823430078BDE7 /* ENSideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenu.swift; sourceTree = "<group>"; };
@@ -217,16 +222,17 @@
 				1F5A519A23EF1402008F10A0 /* ViewDeleteCardVC.swift */,
 				1F5A519623EEEF4C008F10A0 /* AddEditVehicleVC.swift */,
 				1FB3FF7D23EF1786002DB7C3 /* ViewVehicleVC.swift */,
+				1F0DE65D23F7EE48000B64DE /* BookingVC.swift */,
+				1FB9C58D240D1299001B4EAF /* BookingHistoryDetailVC.swift */,
+				1FE7E6A023F8466E00E7E402 /* BookingDetailVC.swift */,
 				1F530D9523EAE2BD004F3981 /* EditProfileVC.swift */,
 				1F5AC62323ED563F0000986B /* ChangePasswordVC.swift */,
 				1F5AC62523ED56660000986B /* AccountSettingVC.swift */,
 				1FCB946C23F6C23800A340AD /* RewardVC.swift */,
 				1F0DE65B23F7CB85000B64DE /* NotificationVC.swift */,
-				1F0DE65D23F7EE48000B64DE /* BookingVC.swift */,
 				1F66387F23F80BDE00C7E311 /* HelpCenterVC.swift */,
 				1F0F958C2403E35600B135FB /* HelpCenterDetailVC.swift */,
 				1F66388123F8100B00C7E311 /* JoinUsVC.swift */,
-				1FE7E6A023F8466E00E7E402 /* BookingDetailVC.swift */,
 				1F0F958E2403EEA000B135FB /* ChatVC.swift */,
 				1F0AFABD23E9954A00923FAE /* Side Menu */,
 			);
@@ -239,10 +245,12 @@
 				1F1226E02406CB18009336D0 /* WasherHelpCenterDetailVC.swift */,
 				1F1226E12406CB18009336D0 /* WasherHelpCenterVC.swift */,
 				1F43877E23FBED0B008BE798 /* Booking_washer_VC.swift */,
-				1F6F28CB23FD396100961EF9 /* BookingDetail_WasherVC.swift */,
+				1F6F28CB23FD396100961EF9 /* ConfWasherBookingVC.swift */,
+				1F812E562408F4AB00393A48 /* AvailWasherBookingVC.swift */,
 				1F43878423FC1CC1008BE798 /* EarningVC.swift */,
 				1F2CB4A723FEF5AF0049067D /* Notification_WasherVC.swift */,
 				1F2CB4A923FEF6BD0049067D /* SwipeBoxVC.swift */,
+				1FB9C58B240D0D47001B4EAF /* SwipeBoxDetailVC.swift */,
 				1FFADE7323FFEC9F002BB455 /* RedemptionVC.swift */,
 				1F0F95902403EF2D00B135FB /* WasherProfileVC.swift */,
 				1F0C527D24041DAD00B4CFB9 /* WasherProfileDetailVC.swift */,
@@ -293,6 +301,7 @@
 				1FE3890423E808460078BDE7 /* Assets.xcassets */,
 				1FE3890623E808460078BDE7 /* LaunchScreen.storyboard */,
 				1FE3890923E808460078BDE7 /* Info.plist */,
+				1FB4775A240E6BD4004E0087 /* Swipe_Bridge_Header.h */,
 			);
 			path = Swipe;
 			sourceTree = "<group>";
@@ -326,12 +335,10 @@
 			isa = PBXGroup;
 			children = (
 				1FE3892023E823430078BDE7 /* Constants.swift */,
-				1FE3892123E823430078BDE7 /* UINavigationView.swift */,
 				1FE3892223E823430078BDE7 /* SubClass.swift */,
 				1FE3892323E823430078BDE7 /* NetworkManager.swift */,
 				1FE3892423E823430078BDE7 /* APIManager.swift */,
 				1FE3892523E823430078BDE7 /* extension.swift */,
-				1FE3892623E823430078BDE7 /* DGLocalization.swift */,
 				1FE3892723E823430078BDE7 /* UserModel.swift */,
 				1FE3892823E823430078BDE7 /* LocationManager.swift */,
 			);
@@ -341,6 +348,7 @@
 		1FE3892923E823430078BDE7 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				1F5F2BCD2410F62E0071E1C7 /* MonthYearPickerView.swift */,
 				1FE3892A23E823430078BDE7 /* ENSwiftSideMenu */,
 				1FE3892D23E823430078BDE7 /* CountryList */,
 				1FE3893023E823430078BDE7 /* Pickers */,
@@ -550,10 +558,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FE3895323E823430078BDE7 /* ActionSheetCustomPicker.m in Sources */,
+				1F812E572408F4AB00393A48 /* AvailWasherBookingVC.swift in Sources */,
 				1F530D9623EAE2BD004F3981 /* EditProfileVC.swift in Sources */,
 				1F5A519B23EF1402008F10A0 /* ViewDeleteCardVC.swift in Sources */,
+				1F5F2BCE2410F62F0071E1C7 /* MonthYearPickerView.swift in Sources */,
 				1F0AFAC523E9974300923FAE /* HomeVC.swift in Sources */,
 				1FE3894C23E823430078BDE7 /* ENSideMenu.swift in Sources */,
+				1FB9C58E240D1299001B4EAF /* BookingHistoryDetailVC.swift in Sources */,
 				1FE3894623E823430078BDE7 /* NetworkManager.swift in Sources */,
 				1FE3894523E823430078BDE7 /* SubClass.swift in Sources */,
 				1FE3891E23E8232A0078BDE7 /* WelcomeSwipeVC.swift in Sources */,
@@ -562,10 +573,11 @@
 				1F2CB4AA23FEF6BD0049067D /* SwipeBoxVC.swift in Sources */,
 				1F5AC62623ED56660000986B /* AccountSettingVC.swift in Sources */,
 				1F43878323FC0716008BE798 /* ExitVC.swift in Sources */,
+				1FB9C58C240D0D47001B4EAF /* SwipeBoxDetailVC.swift in Sources */,
 				1F43877C23FBE9A2008BE798 /* SideMenu1VC.swift in Sources */,
 				1FE3894B23E823430078BDE7 /* LocationManager.swift in Sources */,
 				1F0C5280240420E700B4CFB9 /* BankAccountVC.swift in Sources */,
-				1F6F28CC23FD396100961EF9 /* BookingDetail_WasherVC.swift in Sources */,
+				1F6F28CC23FD396100961EF9 /* ConfWasherBookingVC.swift in Sources */,
 				1F0F958D2403E35600B135FB /* HelpCenterDetailVC.swift in Sources */,
 				1FFADE7423FFEC9F002BB455 /* RedemptionVC.swift in Sources */,
 				1F5A519523EED21D008F10A0 /* WalletVC.swift in Sources */,
@@ -575,13 +587,11 @@
 				1FE3895123E823430078BDE7 /* ActionSheetLocalePicker.m in Sources */,
 				1F5AC62823EDBC830000986B /* PromoCodeVC.swift in Sources */,
 				1F0F95912403EF2D00B135FB /* WasherProfileVC.swift in Sources */,
-				1FE3894423E823430078BDE7 /* UINavigationView.swift in Sources */,
 				1FE3895D23E83C720078BDE7 /* ForgotVC.swift in Sources */,
 				1F43878123FBFD1D008BE798 /* EnterVC.swift in Sources */,
 				1FE3895623E823430078BDE7 /* DistancePickerView.m in Sources */,
 				1F0DE65E23F7EE48000B64DE /* BookingVC.swift in Sources */,
 				1F5A519923EEF327008F10A0 /* AddCardVC.swift in Sources */,
-				1FE3894923E823430078BDE7 /* DGLocalization.swift in Sources */,
 				1F1226E22406CB18009336D0 /* WasherHelpCenterDetailVC.swift in Sources */,
 				1F2CB4A823FEF5AF0049067D /* Notification_WasherVC.swift in Sources */,
 				1FE3894323E823430078BDE7 /* Constants.swift in Sources */,
@@ -767,6 +777,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.JK.swipe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = Swipe/Swipe_Bridge_Header.h;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -787,6 +798,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.JK.swipe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = Swipe/Swipe_Bridge_Header.h;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

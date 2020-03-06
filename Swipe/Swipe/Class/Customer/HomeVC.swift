@@ -9,7 +9,6 @@
 import UIKit
 import CoreLocation
 import GoogleMaps
-import TransitionButton
 
 class HomeVC: Main {
     
@@ -20,7 +19,7 @@ class HomeVC: Main {
     @IBOutlet weak var vwNotes: UIView!
     @IBOutlet weak var blurView: UIImageView!
     @IBOutlet weak var ivRightSwipe: UIImageView!
-    @IBOutlet weak var btnSwipe: TransitionButton!
+    @IBOutlet weak var btnSwipe: UIButton!
     
     let locationManager = CLLocationManager()
     var flag = false
@@ -47,6 +46,10 @@ class HomeVC: Main {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
+    }
+    
     @objc func Swiped(gestureRecognizer: UIPanGestureRecognizer) -> Void {
         
         if (gestureRecognizer.state == UIGestureRecognizer.State.began || gestureRecognizer.state == UIGestureRecognizer.State.changed) && !flag {
@@ -61,18 +64,6 @@ class HomeVC: Main {
                 gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x, y:gestureRecognizer.view!.center.y)
                 print("reached")
                 flag = true
-                
-                btnSwipe.startAnimation() // 2: Then start the animation when the user tap the button
-                btnSwipe.disabledBackgroundColor = UIColor.white
-                let qualityOfServiceClass = DispatchQoS.QoSClass.background
-                let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
-                backgroundQueue.async(execute: {
-                    sleep(UInt32(2.0))
-                    DispatchQueue.main.async(execute: { () -> Void in
-                        self.btnSwipe.stopAnimation(animationStyle: .normal, completion: {
-                        })
-                    })
-                })
             }
         }
     }

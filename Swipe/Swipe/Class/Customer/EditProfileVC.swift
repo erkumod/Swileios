@@ -40,6 +40,8 @@ class EditProfileVC: Main {
     @IBAction func btnLogout_Action(_ sender: Any) {
         blurView.isHidden = true
         vwLogout.isHidden = true
+        UserModel.sharedInstance().removeData()
+        UserModel.sharedInstance().synchroniseData()
         (UIApplication.shared.delegate as! AppDelegate).ChangeToLogin()
     }
     

@@ -26,26 +26,25 @@ class Booking_washer_VC: Main {
     
     @IBOutlet weak var scrView: UIScrollView!
     @IBOutlet weak var consWidthScreen: NSLayoutConstraint!
+    //@IBOutlet weak var consHeightScreen: NSLayoutConstraint!
     
     @IBOutlet weak var tblConfirmed: UITableView!
     @IBOutlet weak var tblAvailable: UITableView!
     var isConfirmed = false
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        isConfirmed = true
         consWidthScreen.constant = self.view.frame.size.width
+        //consHeightScreen.constant = self.view.frame.size.height - 140
         scrView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
         btnConfirmed.setTitleColor(AppColors.cyan, for: .normal)
         btnAvailable.setTitleColor(UIColor.lightGray, for: .normal)
         lblConfirm.isHidden = false
         lblAvailable.isHidden = true
-        isConfirmed = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,13 +64,13 @@ class Booking_washer_VC: Main {
     }
     
     @IBAction func btnComfirmed_Action(_ sender: Any) {
-        scrView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
         isConfirmed = true
+        scrView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
     }
     
     @IBAction func btnAvailable_Action(_ sender: Any) {
-        scrView.setContentOffset(CGPoint(x: self.view.frame.size.width, y:0), animated: true)
         isConfirmed = false
+        scrView.setContentOffset(CGPoint(x: self.view.frame.size.width, y:0), animated: true)
     }
     
 }
@@ -99,7 +98,7 @@ extension Booking_washer_VC : UIScrollViewDelegate {
 extension Booking_washer_VC : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == tblConfirmed{
-            return 10
+            return 7
         }else{
             return 5
         }
@@ -120,6 +119,13 @@ extension Booking_washer_VC : UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "toDetail", sender: nil)
+        
+        if isConfirmed{
+            self.performSegue(withIdentifier: "toConfirm", sender: nil)
+        }else{
+            self.performSegue(withIdentifier: "toAvailable", sender: nil)
+        }
+        
+        
     }
 }

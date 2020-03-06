@@ -43,7 +43,7 @@ class RegisterVC: Main {
     @IBAction func btnContinue_Action(_ sender: Any) {
         self.view.endEditing(true)
         if checkValidation(){
-            
+            callRegisterAPI()
         }
     }
     
@@ -127,7 +127,7 @@ class RegisterVC: Main {
     }
     
     func validate(value: String) -> Bool {
-        let PASS_REGEX = "^(?=.*[A-Za-z])[A-Za-z]{8,15}$"
+        let PASS_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", PASS_REGEX)
         let result =  phoneTest.evaluate(with: value)
         return result
@@ -175,20 +175,58 @@ class RegisterVC: Main {
                 }
                 let substringToReplace = textFieldText[rangeOfTextToReplace]
                 let count = textFieldText.count - substringToReplace.count + string.count
-                
                 return count <= 8
             }
-            
-            
             return true
         }
-        
-        
-        
-        
-        
     }
     
     //MARK:- Web Service Calling
+    func callRegisterAPI() {
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
+            return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.REGISTER
+        //let params = "?email=\(tfEmail.text!)&password=\(tfPass.text!)"
+        
+        let parameter : [String:AnyObject] = ["name" : tfName.text as AnyObject, "mobile" : tfMobile.text as AnyObject, "email" : tfEmail.text as AnyObject, "password" : tfPass.text as AnyObject ,"dob" : "00-00-0000" as AnyObject,"gender" : "Male" as AnyObject]
+        
+        APIManager.shared.requestPostURL(serviceURL, param: parameter , success: { (response) in
+            if let jsonObject = response.result.value as? [String:AnyObject] {
+                if let status = jsonObject["success"] as? Bool{
+                    if !status{
+                        print("Failed")
+               
+                        var flag = false
+                        if let status = jsonObject["error"] as? [String:AnyObject]{
+                            if let email = status["email"] as? [String]{
+                                flag = true
+                                self.showAlertView(email[0])
+                            }
+                            
+                            if !flag{
+                                if let mobile = status["mobile"] as? [String]{
+                                    self.showAlertView(mobile[0])
+                                }
+                            }
+                        }
+                        
+                    }else{
+                        print(jsonObject)
+                        
+                        self.showAlertView(jsonObject["error"] as? String, completionHandler: { (finish) in
+                            (UIApplication.shared.delegate as? AppDelegate)?.ChangeToLogin()
+                        })
+
+                    }
+                }
+            }
+            
+        }) { (error) in
+            print(error)
+        }
+    }
     
 }

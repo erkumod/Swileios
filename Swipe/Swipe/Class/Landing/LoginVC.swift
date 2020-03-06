@@ -35,9 +35,9 @@ class LoginVC: Main {
     
     @IBAction func btnContinue_Action(_ sender: Any) {
         self.view.endEditing(true)
-        //if checkValidation(){
-            ChangeMainRoot()
-        //}
+        if checkValidation(){
+            callLoginAPI()
+        }
     }
     
     @IBAction func btnForgot_Action(_ sender: Any) {
@@ -85,23 +85,6 @@ class LoginVC: Main {
 //
     }
     
-    func ChangeMainRoot() {
-        let homeSB = UIStoryboard(name: "Main", bundle: nil)
-        let desiredViewController = homeSB.instantiateViewController(withIdentifier: "SideMenuNavigation") as! SideMenuNavigation
-        let appdel = UIApplication.shared.delegate as! AppDelegate
-        let snapshot:UIView = (appdel.window?.snapshotView(afterScreenUpdates: true))!
-        desiredViewController.view.addSubview(snapshot)
-        appdel.window?.rootViewController = desiredViewController;
-        
-        UIView.animate(withDuration: 0.3, animations: {() in
-            snapshot.layer.opacity = 0;
-            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5);
-        }, completion: {
-            (value: Bool) in
-            snapshot.removeFromSuperview();
-        });
-    }
-    
     func checkValidation_continue() -> Bool{
         if tfEmail.text!.isEmpty{
             return false
@@ -147,5 +130,54 @@ class LoginVC: Main {
     }
     
     //MARK:- Web Service Calling
-    
+    func callLoginAPI() {
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
+            return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.LOGIN
+        
+        let parameter : [String:AnyObject] = ["email":tfEmail.text! as AnyObject , "password" : tfPass.text! as AnyObject]
+        
+        APIManager.shared.requestPostURL(serviceURL, param: parameter , success: { (response) in
+            if let jsonObject = response.result.value as? [String:AnyObject] {
+                if let status = jsonObject["success"] as? Bool{
+                    if !status{
+                        print("Failed")
+                        self.showAlertView(jsonObject["error"] as? String)
+                    }else{
+                        print(jsonObject)
+                        if let data = jsonObject["data"] as? [String:AnyObject] {
+                            if let user = data["user"] as? [String:AnyObject] {
+                                
+                                UserModel.sharedInstance().user_id = "\(user["id"] as! Int)"
+                                UserModel.sharedInstance().authToken = data["token"] as? String
+                                
+                                UserModel.sharedInstance().email = user["email"] as? String
+                                UserModel.sharedInstance().password = self.tfPass.text!
+                                UserModel.sharedInstance().mobileNo = user["mobile"] as? String
+                                UserModel.sharedInstance().country_code = user["country_code"] as? String
+                                
+                                UserModel.sharedInstance().name = user["name"] as? String
+                                UserModel.sharedInstance().user_type = user["user_type"] as? String
+                                
+                                UserModel.sharedInstance().synchroniseData()
+            
+                                
+                                (UIApplication.shared.delegate as? AppDelegate)?.ChangeToHome()
+                            } else {
+                                self.showAlertView("Someting went wrong")
+                            }
+                        } else {
+                            self.showAlertView("Someting went wrong")
+                        }
+                    }
+                }
+            }
+            
+        }) { (error) in
+            print(error)
+        }
+    }
 }

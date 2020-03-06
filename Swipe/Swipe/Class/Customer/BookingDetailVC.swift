@@ -16,7 +16,12 @@ class BookingDetailVC: Main {
     @IBOutlet weak var blurView: UIImageView!
     @IBOutlet weak var vwPopup: CustomUIView!
     
+    @IBOutlet weak var consBeforeAccept: NSLayoutConstraint!
+    @IBOutlet weak var consAfterAccept: NSLayoutConstraint!
+    @IBOutlet weak var btnWasher: CustomButton!
+    
     let locationManager = CLLocationManager()
+    var bookingStatus = "accept"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,13 +31,28 @@ class BookingDetailVC: Main {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         
-        let padding = UIEdgeInsets(top:0, left: 20, bottom: 200, right: -200)
-        mapView.padding = padding
+        
         mapView.settings.myLocationButton = true
         mapView.isMyLocationEnabled = true
         
         self.vwPopup.isHidden = true
         self.blurView.isHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if bookingStatus == "accept"{
+            let padding = UIEdgeInsets(top:0, left: 20, bottom: 412, right: 15)
+            mapView.padding = padding
+            consAfterAccept.constant = 400
+            consBeforeAccept.constant = 0
+            btnWasher.isHidden = false
+        }else{
+            let padding = UIEdgeInsets(top:0, left: 20, bottom: 315, right: 15)
+            mapView.padding = padding
+            consBeforeAccept.constant = 305
+            consAfterAccept.constant = 0
+            btnWasher.isHidden = true
+        }
     }
     
     @IBAction func btnBack_Action(_ sender: Any) {

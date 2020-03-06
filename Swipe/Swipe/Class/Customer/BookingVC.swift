@@ -28,7 +28,10 @@ class BookingVC: Main {
         lblScheduledBtm.isHidden = false
         lblHistoryBtm.isHidden = true
         
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
     }
     
     @IBAction func btnClose_Action(_ sender: Any) {
@@ -50,10 +53,17 @@ class BookingVC: Main {
         lblHistoryBtm.isHidden = false
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDetail"{
+            let vc = segue.destination as! BookingDetailVC
+            vc.bookingStatus = sender as! String
+        }
+    }
+    
 }
 extension BookingVC : UITableViewDelegate,UITableViewDataSource{
     
-    //Datasource method. Used to provide number of items for side menu options.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return 10
     }
@@ -61,11 +71,19 @@ extension BookingVC : UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "BookingCell", for: indexPath ) as! BookingCell
-        
+    
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "toDetail", sender: nil)
+        
+        if indexPath.row == 0{
+            self.performSegue(withIdentifier: "toDetail", sender: "upcoming")
+        }else if indexPath.row == 1{
+            self.performSegue(withIdentifier: "toDetail", sender: "accept")
+        }else if indexPath.row == 2{
+            self.performSegue(withIdentifier: "toHistoryDetail", sender: "accept")
+        }
+        
     }
 }

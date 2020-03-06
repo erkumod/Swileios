@@ -107,7 +107,7 @@ extension RewardVC : UICollectionViewDelegate, UICollectionViewDataSource, UICol
         }else if collectionView == cvAvailable{
             return 3
         }else{
-            return 10
+            return 20
         }
         
     }
