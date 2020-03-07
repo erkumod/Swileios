@@ -47,6 +47,7 @@ class HomeVC: Main {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        (UIApplication.shared.delegate as! AppDelegate).callProfileInfoAPI()
         (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
     }
     
@@ -109,6 +110,29 @@ class HomeVC: Main {
         self.performSegue(withIdentifier: "toWallet", sender: "Home")
     }
     
+    @IBAction func btnStartTime_Action(_ sender: Any) {
+        let datePicker = ActionSheetDatePicker(title: "Date", datePickerMode: .dateAndTime, selectedDate: Date(), doneBlock: {
+            picker, value, index in
+            print(value)
+            
+            return
+        }, cancel: { ActionStringCancelBlock in return }, origin: (sender as AnyObject).superview!?.superview)
+        datePicker?.show()
+    }
+    
+    @IBAction func btnEndTime_Action(_ sender: Any) {
+        let datePicker = ActionSheetDatePicker(title: "Date", datePickerMode: .dateAndTime, selectedDate: Date(), doneBlock: {
+            picker, value, index in
+            print(value)
+            
+            return
+        }, cancel: { ActionStringCancelBlock in return }, origin: (sender as AnyObject).superview!?.superview)
+        datePicker?.show()
+    }
+    
+    @IBAction func btnSelectVehicle_Action(_ sender: Any) {
+        self.performSegue(withIdentifier: "toVehicle", sender: nil)
+    }
     //MARK:- Other Function
     func configureLocationServices() {
         
@@ -164,7 +188,6 @@ class HomeVC: Main {
     }
     
     //MARK:- Web Service Calling
-    
 }
 extension HomeVC: CLLocationManagerDelegate {
     // 2

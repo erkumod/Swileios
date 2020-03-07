@@ -51,17 +51,12 @@ class AddEditVehicleVC: Main {
                 swtPrimary.isOn = true
             }else{
                 swtPrimary.isOn = false
-            }
-            
+            }   
             strBrandId = "\(dictData["brand_id"] as! Int)"
             strModelId = dictData["car_model"] as! String
             strColorName = dictData["color_name"] as! String
             strColorCode = dictData["color_code"] as! String
         }
-        
-        
-
-        
         swtPrimary.layer.cornerRadius = 16
         
     }

@@ -2,7 +2,7 @@
 //  SideMenuVC.swift
 
 import UIKit
-
+import Kingfisher
 
 //UITableViewCell for side menu items
 class SideMenuOption : UITableViewCell {
@@ -29,6 +29,14 @@ class SideMenuVC : UIViewController {
     override func viewDidLoad(){
         super.viewDidLoad()
         setLayout()
+        
+        if UserModel.sharedInstance().profile_image != nil{
+            ivUserImage.kf.setImage(with: URL(string: "\(Constant.PHOTOURL)\(UserModel.sharedInstance().profile_image!)"))
+        }
+        
+        if UserModel.sharedInstance().name != nil{
+            lblUserName.text = UserModel.sharedInstance().name!
+        }
         
         let swipeRight = UIPanGestureRecognizer(target: self, action: #selector(Swiped))
         self.ivRightSwipe.addGestureRecognizer(swipeRight)

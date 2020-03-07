@@ -34,6 +34,9 @@ class ChangePasswordVC: Main {
     
     @IBAction func btnSave_Action(_ sender: Any) {
         self.view.endEditing(true)
+        if checkValidation(){
+            callChangePasswordAPI()
+        }
     }
     
     //MARK:- Other Function
@@ -96,4 +99,38 @@ class ChangePasswordVC: Main {
         }
         
     }
+    
+    
+    func callChangePasswordAPI() {
+        self.view.endEditing(true)
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
+            return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.CHANGE_PASSWORD
+        
+        let parameter : [String:String] = [
+            "old_password":tfCurrPass.text!,
+            "new_password":tfNewPasso.text!,
+            "token": UserModel.sharedInstance().authToken!
+        ]
+        
+        APIManager.shared.requestPostURL(serviceURL, param: parameter as [String : AnyObject] , success: { (response) in
+            CommonFunctions().hideLoader()
+            if let jsonObject = response.result.value as? [String:AnyObject] {
+                print(jsonObject)
+                if let status = jsonObject["status"] as? Int{
+                    if status == 200{
+                        self.showAlertView("Password changed successfully", completionHandler: { (finish) in
+                            self.navigationController?.popViewController(animated: true)
+                        })
+                    }
+                }
+            }
+        }) { (error) in
+            print(error)
+        }
+    }
+    
 }

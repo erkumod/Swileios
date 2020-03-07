@@ -164,7 +164,7 @@ class LoginVC: Main {
                                 
                                 UserModel.sharedInstance().synchroniseData()
             
-                                
+                                (UIApplication.shared.delegate as? AppDelegate)?.callProfileInfoAPI()
                                 (UIApplication.shared.delegate as? AppDelegate)?.ChangeToHome()
                             } else {
                                 self.showAlertView("Someting went wrong")
