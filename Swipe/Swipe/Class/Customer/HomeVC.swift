@@ -21,8 +21,31 @@ class HomeVC: Main {
     @IBOutlet weak var ivRightSwipe: UIImageView!
     @IBOutlet weak var btnSwipe: UIButton!
     
+    @IBOutlet weak var imgCard: UIImageView!
+    @IBOutlet weak var lblCardNo: UILabel!
+    @IBOutlet weak var lblPrimaryVehicle: UILabel!
+    
+    @IBOutlet weak var lblToday: UILabel!
+    @IBOutlet weak var lblStartTime: UILabel!
+    
+    @IBOutlet weak var lblTomorrow: UILabel!
+    @IBOutlet weak var lblEndTime: UILabel!
+    
+    @IBOutlet weak var tvNotes: CustomTextView!
+    @IBOutlet weak var lblPromo: UILabel!
+    
+    @IBOutlet weak var lblPrice: UILabel!
+    
+    @IBOutlet weak var lblTotalPrice: UILabel!
+    @IBOutlet weak var lblPriceStrike: UILabel!
+    @IBOutlet weak var lblSGDPrice: UILabel!
+    
+    //MARK:- Global Variables
     let locationManager = CLLocationManager()
     var flag = false
+    
+    var selectedStartHour = "", selectedStartMin = "", selectedEndHour = "", selectedEndMin = "", startTime = "", endTime = "", startUTCDate = "", endUTCDate = "", farePrice = "20"
+    var latitude = 0.0, longitude = 0.0
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -35,38 +58,35 @@ class HomeVC: Main {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
+        //locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.startUpdatingLocation()
         
         let padding = UIEdgeInsets(top:0, left: 5, bottom: 305, right: 5)
         mapView.padding = padding
         mapView.settings.myLocationButton = true
         mapView.isMyLocationEnabled = true
         
+        let currentDate = Date()
+        let df = DateFormatter()
+        df.dateFormat = "hh:mm a"
+        self.lblEndTime.text = df.string(from: currentDate)
+        self.lblStartTime.text = df.string(from: currentDate)
+        self.startTime = df.string(from: currentDate)
+        self.endTime = df.string(from: currentDate)
+        
+        df.dateFormat = "HH"
+        selectedStartHour = df.string(from: currentDate)
+        selectedEndHour = selectedStartHour
+        df.dateFormat = "mm"
+        selectedStartMin = df.string(from: currentDate)
+        selectedEndMin = selectedStartMin
+        
+        setTodayTomorrow()
+        
         let swipeRight = UIPanGestureRecognizer(target: self, action: #selector(Swiped))
         self.ivRightSwipe.addGestureRecognizer(swipeRight)
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        (UIApplication.shared.delegate as! AppDelegate).callProfileInfoAPI()
-        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
-    }
-    
-    @objc func Swiped(gestureRecognizer: UIPanGestureRecognizer) -> Void {
-        
-        if (gestureRecognizer.state == UIGestureRecognizer.State.began || gestureRecognizer.state == UIGestureRecognizer.State.changed) && !flag {
-            
-            let translation = gestureRecognizer.translation(in: self.view)
-            print(gestureRecognizer.view!.center.x)
-            
-            if(gestureRecognizer.view!.center.x < btnSwipe.frame.width) && !flag{
-                gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x  + translation.x, y: gestureRecognizer.view!.center.y)
-                print("moving")
-            }else {
-                gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x, y:gestureRecognizer.view!.center.y)
-                print("reached")
-                flag = true
-            }
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.setData(notification:)), name: Notification.Name("profile_updated"), object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -83,6 +103,167 @@ class HomeVC: Main {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        callGetWashPriceAPI()
+        (UIApplication.shared.delegate as! AppDelegate).callProfileInfoAPI()
+        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
+    }
+    
+    //MARK:- Selector Methods
+    @objc func setData(notification: Notification) {
+        
+        if UserModel.sharedInstance().selectedVehicleName != nil && UserModel.sharedInstance().selectedVehicleName != "" {
+            lblPrimaryVehicle.text = UserModel.sharedInstance().selectedVehicleName!
+            
+        }else if UserModel.sharedInstance().primary_car != nil {
+            let brand_name = UserModel.sharedInstance().primary_car!["car_brand_name"] as! String
+            let model_name = UserModel.sharedInstance().primary_car!["car_model_name"] as! String
+            lblPrimaryVehicle.text = "\(brand_name) \(model_name)"
+        }else {
+            lblPrimaryVehicle.text = "Vehicle"
+        }
+        
+        if UserModel.sharedInstance().selectedCardName != nil && UserModel.sharedInstance().selectedCardName != "" {
+            let card_no = UserModel.sharedInstance().selectedCardName!
+            lblCardNo.text = String(card_no.suffix(4))
+            
+            if card_no.isVisaCard {
+                imgCard.image = UIImage(named: "color_visa")
+            }else if card_no.isMasterCard {
+                imgCard.image = UIImage(named: "color_master")
+            }else if card_no.isExpressCard {
+                imgCard.image = UIImage(named: "color_american")
+            }else if card_no.isDinerClubCard {
+                imgCard.image = UIImage(named: "dinersclub")
+            }else if card_no.isDiscoverCard {
+                imgCard.image = UIImage(named: "discover")
+            }else if card_no.isJCBCard {
+                imgCard.image = UIImage(named: "jcb")
+            }else {
+                imgCard.image = UIImage(named: "default_card_new")
+            }
+            
+        } else if UserModel.sharedInstance().primary_card != nil {
+            let card_no = UserModel.sharedInstance().primary_card!["card_no"] as! String
+            lblCardNo.text = String(card_no.suffix(4))
+            
+            if card_no.isVisaCard {
+                imgCard.image = UIImage(named: "color_visa")
+            }else if card_no.isMasterCard {
+                imgCard.image = UIImage(named: "color_master")
+            }else if card_no.isExpressCard {
+                imgCard.image = UIImage(named: "color_american")
+            }else if card_no.isDinerClubCard {
+                imgCard.image = UIImage(named: "dinersclub")
+            }else if card_no.isDiscoverCard {
+                imgCard.image = UIImage(named: "discover")
+            }else if card_no.isJCBCard {
+                imgCard.image = UIImage(named: "jcb")
+            }else {
+                imgCard.image = UIImage(named: "default_card_new")
+            }
+            
+        } else {
+            lblCardNo.text = "Card"
+        }
+    }
+    
+    func setPrice() {
+        if UserModel.sharedInstance().selectedPromoCode != nil && UserModel.sharedInstance().selectedPromoCode != "" {
+            lblPromo.text = UserModel.sharedInstance().selectedPromoCode!
+            
+            lblTotalPrice.isHidden = false
+            lblSGDPrice.isHidden = false
+            lblPriceStrike.isHidden = false
+            
+            lblTotalPrice.text = String(format: "%.2f", Double(farePrice)!)
+            lblSGDPrice.text = "SGD"
+            
+            if UserModel.sharedInstance().selectedPromoType! == "Mini7" {
+                let tempPrice = Int(farePrice)! - 7
+                lblPrice.text = String(format: "%.2f", Double(tempPrice))
+                farePrice = "\(tempPrice)"
+            } else {
+                let tempPrice = Int(farePrice)! - 3
+                lblPrice.text = String(format: "%.2f", Double(tempPrice))
+                farePrice = "\(tempPrice)"
+            }
+        }else {
+            lblTotalPrice.isHidden = true
+            lblSGDPrice.isHidden = true
+            lblPriceStrike.isHidden = true
+            
+            lblTotalPrice.text = ""
+            lblSGDPrice.text = ""
+        }
+    }
+    
+    @objc func Swiped(gestureRecognizer: UIPanGestureRecognizer) -> Void {
+        
+        if (gestureRecognizer.state == UIGestureRecognizer.State.began || gestureRecognizer.state == UIGestureRecognizer.State.changed) && !flag {
+            
+            let translation = gestureRecognizer.translation(in: self.view)
+            print(gestureRecognizer.view!.center.x)
+            
+            if(gestureRecognizer.view!.center.x < btnSwipe.frame.width) && !flag{
+                gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x  + translation.x, y: gestureRecognizer.view!.center.y)
+                print("moving")
+            }else {
+                gestureRecognizer.view!.center = CGPoint(x : gestureRecognizer.view!.center.x, y:gestureRecognizer.view!.center.y)
+                print("reached")
+                flag = true
+                
+                ivRightSwipe.frame.origin.x = 20.0
+                ivRightSwipe.frame.origin.y = btnSwipe.frame.origin.y
+                
+                generateStartEndTimes()
+                
+                var vehicleID = ""
+                if UserModel.sharedInstance().selectedVehicleID != nil && UserModel.sharedInstance().selectedVehicleID != "" {
+                    vehicleID = UserModel.sharedInstance().selectedVehicleID!
+                }else if UserModel.sharedInstance().primary_car != nil {
+                    vehicleID = "\(UserModel.sharedInstance().primary_car!["id"] as! Int)"
+                }
+                
+                var cardID = ""
+                if UserModel.sharedInstance().selectedCardID != nil && UserModel.sharedInstance().selectedCardID != "" {
+                    cardID = UserModel.sharedInstance().selectedCardID!
+                }else if UserModel.sharedInstance().primary_card != nil {
+                    cardID = "\(UserModel.sharedInstance().primary_card!["id"] as! Int)"
+                }
+                
+                var promoCode = ""
+                if UserModel.sharedInstance().selectedPromoCode != nil && UserModel.sharedInstance().selectedPromoCode != "" {
+                    promoCode = UserModel.sharedInstance().selectedPromoCode!
+                }
+                
+                let addressLine = self.tfSource.text!
+                let strNotes = self.tvNotes.text!
+                
+                let df = DateFormatter()
+                df.dateFormat = "dd-MM-yyyy"
+                let bookingDate = df.string(from: Date())
+                
+                if !checkStartEndTimings(){
+                    flag = false
+                }else if vehicleID == "" {
+                    flag = false
+                    CommonFunctions.shared.showToast(self.view, "Please select vehicle")
+                }else if cardID == "" {
+                    flag = false
+                    CommonFunctions.shared.showToast(self.view, "Please select card")
+                }else if addressLine == "" {
+                    flag = false
+                    CommonFunctions.shared.showToast(self.view, "Please select location")
+                }else {
+                    flag = true
+                    callBookCarWashAPI(vehicleID, cardID, addressLine, strNotes, promoCode, bookingDate)
+                }
+            }
+        }
+    }
+    
+    //MARK:- Button Actions
     @IBAction func btnSideMenu_Action(_ sender: UIButton) {
         toggleSideMenuView()
     }
@@ -102,6 +283,10 @@ class HomeVC: Main {
         vwNotes.isHidden = false
     }
     
+    @IBAction func btnPrimaryVehicle_Action(_ sender: Any) {
+        self.performSegue(withIdentifier: "toVehicle", sender: "Home")
+    }
+    
     @IBAction func btnPromo_Action(_ sender: Any) {
         self.performSegue(withIdentifier: "toPromo", sender: nil)
     }
@@ -111,9 +296,20 @@ class HomeVC: Main {
     }
     
     @IBAction func btnStartTime_Action(_ sender: Any) {
-        let datePicker = ActionSheetDatePicker(title: "Date", datePickerMode: .dateAndTime, selectedDate: Date(), doneBlock: {
+        let datePicker = ActionSheetDatePicker(title: "Select Start Time", datePickerMode: .time, selectedDate: Date(), doneBlock: {
             picker, value, index in
-            print(value)
+            
+            let df = DateFormatter()
+            df.dateFormat = "hh:mm a"
+            self.lblStartTime.text = df.string(from: value!)
+            self.startTime = df.string(from: value!)
+            
+            df.dateFormat = "HH"
+            self.selectedStartHour = df.string(from: value!)
+            df.dateFormat = "mm"
+            self.selectedStartMin = df.string(from: value!)
+            
+            self.setTodayTomorrow()
             
             return
         }, cancel: { ActionStringCancelBlock in return }, origin: (sender as AnyObject).superview!?.superview)
@@ -121,9 +317,20 @@ class HomeVC: Main {
     }
     
     @IBAction func btnEndTime_Action(_ sender: Any) {
-        let datePicker = ActionSheetDatePicker(title: "Date", datePickerMode: .dateAndTime, selectedDate: Date(), doneBlock: {
+        let datePicker = ActionSheetDatePicker(title: "Select End Time", datePickerMode: .time, selectedDate: Date(), doneBlock: {
             picker, value, index in
-            print(value)
+            
+            let df = DateFormatter()
+            df.dateFormat = "hh:mm a"
+            self.lblEndTime.text = df.string(from: value!)
+            self.endTime = df.string(from: value!)
+            
+            df.dateFormat = "HH"
+            self.selectedEndHour = df.string(from: value!)
+            df.dateFormat = "mm"
+            self.selectedEndMin = df.string(from: value!)
+            
+            self.setTodayTomorrow()
             
             return
         }, cancel: { ActionStringCancelBlock in return }, origin: (sender as AnyObject).superview!?.superview)
@@ -133,7 +340,94 @@ class HomeVC: Main {
     @IBAction func btnSelectVehicle_Action(_ sender: Any) {
         self.performSegue(withIdentifier: "toVehicle", sender: nil)
     }
-    //MARK:- Other Function
+    
+    //MARK:- Other Functions
+    func setTodayTomorrow() {
+        if Int(self.selectedEndHour)! >= Int(self.selectedStartHour)! {
+            self.lblTomorrow.text = "Today"
+        }else {
+            self.lblTomorrow.text = "Tomorrow"
+        }
+    }
+    
+    func checkStartEndTimings() -> Bool{
+        let currentDate = Date()
+        
+        //get today & tomorrow dates
+        let df = DateFormatter()
+        df.dateFormat = "dd-MM-yyyy"
+        
+        let todayDate = df.string(from: currentDate)
+        var tomorrowDate = df.string(from: Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!)
+    
+        if Int(selectedEndHour)! >= Int(selectedStartHour)! {
+            tomorrowDate = todayDate
+        }
+        
+        df.dateFormat = "dd-MM-yyyy hh:mm a"
+        let date1 = df.date(from: todayDate + " " + startTime)!
+        let date2 = df.date(from: tomorrowDate + " " + endTime)!
+        
+        let days = date2.days(from: date1)
+        let hours = date2.hours(from: date1)
+        let minutes = date2.minutes(from: date1)
+        
+        let startHours = date1.hours(from: currentDate)
+        let startMins = date1.minutes(from: currentDate)
+        
+        if date1 < currentDate {
+            CommonFunctions.shared.showToast(self.view, "Start time should be greater then current time")
+            print("Start time should be greater then current time")
+        }else if startHours == 0 && startMins <= 10 {
+            CommonFunctions.shared.showToast(self.view, "Start time should be greater then 10 minutes from current time")
+            print("Start time should be greater then 10 minutes from current time")
+        }else if days > 0 {
+            CommonFunctions.shared.showToast(self.view, "End time should not be more then 6 hours from start time")
+            print("End time should not be more then 6 hours from start time")
+        }else if date2 < date1 {
+            CommonFunctions.shared.showToast(self.view, "End time should be greater then start time")
+            print("End time should be greater then start time")
+        }else if hours == 6 && minutes > 0 {
+            CommonFunctions.shared.showToast(self.view, "End time should not be more then 6 hours from start time")
+            print("End time should not be more then 6 hours from start time")
+        }else if hours > 6 {
+            CommonFunctions.shared.showToast(self.view, "End time should not be more then 6 hours from start time")
+            print("End time should not be more then 6 hours from start time")
+        }else {
+            return true
+        }
+        
+        return false
+    }
+    
+    func generateStartEndTimes() {
+        
+        let df = DateFormatter()
+        df.dateFormat = "dd-MM-yyyy"
+        
+        let lv_formatter = DateFormatter()
+        lv_formatter.timeZone = TimeZone(abbreviation: "UTC")
+        lv_formatter.locale = Locale(identifier: "en_US_POSIX")
+        lv_formatter.dateFormat = "EEE MMM dd HH:mm:ss zzzZ yyyy"
+        
+        let currentDate = Date()
+        let startDate = df.string(from: currentDate)
+        var endDate = df.string(from: Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!)
+        
+        if Int(selectedEndHour)! >= Int(selectedStartHour)! {
+            endDate = startDate
+        }
+        
+        df.dateFormat = "dd-MM-yyyy hh:mm a"
+        let date1 = df.date(from: startDate + " " + startTime)!
+        let date2 = df.date(from: endDate + " " + endTime)!
+        
+        startUTCDate = lv_formatter.string(from: date1)
+        startUTCDate = startUTCDate.replacingOccurrences(of: "GMT", with: "UTC")
+        endUTCDate = lv_formatter.string(from: date2)
+        endUTCDate = endUTCDate.replacingOccurrences(of: "GMT", with: "UTC")
+    }
+    
     func configureLocationServices() {
         
         let authorizationStatus = CLLocationManager.authorizationStatus()
@@ -141,12 +435,6 @@ class HomeVC: Main {
             locationManager.requestAlwaysAuthorization()
         } else {
             return
-        }
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toWallet"{
-            let vc = segue.destination as! WalletVC
-            vc.comeFrom = sender as! String
         }
     }
     
@@ -187,7 +475,126 @@ class HomeVC: Main {
         marker.map = mapView
     }
     
+    func getAddress(_ lat : Double , _ lng : Double){
+        
+        var addressString = ""
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: lat, longitude: lng)
+        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+            
+            if placemarks != nil{
+                let pm = placemarks! as [CLPlacemark]
+                if pm.count > 0 {
+                    let pm = placemarks![0]
+                    
+                    var data = pm.addressDictionary as! [String:AnyObject]
+                    
+                    if let street = data["Street"] as? String{
+                        addressString = addressString + street + ", "
+                    }
+                    if let sub_locality = data["SubLocality"] as? String{
+                        addressString = addressString + sub_locality + ", "
+                    }
+                    if let City = data["City"] as? String{
+                        addressString = addressString + City + ", "
+                    }
+                    if let State = data["State"] as? String{
+                        addressString = addressString + State + ", "
+                    }
+                    if let Country = data["Country"] as? String{
+                        addressString = addressString + Country + ", "
+                    }
+                    if let CountryCode = data["CountryCode"] as? String{
+                        addressString = addressString + CountryCode + ", "
+                    }
+                    if let ZIP = data["ZIP"] as? String{
+                        addressString = addressString + ZIP + " "
+                    }
+                    print(addressString)
+                    
+                    self.tfSource.text = addressString
+                }
+            }
+        })
+        
+    }
+    
     //MARK:- Web Service Calling
+    func callGetWashPriceAPI() {
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
+            return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.WASH_PRICE
+        
+        APIManager.shared.requestGetURL(serviceURL, success: { (response) in
+            if let jsonObject = response.result.value as? [String:AnyObject] {
+                print(jsonObject)
+                self.farePrice = "\(jsonObject["price"] as! Int)"
+                self.lblPrice.text = String(format: "%.2f", Double(self.farePrice)!)
+                self.setPrice()
+            }
+        }) { (error) in
+            print(error)
+        }
+    }
+    
+    func callBookCarWashAPI(_ vehicleID: String, _ cardId: String, _ addressLine:String, _ notes: String, _ promo: String, _ bookingDate: String) {
+        self.view.endEditing(true)
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
+            return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.BOOK_WASH
+        let parameter : [String:String] = [
+            "token": UserModel.sharedInstance().authToken!,
+            "location": addressLine,
+            "vehicle_id": vehicleID,
+            "date": bookingDate,
+            "start_time": startUTCDate,
+            "end_time": endUTCDate,
+            "fare": farePrice,
+            "payment_type": "card",
+            "lot_no": "123",
+            "card_id": cardId,
+            "lat": "\(latitude)",
+            "lon": "\(longitude)",
+            "notes": notes,
+            "promo": promo
+        ]
+        
+        APIManager.shared.requestPostURL(serviceURL, param: parameter as [String : AnyObject] , success: { (response) in
+            if let jsonObject = response.result.value as? [String:AnyObject] {
+                print(jsonObject)
+                if let status = jsonObject["status"] as? Int{
+                    if status == 200{
+                        UserModel.sharedInstance().selectedCardID = nil
+                        UserModel.sharedInstance().selectedCardName = nil
+                        UserModel.sharedInstance().selectedVehicleID = nil
+                        UserModel.sharedInstance().selectedVehicleName = nil
+                        UserModel.sharedInstance().selectedPromoCode = nil
+                        UserModel.sharedInstance().selectedPromoType = nil
+                        UserModel.sharedInstance().synchroniseData()
+                    }
+                }
+            }
+        }) { (error) in
+            print(error)
+        }
+    }
+    
+    //MARK:- Navigations
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toWallet"{
+            let vc = segue.destination as! WalletVC
+            vc.comeFrom = sender as! String
+        }else if segue.identifier == "toVehicle" {
+            let vc = segue.destination as! ViewVehicleVC
+            vc.comeFrom = sender as! String
+        }
+    }
 }
 extension HomeVC: CLLocationManagerDelegate {
     // 2
@@ -213,6 +620,10 @@ extension HomeVC: CLLocationManagerDelegate {
         mapView.camera = camera
         getAddress(lat: center.latitude, long: center.longitude)
         add_Pin(center.latitude, center.longitude)
+        self.latitude = Double(center.latitude)
+        self.longitude = Double(center.longitude)
+        self.getAddress( Double(center.latitude) , Double(center.longitude) )
+        
         locationManager.stopUpdatingLocation()
     }
     
@@ -221,4 +632,46 @@ extension HomeVC: CLLocationManagerDelegate {
         print("error:: (error)")
     }
     
+}
+
+extension Date {
+    /// Returns the amount of years from another date
+    func years(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.year], from: date, to: self).year ?? 0
+    }
+    /// Returns the amount of months from another date
+    func months(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.month], from: date, to: self).month ?? 0
+    }
+    /// Returns the amount of weeks from another date
+    func weeks(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.weekOfMonth], from: date, to: self).weekOfMonth ?? 0
+    }
+    /// Returns the amount of days from another date
+    func days(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.day], from: date, to: self).day ?? 0
+    }
+    /// Returns the amount of hours from another date
+    func hours(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.hour], from: date, to: self).hour ?? 0
+    }
+    /// Returns the amount of minutes from another date
+    func minutes(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.minute], from: date, to: self).minute ?? 0
+    }
+    /// Returns the amount of seconds from another date
+    func seconds(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.second], from: date, to: self).second ?? 0
+    }
+    /// Returns the a custom time interval description from another date
+    func offset(from date: Date) -> String {
+        if years(from: date)   > 0 { return "\(years(from: date))y"   }
+        if months(from: date)  > 0 { return "\(months(from: date))M"  }
+        if weeks(from: date)   > 0 { return "\(weeks(from: date))w"   }
+        if days(from: date)    > 0 { return "\(days(from: date))d"    }
+        if hours(from: date)   > 0 { return "\(hours(from: date))h"   }
+        if minutes(from: date) > 0 { return "\(minutes(from: date))m" }
+        if seconds(from: date) > 0 { return "\(seconds(from: date))s" }
+        return ""
+    }
 }

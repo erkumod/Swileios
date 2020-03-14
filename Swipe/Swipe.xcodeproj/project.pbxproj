@@ -80,6 +80,8 @@
 		1FE3895B23E83C660078BDE7 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3895A23E83C660078BDE7 /* LoginVC.swift */; };
 		1FE3895D23E83C720078BDE7 /* ForgotVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3895C23E83C720078BDE7 /* ForgotVC.swift */; };
 		1FE3895F23E83C7E0078BDE7 /* StaticPagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3895E23E83C7E0078BDE7 /* StaticPagesVC.swift */; };
+		1FE5BB962414D1D6003AC3D7 /* SecurityCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BB952414D1D6003AC3D7 /* SecurityCodeVC.swift */; };
+		1FE5BB982415001F003AC3D7 /* SetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BB972415001F003AC3D7 /* SetPasswordVC.swift */; };
 		1FE7E6A123F8466E00E7E402 /* BookingDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE7E6A023F8466E00E7E402 /* BookingDetailVC.swift */; };
 		1FFADE7423FFEC9F002BB455 /* RedemptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFADE7323FFEC9F002BB455 /* RedemptionVC.swift */; };
 		F57B7952F185B4D4DC751A87 /* Pods_Swipe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F8F6F8304E01AB97BDFEF5 /* Pods_Swipe.framework */; };
@@ -172,6 +174,8 @@
 		1FE3895A23E83C660078BDE7 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		1FE3895C23E83C720078BDE7 /* ForgotVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotVC.swift; sourceTree = "<group>"; };
 		1FE3895E23E83C7E0078BDE7 /* StaticPagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticPagesVC.swift; sourceTree = "<group>"; };
+		1FE5BB952414D1D6003AC3D7 /* SecurityCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCodeVC.swift; sourceTree = "<group>"; };
+		1FE5BB972415001F003AC3D7 /* SetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPasswordVC.swift; sourceTree = "<group>"; };
 		1FE7E6A023F8466E00E7E402 /* BookingDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingDetailVC.swift; sourceTree = "<group>"; };
 		1FFADE7323FFEC9F002BB455 /* RedemptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedemptionVC.swift; sourceTree = "<group>"; };
 		27F8F6F8304E01AB97BDFEF5 /* Pods_Swipe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swipe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,8 +210,10 @@
 				1FE3891D23E8232A0078BDE7 /* WelcomeSwipeVC.swift */,
 				1FE3895823E83C550078BDE7 /* RegisterVC.swift */,
 				1FE3895A23E83C660078BDE7 /* LoginVC.swift */,
-				1FE3895C23E83C720078BDE7 /* ForgotVC.swift */,
 				1FE3895E23E83C7E0078BDE7 /* StaticPagesVC.swift */,
+				1FE3895C23E83C720078BDE7 /* ForgotVC.swift */,
+				1FE5BB952414D1D6003AC3D7 /* SecurityCodeVC.swift */,
+				1FE5BB972415001F003AC3D7 /* SetPasswordVC.swift */,
 			);
 			path = Landing;
 			sourceTree = "<group>";
@@ -560,6 +566,7 @@
 				1FE3895323E823430078BDE7 /* ActionSheetCustomPicker.m in Sources */,
 				1F812E572408F4AB00393A48 /* AvailWasherBookingVC.swift in Sources */,
 				1F530D9623EAE2BD004F3981 /* EditProfileVC.swift in Sources */,
+				1FE5BB962414D1D6003AC3D7 /* SecurityCodeVC.swift in Sources */,
 				1F5A519B23EF1402008F10A0 /* ViewDeleteCardVC.swift in Sources */,
 				1F5F2BCE2410F62F0071E1C7 /* MonthYearPickerView.swift in Sources */,
 				1F0AFAC523E9974300923FAE /* HomeVC.swift in Sources */,
@@ -570,6 +577,7 @@
 				1FE3891E23E8232A0078BDE7 /* WelcomeSwipeVC.swift in Sources */,
 				1F0F958F2403EEA000B135FB /* ChatVC.swift in Sources */,
 				1FE3895423E823430078BDE7 /* SWActionSheet.m in Sources */,
+				1FE5BB982415001F003AC3D7 /* SetPasswordVC.swift in Sources */,
 				1F2CB4AA23FEF6BD0049067D /* SwipeBoxVC.swift in Sources */,
 				1F5AC62623ED56660000986B /* AccountSettingVC.swift in Sources */,
 				1F43878323FC0716008BE798 /* ExitVC.swift in Sources */,

@@ -9,6 +9,8 @@
 import UIKit
 import IQKeyboardManager
 import GoogleMaps
+//import GoogleSignIn
+//import FBSDKLoginKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +25,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         callLoginAPI()
         
         GMSServices.provideAPIKey("AIzaSyDluuW6FRCAgJZo4zNYjebGx5d4sa4a7DY")
+        
+        UserModel.sharedInstance().selectedVehicleName = nil
+        UserModel.sharedInstance().selectedVehicleID = nil
+        UserModel.sharedInstance().selectedCardID = nil
+        UserModel.sharedInstance().selectedCardName = nil
+        UserModel.sharedInstance().selectedPromoCode = nil
+        UserModel.sharedInstance().selectedPromoType = nil
+        UserModel.sharedInstance().synchroniseData()
+        
         LocationManager.sharedInstance.startLocationUpdating()
         LocationManager.sharedInstance.beginLocationUpdating()
         IQKeyboardManager.shared().isEnabled = true
@@ -58,8 +69,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
     }
-
     
     func ChangeToLogin() {
         let homeSB = UIStoryboard(name: "Main", bundle: nil)
@@ -157,6 +168,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
             return
         }
+        if UserModel.sharedInstance().authToken == nil{
+            return
+        }
         
         let serviceURL = Constant.WEBURL + Constant.API.PROFILE_INFO
         
@@ -177,7 +191,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     if let card = profile["primary_card"] as? [String:AnyObject], !card.isEmpty{
                         UserModel.sharedInstance().primary_card = card
-                        UserModel.sharedInstance().user_id = card["user_id"] as! String
+                        UserModel.sharedInstance().user_id = card["user_id"] as? String
                     }
                     
                     UserModel.sharedInstance().email = profile["email"] as? String
@@ -185,8 +199,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     UserModel.sharedInstance().country_code = profile["country_code"] as? String
                     UserModel.sharedInstance().name = profile["name"] as? String
                     UserModel.sharedInstance().profile_image = profile["profile_pic"] as? String
-                    
                     UserModel.sharedInstance().synchroniseData()
+                    NotificationCenter.default.post(name: Notification.Name("profile_updated"), object: nil)
                 }
             }
         }) { (error) in

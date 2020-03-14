@@ -24,18 +24,15 @@ class WalletVC: Main {
     var arrCardData = [[String:AnyObject]]()
     var tempDictData = [String:AnyObject]()
     
+    //MARK:- View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
         tblWallet.tableFooterView = UIView()
         if comeFrom == "side_menu"{
             consCardHeight.constant = 30
             
         }else{
             consCardHeight.constant = 0
-            
         }
     }
     
@@ -44,6 +41,7 @@ class WalletVC: Main {
         (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
     }
     
+    //MARK:- Button Actions
     @IBAction func btnClose_ACtion(_ sender: Any) {
         
         if comeFrom == "side_menu"{
@@ -141,6 +139,11 @@ extension WalletVC : UITableViewDelegate, UITableViewDataSource{
             self.tempDictData = arrCardData[indexPath.row]
             self.performSegue(withIdentifier: "toEdit", sender: nil)
         }else{
+            UserModel.sharedInstance().selectedCardID = "\((arrCardData[indexPath.row])["id"] as! Int)"
+            UserModel.sharedInstance().selectedCardName = (arrCardData[indexPath.row])["card_no"] as! String
+            UserModel.sharedInstance().synchroniseData()
+            
+            NotificationCenter.default.post(name: Notification.Name("profile_updated"), object: nil)
             self.navigationController?.popViewController(animated: true)
         }
         

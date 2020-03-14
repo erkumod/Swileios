@@ -20,15 +20,20 @@ class ViewVehicleCell : UITableViewCell{
 
 class ViewVehicleVC: Main {
 
+    //MARK:- Outlets
     @IBOutlet weak var tblVehicle: CustomUITableView!
-    var arrCarData = [[String:AnyObject]]()
-    var tempDictData = [String:AnyObject]()
     @IBOutlet weak var lblCarCnt: UILabel!
     
+    //MARK:- Global Variables
+    var comeFrom = ""
+    var arrCarData = [[String:AnyObject]]()
+    var tempDictData = [String:AnyObject]()
+    
+    //MARK:- View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tblVehicle.tableFooterView = UIView()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,6 +41,7 @@ class ViewVehicleVC: Main {
         (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
     }
     
+    //MARK:- Button Actions
     @IBAction func btnAddVehicles_Action(_ sender: Any) {
         self.tempDictData.removeAll()
         self.performSegue(withIdentifier: "toAdd", sender: "add")
@@ -44,16 +50,6 @@ class ViewVehicleVC: Main {
     @IBAction func btnClose_Action(_ sender: Any) {
         (UIApplication.shared.delegate as! AppDelegate).ChangeToHome()
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toAdd"{
-            let vc = segue.destination as! AddEditVehicleVC
-            vc.comeFrom = sender as! String
-            vc.dictData = self.tempDictData
-        }
-    }
-    
-   
     
     //MARK:- Web Service Calling
     func callCarListAPI() {
@@ -73,18 +69,36 @@ class ViewVehicleVC: Main {
                     
                     print(data)
                     self.arrCarData = data
-                    self.lblCarCnt.text = "\(self.arrCarData.count)/4 Vehicle"
+                    if self.comeFrom == "side_menu"{
+                        self.lblCarCnt.text = "\(self.arrCarData.count)/4 Vehicle"
+                    }else{
+                        self.lblCarCnt.text = ""
+                    }
+                    
                     self.tblVehicle.reloadData()
                     
                 }else{
                     self.arrCarData.removeAll()
                     self.tblVehicle.reloadData()
-                    self.lblCarCnt.text = "0/4 Vehicle"
+                    if self.comeFrom == "side_menu"{
+                        self.lblCarCnt.text = "0/4 Vehicle"
+                    }else{
+                        self.lblCarCnt.text = ""
+                    }
                 }
             }
             
         }) { (error) in
             print(error)
+        }
+    }
+    
+    //MARK:- Navigation Methods
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toAdd"{
+            let vc = segue.destination as! AddEditVehicleVC
+            vc.comeFrom = sender as! String
+            vc.dictData = self.tempDictData
         }
     }
 }
@@ -114,21 +128,26 @@ extension ViewVehicleVC : UITableViewDelegate, UITableViewDataSource{
             cell.ivMark.backgroundColor = UIColor(hexString: (arrCarData[indexPath.row])["color_code"] as! String)
         }
         
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.tempDictData = self.arrCarData[indexPath.row]
-        self.performSegue(withIdentifier: "toAdd", sender: "edit")
+        if comeFrom == "side_menu"{
+            self.tempDictData = self.arrCarData[indexPath.row]
+            self.performSegue(withIdentifier: "toAdd", sender: "edit")
+        }else{
+            UserModel.sharedInstance().selectedVehicleName = "\( (arrCarData[indexPath.row])["brand_name"] as! String ) \( (arrCarData[indexPath.row])["model_name"] as! String )"
+            UserModel.sharedInstance().selectedVehicleID = "\( (arrCarData[indexPath.row])["car_id"] as! Int )"
+            UserModel.sharedInstance().synchroniseData()
+            
+            NotificationCenter.default.post(name: Notification.Name("profile_updated"), object: nil)
+            self.navigationController?.popViewController(animated: true)
+        }
     }
-    
-    
-    
 }
 
-
 extension UIColor {
+    
     convenience init(hexString: String, alpha: CGFloat = 1.0) {
         let hexString: String = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         let scanner = Scanner(string: hexString)
@@ -146,6 +165,7 @@ extension UIColor {
         let blue  = CGFloat(b) / 255.0
         self.init(red:red, green:green, blue:blue, alpha:alpha)
     }
+    
     func toHexString() -> String {
         var r:CGFloat = 0
         var g:CGFloat = 0

@@ -19,18 +19,13 @@ class ForgotVC: Main {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
-        
+    
     }
-    
-    
-    
     
     @IBAction func btnContinue_Action(_ sender: UIButton) {
         self.view.endEditing(true)
         if checkValidation(){
-            
+            callForgotPassAPI()
         }
     }
     
@@ -88,6 +83,38 @@ class ForgotVC: Main {
         
     }
     
-    //MARK:- Web Service Calling
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSecurity"{
+            let vc = segue.destination as! SecurityCodeVC
+            vc.email = sender as! String
+        }
+    }
     
+    //MARK:- Web Service Calling
+    func callForgotPassAPI() {
+        self.view.endEditing(true)
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
+            return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.FORGOT_PASSWORD
+        
+        let parameter : [String:String] = [
+            "email": tfEmail.text!
+        ]
+        
+        APIManager.shared.requestPostURL(serviceURL, param: parameter as [String : AnyObject] , success: { (response) in
+            if let jsonObject = response.result.value as? [String:AnyObject] {
+                print(jsonObject)
+                if let status = jsonObject["status"] as? Int{
+                    if status == 200{
+                        self.performSegue(withIdentifier: "toSecurity", sender: self.tfEmail.text!)
+                    }
+                }
+            }
+        }) { (error) in
+            print(error)
+        }
+    }
 }

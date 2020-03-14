@@ -14,7 +14,10 @@ class RedemptionCell : UICollectionViewCell{
 }
 
 class AvailableCell : UICollectionViewCell{
+    @IBOutlet weak var lblPromoMsg: UILabel!
+    @IBOutlet weak var lblValidity: UILabel!
     
+    @IBOutlet weak var btnUse: CustomButton!
 }
 
 class HistoryCell : UICollectionViewCell{

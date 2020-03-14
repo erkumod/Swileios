@@ -10,6 +10,8 @@ PODS:
   - Kingfisher (4.10.1)
   - KMPlaceholderTextView (1.4.0)
   - SkyFloatingLabelTextField (3.8.0)
+  - SVProgressHUD (2.2.5)
+  - Toast-Swift (4.0.1)
   - TransitionButton (0.5.2)
 
 DEPENDENCIES:
@@ -20,6 +22,8 @@ DEPENDENCIES:
   - Kingfisher (~> 4.0)
   - KMPlaceholderTextView (~> 1.4.0)
   - SkyFloatingLabelTextField (~> 3.0)
+  - SVProgressHUD
+  - Toast-Swift (~> 4.0.0)
   - TransitionButton
 
 SPEC REPOS:
@@ -31,6 +35,8 @@ SPEC REPOS:
     - Kingfisher
     - KMPlaceholderTextView
     - SkyFloatingLabelTextField
+    - SVProgressHUD
+    - Toast-Swift
     - TransitionButton
 
 SPEC CHECKSUMS:
@@ -41,8 +47,10 @@ SPEC CHECKSUMS:
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   KMPlaceholderTextView: 2206c3df39979e9396e2d96fa9f427a8951121b0
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: fb8d65c82d0f690bf9c97f0a0513b39ec730aaad
+PODFILE CHECKSUM: adc833ec0627e30cf2823675a9dccffcf89827b5
 
 COCOAPODS: 1.8.4

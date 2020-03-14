@@ -124,6 +124,7 @@ extension SideMenuVC : UITableViewDelegate,UITableViewDataSource{
             break
         case 1:
             let next1 = self.storyboard?.instantiateViewController(withIdentifier: "ViewVehicleVC") as? ViewVehicleVC
+            next1?.comeFrom = "side_menu"
             sideMenuController()?.setContentViewController(next1!)
             break
         case 2:
