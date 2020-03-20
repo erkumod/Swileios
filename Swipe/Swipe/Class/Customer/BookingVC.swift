@@ -38,15 +38,16 @@ class BookingVC: Main {
     //MARK:- View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
+        isScheduled = true
         btnScheduled.setTitleColor(AppColors.cyan, for: .normal)
         btnHistory.setTitleColor(UIColor.lightGray, for: .normal)
         lblScheduledBtm.isHidden = false
         lblHistoryBtm.isHidden = true
         callGetScheduleListAPI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
     }
     
     //MARK:- Button Actions
@@ -127,7 +128,173 @@ class BookingVC: Main {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDetail"{
             let vc = segue.destination as! BookingDetailVC
-            vc.bookingStatus = sender as! String
+//            vc.bookingStatus = sender as! String
+            
+            let selectedRow = sender as! Int
+            let dictData = arrScheduledDictData[selectedRow]
+            
+            if let id = dictData["id"] as? Int {
+                vc.washID = "\(id)"
+            }
+            
+            if let status = dictData["status"] as? String {
+                vc.bookingStatus = status
+            }
+            
+            if let longitude = dictData["lon"] as? String {
+                vc.longitude = longitude
+            }
+            
+            if let latitude = dictData["lat"] as? String {
+                vc.latitude = latitude
+            }
+            
+            if let booking_id = dictData["id"] as? Int {
+                vc.booking_Id = "\(booking_id)"
+            }
+            
+            if let bookingStartDate = dictData["start_time"] as? String {
+                vc.bookingStartDate = bookingStartDate
+            }
+            
+            if let bookingEndDate = dictData["end_time"] as? String {
+                vc.bookingEndDate = bookingEndDate
+            }
+            
+            if let brandName = dictData["brand_name"] as? String, let modelName = dictData["model_name"] as? String, let plateNo = dictData["vehicle_no"] as? String {
+                vc.vehicleName = "\(brandName) \(modelName) (\(plateNo))"
+            }
+            
+            if let type = dictData["type"] as? String {
+                vc.vehicleType = type
+            }
+            
+            if let address = dictData["location"] as? String {
+                vc.address = address
+            }
+            
+            if let isPromo = dictData["isPromo"] as? Int, isPromo == 1 {
+                vc.isPromo = true
+                if let promo = dictData["booking_promp"] as? String {
+                    vc.promocode = promo
+                }
+            }else {
+                vc.isPromo = false
+            }
+             
+            if let farePrice = dictData["fare"] as? String {
+                vc.farePrice = farePrice
+            }
+            
+            if let washerData = dictData["washer_profile"] as? [String:AnyObject] {
+                if let washers = dictData["washers"] as? [String:AnyObject] {
+                    if let washerName = washers["name"] as? String {
+                        vc.washerName = washerName
+                    }
+                }
+                if let profilePic = washerData["profile_pic"] as? String {
+                    vc.washerProfile = profilePic
+                }
+                
+                if let upVoteCnt = washerData["upvote_count"] as? Int {
+                    vc.washerUpVoteCnt = upVoteCnt
+                }
+                
+                if let downVoteCnt = washerData["downvote_count"] as? Int {
+                    vc.washerDownVoteCnt = downVoteCnt
+                }
+                
+                if let washer_id = washerData["id"] as? Int {
+                    vc.washID = "\(washer_id)"
+                }
+                
+                
+            }
+            
+        }else if segue.identifier == "toHistoryDetail" {
+            let vc = segue.destination as! BookingHistoryDetailVC
+            let selectedRow = sender as! Int
+            let dictData = arrHistoryDictData[selectedRow]
+            
+            if let id = dictData["id"] as? Int {
+                vc.washID = "\(id)"
+            }
+            
+            if let is_rated = dictData["is_rated"] as? Int, is_rated == 1 {
+                vc.isRated = true
+            }else {
+                vc.isRated = false
+            }
+            
+            if let jobCode = dictData["job_code"] as? String {
+                vc.bookingID = jobCode
+            }
+            
+            if let status = dictData["status"] as? String, status == "Completed" {
+                if let bookingDate = dictData["wash_completed_date"] as? String {
+                    vc.bookingDate = bookingDate
+                }
+            }else {
+                if let bookingDate = dictData["end_time"] as? String {
+                    vc.bookingDate = bookingDate
+                }
+            }
+            
+            
+            
+            if let brandName = dictData["brand_name"] as? String, let modelName = dictData["model_name"] as? String, let plateNo = dictData["vehicle_no"] as? String {
+                vc.vehicleName = "\(brandName) \(modelName) (\(plateNo))"
+            }
+            
+            if let type = dictData["type"] as? String {
+                vc.vehicleType = type
+            }
+            
+            if let address = dictData["location"] as? String {
+                vc.address = address
+            }
+            
+            if let isPromo = dictData["isPromo"] as? Int, isPromo == 1 {
+                vc.isPromo = true
+                
+                if let promo = dictData["booking_promp"] as? String {
+                    vc.promocode = promo
+                }
+            }else {
+                vc.isPromo = false
+            }
+             
+            if let farePrice = dictData["fare"] as? String {
+                vc.farePrice = farePrice
+            }
+            
+            if let washerData = dictData["washer_profile"] as? [String:AnyObject] {
+                if let washers = dictData["washers"] as? [String:AnyObject] {
+                    if let washerName = washers["name"] as? String {
+                        vc.washerName = washerName
+                    }
+                    
+                    if let washerID = washers["id"] as? Int {
+                        vc.washerID = "\(washerID)"
+                    }
+                }
+                if let profilePic = washerData["profile_pic"] as? String {
+                    vc.washerProfile = profilePic
+                }
+            }
+            
+            if let washCompletedDate = dictData["wash_completed_date"] as? String {
+                vc.completeDate = washCompletedDate
+            }
+            
+            if let bookingCompletedImg1 = dictData["booking_complete_image1"] as? String {
+                vc.vehicle1 = bookingCompletedImg1
+            }
+            
+            if let bookingCompletedImg2 = dictData["booking_complete_image2"] as? String {
+                vc.vehicle2 = bookingCompletedImg2
+            }
+            
         }
     }
 }
@@ -236,27 +403,46 @@ extension BookingVC : UITableViewDelegate,UITableViewDataSource{
                 }
             }
             
-            if let startTime = dictData["start_time"] as? String, let endTime = dictData["end_time"] as? String {
-                let df = DateFormatter()
-                df.dateFormat = "EEE MMM dd HH:mm:ss Z yyyy"
-                df.locale = Locale(identifier: "en_US_POSIX")
-                df.timeZone = TimeZone(abbreviation: "UTC")
-                let parsedStartDate = df.date(from: startTime)
-                let parsedEndDate = df.date(from: endTime)
-                
-                df.dateFormat = "dd MMM yyyy, hh:mm a"
-                df.timeZone = TimeZone.current
-                let convertedStartTime = df.string(from: parsedStartDate!)
-                let convertedEndTime = df.string(from: parsedEndDate!)
-                
-                if dictData["status"] as! String == "Expired" {
-                    cell.lblStartEndTime.text = "\(convertedStartTime)"
+            if dictData["status"] as! String == "Completed" {
+                if let startTime = dictData["wash_completed_date"] as? String {
+                    let df = DateFormatter()
+                    df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                    df.locale = Locale(identifier: "en_US_POSIX")
+                    df.timeZone = TimeZone(abbreviation: "UTC")
+                    let parsedStartDate = df.date(from: startTime)
+                    
+                    df.dateFormat = "dd MMM yyyy, hh:mm a"
+                    df.timeZone = TimeZone.current
+                    
+                    cell.lblStartEndTime.text = df.string(from: parsedStartDate!)
                 }else {
-                    cell.lblStartEndTime.text = "\(convertedEndTime)"
+                    cell.lblStartEndTime.text = ""
                 }
             }else {
-                cell.lblStartEndTime.text = ""
+                if let startTime = dictData["start_time"] as? String, let endTime = dictData["end_time"] as? String {
+                    let df = DateFormatter()
+                    df.dateFormat = "EEE MMM dd HH:mm:ss Z yyyy"
+                    df.locale = Locale(identifier: "en_US_POSIX")
+                    df.timeZone = TimeZone(abbreviation: "UTC")
+                    let parsedStartDate = df.date(from: startTime)
+                    let parsedEndDate = df.date(from: endTime)
+                    
+                    df.dateFormat = "dd MMM yyyy, hh:mm a"
+                    df.timeZone = TimeZone.current
+                    let convertedStartTime = df.string(from: parsedStartDate!)
+                    let convertedEndTime = df.string(from: parsedEndDate!)
+                    
+                    if dictData["status"] as! String == "Expired" {
+                        cell.lblStartEndTime.text = "\(convertedStartTime)"
+                    }else {
+                        cell.lblStartEndTime.text = "\(convertedEndTime)"
+                    }
+                }else {
+                    cell.lblStartEndTime.text = ""
+                }
             }
+            
+            
         }
         
         return cell
@@ -264,13 +450,23 @@ extension BookingVC : UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.row == 0{
-            self.performSegue(withIdentifier: "toDetail", sender: "upcoming")
-        }else if indexPath.row == 1{
-            self.performSegue(withIdentifier: "toDetail", sender: "accept")
-        }else if indexPath.row == 2{
-            self.performSegue(withIdentifier: "toHistoryDetail", sender: "accept")
+        if isScheduled {
+            self.performSegue(withIdentifier: "toDetail", sender: indexPath.row)
+        }else {
+            let dictData = arrHistoryDictData[indexPath.row]
+            let type = dictData["status"] as? String
+            if type == "Completed" {
+                self.performSegue(withIdentifier: "toHistoryDetail", sender: indexPath.row)
+            }
         }
+        
+//        if indexPath.row == 0{
+//            self.performSegue(withIdentifier: "toDetail", sender: "upcoming")
+//        }else if indexPath.row == 1{
+//            self.performSegue(withIdentifier: "toDetail", sender: "accept")
+//        }else if indexPath.row == 2{
+//
+//        }
         
     }
 }

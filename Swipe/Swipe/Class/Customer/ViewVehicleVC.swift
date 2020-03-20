@@ -24,6 +24,8 @@ class ViewVehicleVC: Main {
     @IBOutlet weak var tblVehicle: CustomUITableView!
     @IBOutlet weak var lblCarCnt: UILabel!
     
+    @IBOutlet weak var btnAddVehicle: CustomButton!
+    
     //MARK:- Global Variables
     var comeFrom = ""
     var arrCarData = [[String:AnyObject]]()
@@ -75,6 +77,14 @@ class ViewVehicleVC: Main {
                         self.lblCarCnt.text = ""
                     }
                     
+                    if self.arrCarData.count >= 4 {
+                        self.btnAddVehicle.isUserInteractionEnabled = false
+                        self.btnAddVehicle.backgroundColor = UIColor(hexString: "#9a9a9a")
+                    }else {
+                        self.btnAddVehicle.isUserInteractionEnabled = true
+                        self.btnAddVehicle.backgroundColor = UIColor(hexString: "#4EB8F5")
+                    }
+                    
                     self.tblVehicle.reloadData()
                     
                 }else{
@@ -85,6 +95,8 @@ class ViewVehicleVC: Main {
                     }else{
                         self.lblCarCnt.text = ""
                     }
+                    self.btnAddVehicle.isUserInteractionEnabled = true
+                    self.btnAddVehicle.backgroundColor = UIColor(hexString: "#4EB8F5")
                 }
             }
             
@@ -122,6 +134,10 @@ extension ViewVehicleVC : UITableViewDelegate, UITableViewDataSource{
             cell.lblPrimary.text = "Primary"
         }else{
             cell.lblPrimary.text = ""
+        }
+        
+        if let carImage = arrCarData[indexPath.row]["car_image"] as? String {
+            cell.ivPic.kf.setImage(with: URL(string: "\(Constant.PHOTOURL)\(carImage)"))
         }
         
         if (arrCarData[indexPath.row])["color_code"] as? String != nil{

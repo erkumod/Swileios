@@ -12,6 +12,7 @@ import GoogleMaps
 
 class AvailWasherBookingVC: Main {
     
+    //MARK:- Outlets
     @IBOutlet weak var btnSwipe: UIButton!
     @IBOutlet weak var rightSwipe: UIImageView!
     @IBOutlet weak var mapView: GMSMapView!
@@ -21,10 +22,22 @@ class AvailWasherBookingVC: Main {
     
     @IBOutlet var vwRedeemAlert: CustomUIView!
     
+    @IBOutlet weak var lblUsername: UILabel!
+    @IBOutlet weak var lblVehicleType: CustomLabel!
+    @IBOutlet weak var lblAddress: UILabel!
+    @IBOutlet weak var lblDistance: UILabel!
+    @IBOutlet weak var lblPrice: UILabel!
+    
+    
+    
+    //MARK:- Global Variables
     let locationManager = CLLocationManager()
     var flag = false
+    var locationName = "", username = "", vehicleType = "", price = "", washID = ""
+    var latitude = 0.0, longitude = 0.0, distance = 0.0
+    var total_washes = 0
     
-    
+    //MARK:- View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,11 +60,25 @@ class AvailWasherBookingVC: Main {
         let swipeRight = UIPanGestureRecognizer(target: self, action: #selector(Swiped))
         self.rightSwipe.addGestureRecognizer(swipeRight)
         
+        setData()
         
+        callGetWasherWashCount()
     }
     
+    //MARK:- Other Methods
+    func setData() {
+        lblAddress.text = locationName
+        lblUsername.text = username
+        lblVehicleType.text = vehicleType
+        lblPrice.text = price
+        lblDistance.text = String (format: "%.2fKm away from your location", distance)
+        
+        mapView.camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: Float(15))
+        let marker = GMSMarker(position: CLLocationCoordinate2DMake(latitude,longitude))
+        marker.map = mapView
+    }
     
-    
+    //MARK:- Selector Methods
     @objc func Swiped(gestureRecognizer: UIPanGestureRecognizer) -> Void {
         
         if (gestureRecognizer.state == UIGestureRecognizer.State.began || gestureRecognizer.state == UIGestureRecognizer.State.changed) && !flag {
@@ -69,20 +96,23 @@ class AvailWasherBookingVC: Main {
                 self.rightSwipe.isHidden = true
                 self.rightSwipe.center = CGPoint(x: 35 , y: gestureRecognizer.view!.center.y)
                 
-                self.vwConfirm.isHidden = false
-                self.blurView.isHidden = false
-                self.btnSwipe.layer.cornerRadius = 10
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    self.vwConfirm.isHidden = true
-                    self.blurView.isHidden = true
+                if total_washes < 6 {
+                    callAcceptWashAPI()
+                }else {
+                    self.vwRedeemAlert.isHidden = false
+                    self.blurView.isHidden = false
+                    self.btnSwipe.layer.cornerRadius = 10
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        self.vwRedeemAlert.isHidden = true
+                        self.blurView.isHidden = true
+                    }
                 }
-                
-                
             }
         }
     }
     
+    //MARK:- Button Actions
     @IBAction func btnBack_Action(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -92,12 +122,66 @@ class AvailWasherBookingVC: Main {
         self.blurView.isHidden = true
     }
     
-    func add_Pin(_ lat : Double , _ lng : Double){
-        let position = CLLocationCoordinate2DMake(lat,lng)
-        let marker = GMSMarker(position: position)
-        marker.map = mapView
+    //MARK:- Webservices
+    func callGetWasherWashCount() {
+        //washer_reward_data
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
+            return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.WASH_COUNT
+        let parameter  = "?token=\(UserModel.sharedInstance().authToken!)"
+        
+        APIManager.shared.requestGetURL(serviceURL + parameter, success: { (response) in
+            if let jsonObject = response.result.value as? [String:AnyObject] {
+                if let status = jsonObject["status"] as? Int, status == 200 {
+                    if let completedCount = jsonObject["completed_wash_count"] as? Int {
+                        self.total_washes = completedCount
+                    }
+                }
+            }
+        }) { (error) in
+            print(error)
+        }
     }
     
+    func callAcceptWashAPI() {
+        self.view.endEditing(true)
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
+            return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.ACCEPT_WASH
+        let parameter : [String:String] = [
+            "token": UserModel.sharedInstance().authToken!,
+            "wash_id": washID
+        ]
+        
+        APIManager.shared.requestPostURL(serviceURL, param: parameter as [String : AnyObject] , success: { (response) in
+            if let jsonObject = response.result.value as? [String:AnyObject] {
+                print(jsonObject)
+                if let status = jsonObject["status"] as? Int{
+                    if status == 200{
+                        self.vwConfirm.isHidden = false
+                        self.blurView.isHidden = false
+                        self.btnSwipe.layer.cornerRadius = 10
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            self.vwConfirm.isHidden = true
+                            self.blurView.isHidden = true
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    }
+                }
+            }
+        }) { (error) in
+            print(error)
+        }
+    }
+
+    //MARK:- Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toPhoto"{
             let vc = segue.destination as! VehiclePhotoSubmissionVC
@@ -107,35 +191,3 @@ class AvailWasherBookingVC: Main {
     
 }
 
-extension AvailWasherBookingVC: CLLocationManagerDelegate {
-    // 2
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        // 3
-        guard status == .authorizedWhenInUse else {
-            return
-        }
-        
-        
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.first else {
-            return
-        }
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        
-        let camera = GMSCameraPosition.camera(withLatitude: center.latitude,
-                                              longitude: center.longitude,
-                                              zoom: Float(15))
-        
-        mapView.camera = camera
-        add_Pin(center.latitude, center.longitude)
-        locationManager.stopUpdatingLocation()
-    }
-    
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("error:: (error)")
-    }
-    
-}

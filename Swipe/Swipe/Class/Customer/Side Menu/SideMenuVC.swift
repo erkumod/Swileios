@@ -22,7 +22,7 @@ class SideMenuVC : UIViewController {
     @IBOutlet weak var btnSwipe: UIButton!
     
     //MARK:- Global Variables
-    var arrOptions = ["Wallet", "My Vehicles", "Rewards","Bookings", "Notification", "Help Center","Join us"]
+    var arrOptions = ["Wallet", "My Vehicles", "Rewards","Bookings", "Notifications", "Help Center","Join us"]
     var flag = false
   
     //MARK:- View LifeCycle Method
@@ -30,6 +30,13 @@ class SideMenuVC : UIViewController {
         super.viewDidLoad()
         setLayout()
         
+        setProfileData()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.setData(notification:)), name: Notification.Name("profile_updated"), object: nil)
+        
+    }
+    
+    func setProfileData() {
         if UserModel.sharedInstance().profile_image != nil{
             ivUserImage.kf.setImage(with: URL(string: "\(Constant.PHOTOURL)\(UserModel.sharedInstance().profile_image!)"))
         }
@@ -38,8 +45,21 @@ class SideMenuVC : UIViewController {
             lblUserName.text = UserModel.sharedInstance().name!
         }
         
-        let swipeRight = UIPanGestureRecognizer(target: self, action: #selector(Swiped))
-        self.ivRightSwipe.addGestureRecognizer(swipeRight)
+        if UserModel.sharedInstance().isWasher != nil && UserModel.sharedInstance().isWasher == "1" {
+            arrOptions = ["Wallet", "My Vehicles", "Rewards","Bookings", "Notifications", "Help Center"]
+            let swipeRight = UIPanGestureRecognizer(target: self, action: #selector(Swiped))
+            self.ivRightSwipe.addGestureRecognizer(swipeRight)
+            
+            ivRightSwipe.isHidden = false
+        }else {
+            arrOptions = ["Wallet", "My Vehicles", "Rewards","Bookings", "Notifications", "Help Center","Join us"]
+            ivRightSwipe.isHidden = true
+        }
+    }
+    
+    @objc func setData(notification: Notification) {
+        
+        setProfileData()
     }
     
     @objc func Swiped(gestureRecognizer: UIPanGestureRecognizer) -> Void {

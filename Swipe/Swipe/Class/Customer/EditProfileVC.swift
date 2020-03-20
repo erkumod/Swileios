@@ -10,6 +10,7 @@ import UIKit
 
 class EditProfileVC: Main {
 
+    //MARK:- Outlets
     @IBOutlet weak var vwLogout: UIView!
     @IBOutlet weak var blurView: UIImageView!
     
@@ -20,6 +21,7 @@ class EditProfileVC: Main {
     @IBOutlet weak var tfCountryCode: UILabel!
     @IBOutlet weak var tfEmail: CustomTextField!
     
+    //MARK:- View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,6 +54,7 @@ class EditProfileVC: Main {
         vwLogout.isHidden = true
     }
 
+    //MARK:- Selector Methods
     //Image Upload handle mehtod to open the picker of options.
     @objc func handle_ImageUpload(_ recognizer: UITapGestureRecognizer) {
         let actionSheet = UIAlertController(title: "Choose Option", message: nil, preferredStyle: .actionSheet)
@@ -77,6 +80,7 @@ class EditProfileVC: Main {
         self.present(actionSheet, animated: true, completion: nil)
     }
     
+    //MARK:- Button Actions
     @IBAction func btnSave_Action(_ sender: Any) {
         self.view.endEditing(true)
         if checkValidation(){
@@ -113,6 +117,7 @@ class EditProfileVC: Main {
         self.performSegue(withIdentifier: "toAccount", sender: nil)
     }
     
+    //MARK:- Other Methods
     func checkValidation() -> Bool{
         if tfName.text!.isEmpty{
             tfName.becomeFirstResponder()
@@ -135,6 +140,7 @@ class EditProfileVC: Main {
         }
     }
     
+    //MARK:- Webservices
     func callEditProfileAPI() {
         
         //Checking for internet connection. If internet is not available then system will display toast message.
@@ -172,8 +178,6 @@ class EditProfileVC: Main {
             print(error)
         }
     }
-    
-   
 }
 
 extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

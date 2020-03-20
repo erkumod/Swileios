@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import GoogleMaps
+import GooglePlaces
 
 class HomeVC: Main {
     
@@ -42,6 +43,8 @@ class HomeVC: Main {
     
     //MARK:- Global Variables
     let locationManager = CLLocationManager()
+    var geocoder = CLGeocoder()
+    
     var flag = false
     
     var selectedStartHour = "", selectedStartMin = "", selectedEndHour = "", selectedEndMin = "", startTime = "", endTime = "", startUTCDate = "", endUTCDate = "", farePrice = "20"
@@ -107,6 +110,7 @@ class HomeVC: Main {
         callGetWashPriceAPI()
         (UIApplication.shared.delegate as! AppDelegate).callProfileInfoAPI()
         (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
+        (UIApplication.shared.delegate as! AppDelegate).callCheckWasherAPI()
     }
     
     //MARK:- Selector Methods
@@ -198,6 +202,51 @@ class HomeVC: Main {
         }
     }
     
+    @IBAction func btnSwipe_Action(_ sender: Any) {
+        generateStartEndTimes()
+        
+        var vehicleID = ""
+        if UserModel.sharedInstance().selectedVehicleID != nil && UserModel.sharedInstance().selectedVehicleID != "" {
+            vehicleID = UserModel.sharedInstance().selectedVehicleID!
+        }else if UserModel.sharedInstance().primary_car != nil {
+            vehicleID = "\(UserModel.sharedInstance().primary_car!["id"] as! Int)"
+        }
+        
+        var cardID = ""
+        if UserModel.sharedInstance().selectedCardID != nil && UserModel.sharedInstance().selectedCardID != "" {
+            cardID = UserModel.sharedInstance().selectedCardID!
+        }else if UserModel.sharedInstance().primary_card != nil {
+            cardID = "\(UserModel.sharedInstance().primary_card!["id"] as! Int)"
+        }
+        
+        var promoCode = ""
+        if UserModel.sharedInstance().selectedPromoCode != nil && UserModel.sharedInstance().selectedPromoCode != "" {
+            promoCode = UserModel.sharedInstance().selectedPromoCode!
+        }
+        
+        let addressLine = self.tfSource.text!
+        let strNotes = self.tvNotes.text!
+        
+        let df = DateFormatter()
+        df.dateFormat = "dd-MM-yyyy"
+        let bookingDate = df.string(from: Date())
+        
+        if !checkStartEndTimings(){
+            flag = false
+        }else if vehicleID == "" {
+            flag = false
+            CommonFunctions.shared.showToast(self.view, "Please select vehicle")
+        }else if cardID == "" {
+            flag = false
+            CommonFunctions.shared.showToast(self.view, "Please select card")
+        }else if addressLine == "" {
+            flag = false
+            CommonFunctions.shared.showToast(self.view, "Please select location")
+        }else {
+            flag = true
+            callBookCarWashAPI(vehicleID, cardID, addressLine, strNotes, promoCode, bookingDate)
+        }
+    }
     @objc func Swiped(gestureRecognizer: UIPanGestureRecognizer) -> Void {
         
         if (gestureRecognizer.state == UIGestureRecognizer.State.began || gestureRecognizer.state == UIGestureRecognizer.State.changed) && !flag {
@@ -205,16 +254,19 @@ class HomeVC: Main {
             let translation = gestureRecognizer.translation(in: self.view)
             print(gestureRecognizer.view!.center.x)
             
+            if gestureRecognizer.view!.center.x <= 0{
+                ivRightSwipe.center = CGPoint(x: 15 , y: gestureRecognizer.view!.center.y)
+                return
+            }
+            
             if(gestureRecognizer.view!.center.x < btnSwipe.frame.width) && !flag{
                 gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x  + translation.x, y: gestureRecognizer.view!.center.y)
+                
                 print("moving")
             }else {
                 gestureRecognizer.view!.center = CGPoint(x : gestureRecognizer.view!.center.x, y:gestureRecognizer.view!.center.y)
                 print("reached")
                 flag = true
-                
-                ivRightSwipe.frame.origin.x = 20.0
-                ivRightSwipe.frame.origin.y = btnSwipe.frame.origin.y
                 
                 generateStartEndTimes()
                 
@@ -339,6 +391,17 @@ class HomeVC: Main {
     
     @IBAction func btnSelectVehicle_Action(_ sender: Any) {
         self.performSegue(withIdentifier: "toVehicle", sender: nil)
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField == tfSource{
+            let placePickerController = GMSAutocompleteViewController()
+            placePickerController.delegate = self
+            present(placePickerController, animated: true, completion: nil)
+            return false
+        }else{
+            return true
+        }
     }
     
     //MARK:- Other Functions
@@ -577,6 +640,7 @@ class HomeVC: Main {
                         UserModel.sharedInstance().selectedPromoCode = nil
                         UserModel.sharedInstance().selectedPromoType = nil
                         UserModel.sharedInstance().synchroniseData()
+                        CommonFunctions.shared.showToast(self.view, jsonObject["message"] as! String)
                     }
                 }
             }
@@ -673,5 +737,48 @@ extension Date {
         if minutes(from: date) > 0 { return "\(minutes(from: date))m" }
         if seconds(from: date) > 0 { return "\(seconds(from: date))s" }
         return ""
+    }
+}
+//Delegate Method for auto complete view controller.
+extension HomeVC: GMSAutocompleteViewControllerDelegate {
+    
+    //Handle the user's selection.
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        
+        latitude = place.coordinate.latitude
+        longitude = place.coordinate.longitude
+        
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            if let error = error {
+                print("Unable to Reverse Geocode Location (\(error))")
+                self.showAlertView("Unable to Find Address for Location")
+            } else {
+                if let placemarks = placemarks, let placemark = placemarks.first {
+                    self.tfSource.text = placemark.compactAddress
+                } else {
+                    self.showAlertView("No Matching Addresses Found")
+                }
+            }
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        print("Error: ", error.localizedDescription)
+    }
+    
+    //User canceled the operation.
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    //Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 }

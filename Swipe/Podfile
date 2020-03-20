@@ -11,6 +11,7 @@ pod 'IQKeyboardManager’
 pod 'Alamofire'
 pod 'Kingfisher', '~> 4.0'
 pod 'GoogleMaps'
+pod 'GooglePlaces'
 pod 'SkyFloatingLabelTextField', '~> 3.0'
 pod 'TransitionButton'
 pod 'IHProgressHUD'

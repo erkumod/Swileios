@@ -16,10 +16,11 @@
 		1F0DE65C23F7CB85000B64DE /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE65B23F7CB85000B64DE /* NotificationVC.swift */; };
 		1F0DE65E23F7EE48000B64DE /* BookingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE65D23F7EE48000B64DE /* BookingVC.swift */; };
 		1F0F958D2403E35600B135FB /* HelpCenterDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0F958C2403E35600B135FB /* HelpCenterDetailVC.swift */; };
-		1F0F958F2403EEA000B135FB /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0F958E2403EEA000B135FB /* ChatVC.swift */; };
+		1F0F958F2403EEA000B135FB /* ChatCustVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0F958E2403EEA000B135FB /* ChatCustVC.swift */; };
 		1F0F95912403EF2D00B135FB /* WasherProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0F95902403EF2D00B135FB /* WasherProfileVC.swift */; };
 		1F1226E22406CB18009336D0 /* WasherHelpCenterDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1226E02406CB18009336D0 /* WasherHelpCenterDetailVC.swift */; };
 		1F1226E32406CB18009336D0 /* WasherHelpCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1226E12406CB18009336D0 /* WasherHelpCenterVC.swift */; };
+		1F1CCA152425487100C3A419 /* OTPVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1CCA142425487100C3A419 /* OTPVC.swift */; };
 		1F2CB4A823FEF5AF0049067D /* Notification_WasherVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CB4A723FEF5AF0049067D /* Notification_WasherVC.swift */; };
 		1F2CB4AA23FEF6BD0049067D /* SwipeBoxVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CB4A923FEF6BD0049067D /* SwipeBoxVC.swift */; };
 		1F43877C23FBE9A2008BE798 /* SideMenu1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43877A23FBE9A2008BE798 /* SideMenu1VC.swift */; };
@@ -44,6 +45,7 @@
 		1FB3FF7E23EF1787002DB7C3 /* ViewVehicleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB3FF7D23EF1786002DB7C3 /* ViewVehicleVC.swift */; };
 		1FB9C58C240D0D47001B4EAF /* SwipeBoxDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9C58B240D0D47001B4EAF /* SwipeBoxDetailVC.swift */; };
 		1FB9C58E240D1299001B4EAF /* BookingHistoryDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9C58D240D1299001B4EAF /* BookingHistoryDetailVC.swift */; };
+		1FBB2E11242237810000B9E2 /* ChatWashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBB2E10242237800000B9E2 /* ChatWashVC.swift */; };
 		1FCB946D23F6C23800A340AD /* RewardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB946C23F6C23800A340AD /* RewardVC.swift */; };
 		1FCEBF34240544C400A7077B /* VehiclePhotoSubmissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCEBF33240544C400A7077B /* VehiclePhotoSubmissionVC.swift */; };
 		1FE388FE23E808430078BDE7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE388FD23E808430078BDE7 /* AppDelegate.swift */; };
@@ -97,10 +99,11 @@
 		1F0DE65B23F7CB85000B64DE /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		1F0DE65D23F7EE48000B64DE /* BookingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingVC.swift; sourceTree = "<group>"; };
 		1F0F958C2403E35600B135FB /* HelpCenterDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterDetailVC.swift; sourceTree = "<group>"; };
-		1F0F958E2403EEA000B135FB /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
+		1F0F958E2403EEA000B135FB /* ChatCustVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCustVC.swift; sourceTree = "<group>"; };
 		1F0F95902403EF2D00B135FB /* WasherProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasherProfileVC.swift; sourceTree = "<group>"; };
 		1F1226E02406CB18009336D0 /* WasherHelpCenterDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WasherHelpCenterDetailVC.swift; sourceTree = "<group>"; };
 		1F1226E12406CB18009336D0 /* WasherHelpCenterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WasherHelpCenterVC.swift; sourceTree = "<group>"; };
+		1F1CCA142425487100C3A419 /* OTPVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVC.swift; sourceTree = "<group>"; };
 		1F2CB4A723FEF5AF0049067D /* Notification_WasherVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification_WasherVC.swift; sourceTree = "<group>"; };
 		1F2CB4A923FEF6BD0049067D /* SwipeBoxVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBoxVC.swift; sourceTree = "<group>"; };
 		1F43877A23FBE9A2008BE798 /* SideMenu1VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenu1VC.swift; sourceTree = "<group>"; };
@@ -126,6 +129,7 @@
 		1FB4775A240E6BD4004E0087 /* Swipe_Bridge_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Swipe_Bridge_Header.h; sourceTree = "<group>"; };
 		1FB9C58B240D0D47001B4EAF /* SwipeBoxDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBoxDetailVC.swift; sourceTree = "<group>"; };
 		1FB9C58D240D1299001B4EAF /* BookingHistoryDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingHistoryDetailVC.swift; sourceTree = "<group>"; };
+		1FBB2E10242237800000B9E2 /* ChatWashVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatWashVC.swift; sourceTree = "<group>"; };
 		1FCB946C23F6C23800A340AD /* RewardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardVC.swift; sourceTree = "<group>"; };
 		1FCEBF33240544C400A7077B /* VehiclePhotoSubmissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclePhotoSubmissionVC.swift; sourceTree = "<group>"; };
 		1FE388FA23E808430078BDE7 /* Swipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swipe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -239,7 +243,7 @@
 				1F66387F23F80BDE00C7E311 /* HelpCenterVC.swift */,
 				1F0F958C2403E35600B135FB /* HelpCenterDetailVC.swift */,
 				1F66388123F8100B00C7E311 /* JoinUsVC.swift */,
-				1F0F958E2403EEA000B135FB /* ChatVC.swift */,
+				1F0F958E2403EEA000B135FB /* ChatCustVC.swift */,
 				1F0AFABD23E9954A00923FAE /* Side Menu */,
 			);
 			path = Customer;
@@ -248,21 +252,23 @@
 		1F43877823FBE9A2008BE798 /* Washer */ = {
 			isa = PBXGroup;
 			children = (
+				1FBB2E10242237800000B9E2 /* ChatWashVC.swift */,
 				1F1226E02406CB18009336D0 /* WasherHelpCenterDetailVC.swift */,
 				1F1226E12406CB18009336D0 /* WasherHelpCenterVC.swift */,
 				1F43877E23FBED0B008BE798 /* Booking_washer_VC.swift */,
 				1F6F28CB23FD396100961EF9 /* ConfWasherBookingVC.swift */,
 				1F812E562408F4AB00393A48 /* AvailWasherBookingVC.swift */,
+				1FCEBF33240544C400A7077B /* VehiclePhotoSubmissionVC.swift */,
 				1F43878423FC1CC1008BE798 /* EarningVC.swift */,
+				1FB9C58B240D0D47001B4EAF /* SwipeBoxDetailVC.swift */,
 				1F2CB4A723FEF5AF0049067D /* Notification_WasherVC.swift */,
 				1F2CB4A923FEF6BD0049067D /* SwipeBoxVC.swift */,
-				1FB9C58B240D0D47001B4EAF /* SwipeBoxDetailVC.swift */,
 				1FFADE7323FFEC9F002BB455 /* RedemptionVC.swift */,
 				1F0F95902403EF2D00B135FB /* WasherProfileVC.swift */,
 				1F0C527D24041DAD00B4CFB9 /* WasherProfileDetailVC.swift */,
 				1F0C527F240420E700B4CFB9 /* BankAccountVC.swift */,
+				1F1CCA142425487100C3A419 /* OTPVC.swift */,
 				1F0C52812404343200B4CFB9 /* WasherStaticPagesVC.swift */,
-				1FCEBF33240544C400A7077B /* VehiclePhotoSubmissionVC.swift */,
 				1F43877923FBE9A2008BE798 /* Side Menu Washer */,
 			);
 			path = Washer;
@@ -575,13 +581,14 @@
 				1FE3894623E823430078BDE7 /* NetworkManager.swift in Sources */,
 				1FE3894523E823430078BDE7 /* SubClass.swift in Sources */,
 				1FE3891E23E8232A0078BDE7 /* WelcomeSwipeVC.swift in Sources */,
-				1F0F958F2403EEA000B135FB /* ChatVC.swift in Sources */,
+				1F0F958F2403EEA000B135FB /* ChatCustVC.swift in Sources */,
 				1FE3895423E823430078BDE7 /* SWActionSheet.m in Sources */,
 				1FE5BB982415001F003AC3D7 /* SetPasswordVC.swift in Sources */,
 				1F2CB4AA23FEF6BD0049067D /* SwipeBoxVC.swift in Sources */,
 				1F5AC62623ED56660000986B /* AccountSettingVC.swift in Sources */,
 				1F43878323FC0716008BE798 /* ExitVC.swift in Sources */,
 				1FB9C58C240D0D47001B4EAF /* SwipeBoxDetailVC.swift in Sources */,
+				1FBB2E11242237810000B9E2 /* ChatWashVC.swift in Sources */,
 				1F43877C23FBE9A2008BE798 /* SideMenu1VC.swift in Sources */,
 				1FE3894B23E823430078BDE7 /* LocationManager.swift in Sources */,
 				1F0C5280240420E700B4CFB9 /* BankAccountVC.swift in Sources */,
@@ -592,6 +599,7 @@
 				1FE388FE23E808430078BDE7 /* AppDelegate.swift in Sources */,
 				1FE3895223E823430078BDE7 /* ActionSheetDistancePicker.m in Sources */,
 				1FB3FF7E23EF1787002DB7C3 /* ViewVehicleVC.swift in Sources */,
+				1F1CCA152425487100C3A419 /* OTPVC.swift in Sources */,
 				1FE3895123E823430078BDE7 /* ActionSheetLocalePicker.m in Sources */,
 				1F5AC62823EDBC830000986B /* PromoCodeVC.swift in Sources */,
 				1F0F95912403EF2D00B135FB /* WasherProfileVC.swift in Sources */,

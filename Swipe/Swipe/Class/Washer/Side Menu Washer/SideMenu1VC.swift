@@ -16,6 +16,8 @@ class SideMenu1VC : UIViewController {
     @IBOutlet weak var ivUserImage: UIImageView!
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var tblVeiwSideMenu: UITableView!
+    @IBOutlet weak var lblUpCnt: UILabel!
+    @IBOutlet weak var lblDownCnt: UILabel!
     
     @IBOutlet weak var ivRightSwipe: UIImageView!
     @IBOutlet weak var btnSwipe: UIButton!
@@ -29,6 +31,14 @@ class SideMenu1VC : UIViewController {
     override func viewDidLoad(){
         super.viewDidLoad()
         setLayout()
+        
+        lblUpCnt.text = UserModel.sharedInstance().upvote_count
+        lblDownCnt.text = UserModel.sharedInstance().downvote_count
+        lblUserName.text = UserModel.sharedInstance().name
+        
+        if UserModel.sharedInstance().profile_image != nil{
+            ivUserImage.kf.setImage(with: URL(string: "\(Constant.PHOTOURL)\(UserModel.sharedInstance().profile_image!)"))
+        }
         
         let swipeRight = UIPanGestureRecognizer(target: self, action: #selector(Swiped))
         self.ivRightSwipe.addGestureRecognizer(swipeRight)
@@ -83,7 +93,7 @@ class SideMenu1VC : UIViewController {
         sideMenuController()?.setContentViewController(next1!)
     }
     
-    //MAKR:- Other Methods
+    //MARK:- Other Methods
     func ChangeMainRoot() {
         let homeSB = UIStoryboard(name: "Main", bundle: nil)
         let desiredViewController = homeSB.instantiateViewController(withIdentifier: "MainNavigation") as! UINavigationController
@@ -107,8 +117,6 @@ class SideMenu1VC : UIViewController {
         self.tblVeiwSideMenu.dataSource = self
         self.tblVeiwSideMenu.tableFooterView = UIView()
     }
-    
-    //MARK:- WebService Calling
 }
 
 extension SideMenu1VC : UITableViewDelegate,UITableViewDataSource{

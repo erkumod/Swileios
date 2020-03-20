@@ -9,6 +9,7 @@
 import UIKit
 import IQKeyboardManager
 import GoogleMaps
+import GooglePlaces
 //import GoogleSignIn
 //import FBSDKLoginKit
 
@@ -24,7 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         callProfileInfoAPI()
         callLoginAPI()
         
-        GMSServices.provideAPIKey("AIzaSyDluuW6FRCAgJZo4zNYjebGx5d4sa4a7DY")
+        GMSServices.provideAPIKey("AIzaSyDU1bIWOnYJMYCS7rvLoSRonFPdozy7QRc")
+        GMSPlacesClient.provideAPIKey("AIzaSyDU1bIWOnYJMYCS7rvLoSRonFPdozy7QRc")
         
         UserModel.sharedInstance().selectedVehicleName = nil
         UserModel.sharedInstance().selectedVehicleID = nil
@@ -152,6 +154,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 UserModel.sharedInstance().user_id = "\(user["id"] as! Int)"
                                 UserModel.sharedInstance().authToken = data["token"] as? String
                                 UserModel.sharedInstance().synchroniseData()
+                                self.callProfileInfoAPI()
                             }
                         }
                     }
@@ -208,7 +211,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-
+//    check_washer
+    func callCheckWasherAPI() {
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            //            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
+            return
+        }
+        if UserModel.sharedInstance().authToken == nil{
+            return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.CHECK_WASHER
+        
+        let parameter  = "?token=\(UserModel.sharedInstance().authToken!)"
+        
+        APIManager.shared.requestNoLoaderGetURL(serviceURL + parameter, success: { (response) in
+            if let jsonObject = response.result.value as? [String:AnyObject] {
+                if let status = jsonObject["status"] as? Int, status == 200 {
+                    if let isWasher = jsonObject["washer"] as? Int, isWasher == 1 {
+                        UserModel.sharedInstance().isWasher = "1"
+                    }else {
+                        UserModel.sharedInstance().isWasher = "0"
+                    }
+                }else {
+                    UserModel.sharedInstance().isWasher = "0"
+                }
+                UserModel.sharedInstance().synchroniseData()
+            }else {
+                UserModel.sharedInstance().isWasher = "0"
+                UserModel.sharedInstance().synchroniseData()
+            }
+        }) { (error) in
+            print(error)
+        }
+    }
 }
 
 extension UIApplication {

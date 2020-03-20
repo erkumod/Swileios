@@ -10,6 +10,7 @@ import UIKit
 
 class ViewDeleteCardVC: Main {
 
+    //MARK:- Outlets
     @IBOutlet weak var vwDelete: CustomUIView!
     @IBOutlet weak var imgBlur: UIImageView!
     
@@ -17,8 +18,13 @@ class ViewDeleteCardVC: Main {
     @IBOutlet weak var lblCardNo: UILabel!
     @IBOutlet weak var lblExp: UILabel!
     @IBOutlet weak var swtPrimary: UISwitch!
+    
+    @IBOutlet weak var lblPrimaryStatus: UILabel!
+    
+    //MARK:- Global Variables
     var dictData = [String:AnyObject]()
     
+    //MARK:- View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,13 +53,20 @@ class ViewDeleteCardVC: Main {
             if dictData["primary"] as! String == "1"{
                 swtPrimary.setOn(true, animated: true)
                 swtPrimary.isUserInteractionEnabled = false
+                
+                lblPrimaryStatus.text = "Primary"
             }else{
                 swtPrimary.setOn(false, animated: true)
                 swtPrimary.isUserInteractionEnabled = true
+                
+                lblPrimaryStatus.text = "Not Primary"
             }
             
             lblCardNo.text = dictData["card_no"] as? String
             
+
+            let card_no = dictData["card_no"] as! String
+            lblCardNo.text = "**** **** **** " + String(card_no.suffix(4))
         }
         
         swtPrimary.layer.cornerRadius = 16
@@ -65,6 +78,7 @@ class ViewDeleteCardVC: Main {
         self.imgBlur.isHidden = true
     }
     
+    //MARK:- Button Actions
     @IBAction func swtPrimary_Action(_ sender: Any) {
         callSetPrimaryCardAPI()
     }
@@ -78,16 +92,16 @@ class ViewDeleteCardVC: Main {
         self.navigationController?.popViewController(animated: true)
     }
     
-     @IBAction func btnRemove_Action(_ sender: Any) {
+    @IBAction func btnRemove_Action(_ sender: Any) {
         callDeleteCardAPI()
-     }
+    }
     
     @IBAction func btnCancel_Action(_ sender: Any) {
         self.vwDelete.isHidden = true
         self.imgBlur.isHidden = true
     }
     
-    // MARK: - Navigation
+    //MARK:- Webservices
     func callDeleteCardAPI() {
         self.view.endEditing(true)
         guard NetworkManager.shared.isConnectedToNetwork() else {

@@ -10,6 +10,7 @@ import UIKit
 
 class AddEditVehicleVC: Main {
 
+    //MARK:- Outlets
     @IBOutlet weak var lblHeader: UILabel!
     @IBOutlet weak var vwDelete: CustomUIView!
     @IBOutlet weak var imgBlur: UIImageView!
@@ -21,6 +22,7 @@ class AddEditVehicleVC: Main {
     @IBOutlet weak var tfColor: CustomTextField!
     @IBOutlet weak var swtPrimary: UISwitch!
     
+    //MARK:- Global Variables
     var dictData = [String:AnyObject]()
     
     var arrDictBrand = [[String:AnyObject]]()
@@ -38,6 +40,7 @@ class AddEditVehicleVC: Main {
     
     var comeFrom = ""
     
+    //MARK:- View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         callGetColorAPI()
@@ -61,9 +64,6 @@ class AddEditVehicleVC: Main {
         
     }
     
-    @IBAction func btnBack_Action(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
     override func viewWillAppear(_ animated: Bool) {
         if comeFrom == "add"{
             lblHeader.text = "Add Vehicle"
@@ -77,11 +77,15 @@ class AddEditVehicleVC: Main {
         self.imgBlur.isHidden = true
     }
     
+    //MARK:- Button Actions
+    @IBAction func btnBack_Action(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func btnRemoveVehicle_Action(_ sender: Any) {
         self.vwDelete.isHidden = false
         self.imgBlur.isHidden = false
     }
- 
     
     @IBAction func btnRemove_Action(_ sender: UISwitch) {
         callDeleteCarAPI()
@@ -100,7 +104,7 @@ class AddEditVehicleVC: Main {
         }
     }
     
-    //MARK:- Web Service Calling
+    //MARK:- Web Services
     func callGetBrandAPI() {
         guard NetworkManager.shared.isConnectedToNetwork() else {
             CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
@@ -307,7 +311,7 @@ class AddEditVehicleVC: Main {
         }
     }
     
-    
+    //MARK:- UITextField Delegate
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
         if textField == tfBrandName{

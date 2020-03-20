@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class WalletCell : UITableViewCell{
     @IBOutlet weak var lblNo: UILabel!
     @IBOutlet weak var ivCard: CustomImageView!
@@ -17,10 +18,12 @@ class WalletCell : UITableViewCell{
 
 class WalletVC: Main {
     
+    //MARK:- Outlets
     @IBOutlet weak var tblWallet: CustomUITableView!
     @IBOutlet weak var consCardHeight: NSLayoutConstraint!
-    var comeFrom = ""
     
+    //MARK:- Global Variables
+    var comeFrom = ""
     var arrCardData = [[String:AnyObject]]()
     var tempDictData = [String:AnyObject]()
     
@@ -34,6 +37,7 @@ class WalletVC: Main {
         }else{
             consCardHeight.constant = 0
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +61,7 @@ class WalletVC: Main {
         self.performSegue(withIdentifier: "toAdd", sender: nil)
     }
     
+    //MARK:- Webservices
     func callGetCardListAPI() {
         guard NetworkManager.shared.isConnectedToNetwork() else {
             CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
@@ -82,16 +87,14 @@ class WalletVC: Main {
         }
     }
     
-    
+    //MARK:- Navigation Methods
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toEdit"{
             let vc = segue.destination as! ViewDeleteCardVC
             vc.dictData = self.tempDictData
         }
     }
-    
 }
-
 
 extension WalletVC : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

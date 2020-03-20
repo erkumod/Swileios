@@ -8,9 +8,9 @@
 
 import UIKit
 
-class AddCardVC: Main, UIPickerViewDataSource, UIPickerViewDelegate  {
+class AddCardVC: Main, UIPickerViewDataSource  {
 
-
+    //MARK:- Outlets
     @IBOutlet weak var tfCardNumber: CustomTextField!
     @IBOutlet weak var tfName: CustomTextField!
     @IBOutlet weak var tfCVV: CustomTextField!
@@ -18,6 +18,8 @@ class AddCardVC: Main, UIPickerViewDataSource, UIPickerViewDelegate  {
     @IBOutlet weak var imgCard : UIImageView!
     @IBOutlet weak var topPickerView: UIPickerView!
     @IBOutlet weak var swtPrimary: UISwitch!
+    
+    //MARK:- Global Variables
     var year = [Int]()
     var month = [Int]()
     
@@ -27,6 +29,7 @@ class AddCardVC: Main, UIPickerViewDataSource, UIPickerViewDelegate  {
     
     var status = ""
     
+    //MARK:- View Life Cycle Method
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,16 +38,13 @@ class AddCardVC: Main, UIPickerViewDataSource, UIPickerViewDelegate  {
         for i in 1...12 {
             month.append(i)
         }
+        selectedMonth = month[0]
+        
         
         let date = Date() // gets current date
         let calendar = Calendar.current
         var currentYear = calendar.component(.year, from: date) // gets current year (i.e. 2017)
         
-        for i in 1...12 {
-            month.append(i)
-        }
-        print(month)
-        selectedMonth = month[0]
         
         for _ in 1...50 {
             year.append(currentYear)
@@ -53,20 +53,9 @@ class AddCardVC: Main, UIPickerViewDataSource, UIPickerViewDelegate  {
         selectedYear = year[0]
         
         createAnotherPicker()
-        
-        
     }
     
-    @IBAction func btnSave_Action(_ sender: Any) {
-        self.view.endEditing(true)
-        callAddCardAPI()
-    }
-    
-    @objc func closePickerView() {
-        view.endEditing(true)
-        tfExpiry.text = "\(String(format: "%02d", selectedMonth))/\(String(format: "%02d", selectedYear))"
-    }
-    
+    //MARK:- Other Methods
     func createAnotherPicker() {
         anotherPicker.delegate = self
         anotherPicker.delegate?.pickerView?(anotherPicker, didSelectRow: 0, inComponent: 0)
@@ -77,50 +66,28 @@ class AddCardVC: Main, UIPickerViewDataSource, UIPickerViewDelegate  {
         
         let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(AddCardVC.closePickerView))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-       
+        
         toolbar.setItems([flexibleSpace, doneButton], animated: false)
         toolbar.isUserInteractionEnabled = true
         tfExpiry.inputAccessoryView = toolbar
     }
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
+    //MARK:- Button Actions
+    @IBAction func btnSave_Action(_ sender: Any) {
+        self.view.endEditing(true)
+        callAddCardAPI()
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
-        if component == 0{
-            return month.count
-        }else{
-            return year.count
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if component == 0 {
-            return String(format: "%02d", month[row])
-        }
-        else{
-            return "\(year[row])"
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-
-        if component == 0 {
-            print(month[row])
-            selectedMonth = month[row]
-        }else{
-            print(year[row])
-            selectedYear = year[row]
-        }
-        
+    @objc func closePickerView() {
+        view.endEditing(true)
+        tfExpiry.text = "\(String(format: "%02d", selectedMonth))/\(String(format: "%02d", selectedYear))"
     }
     
     @IBAction func btnBack_Action(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
+    //MARK:- UITextField Delegate
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if(textField == tfCardNumber) {
             let card_number = textField.text!
@@ -147,15 +114,6 @@ class AddCardVC: Main, UIPickerViewDataSource, UIPickerViewDelegate  {
                 status = ""
             }
             
-            //        String regJCB = "^(?:2131|1800|35\\d{3})\\d{11}$";
-         
-            //        } else if (card_number.matches(regJCB)) {
-            //            iv_card_logo.setImageResource(R.drawable.jcb);
-            //            type = "jcb";
-            //        } else {
-            //            iv_card_logo.setImageResource(R.drawable.default_card);
-            //        }
-            
             guard let textFieldText = textField.text,
                 let rangeOfTextToReplace = Range(range, in: textFieldText) else {
                     return false
@@ -178,6 +136,7 @@ class AddCardVC: Main, UIPickerViewDataSource, UIPickerViewDelegate  {
         return true
     }
     
+    //MARK:- Webservices
     func callAddCardAPI() {
         self.view.endEditing(true)
         guard NetworkManager.shared.isConnectedToNetwork() else {
@@ -237,6 +196,39 @@ class AddCardVC: Main, UIPickerViewDataSource, UIPickerViewDelegate  {
         }
     }
     
+}
+
+extension AddCardVC : UIPickerViewDelegate{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
+    }
     
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
+        if component == 0{
+            return month.count
+        }else{
+            return year.count
+        }
+    }
     
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if component == 0 {
+            return String(format: "%02d", month[row])
+        }
+        else{
+            return "\(year[row])"
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        if component == 0 {
+            print(month[row])
+            selectedMonth = month[row]
+        }else{
+            print(year[row])
+            selectedYear = year[row]
+        }
+    }
 }

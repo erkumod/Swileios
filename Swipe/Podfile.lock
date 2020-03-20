@@ -5,6 +5,8 @@ PODS:
   - GoogleMaps/Base (3.7.0)
   - GoogleMaps/Maps (3.7.0):
     - GoogleMaps/Base
+  - GooglePlaces (3.7.0):
+    - GoogleMaps/Base (= 3.7.0)
   - IHProgressHUD (0.1.4)
   - IQKeyboardManager (6.5.4)
   - Kingfisher (4.10.1)
@@ -17,6 +19,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - GoogleMaps
+  - GooglePlaces
   - IHProgressHUD
   - IQKeyboardManager
   - Kingfisher (~> 4.0)
@@ -30,6 +33,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - GoogleMaps
+    - GooglePlaces
     - IHProgressHUD
     - IQKeyboardManager
     - Kingfisher
@@ -42,6 +46,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   GoogleMaps: 55da829c68aa931f3ae982b9e341cc2f3d89c587
+  GooglePlaces: a62077320f9d64239245af63aa1aa136393ebeb6
   IHProgressHUD: a01846bfbb581c761c79747c67b08387c3bdfae3
   IQKeyboardManager: 72b359cd7e777e3a984cedbe05f8da45320cbb63
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
@@ -51,6 +56,6 @@ SPEC CHECKSUMS:
   Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: adc833ec0627e30cf2823675a9dccffcf89827b5
+PODFILE CHECKSUM: 274cfed4eb1ec0a90a30c5222f9e6e9654c3ee33
 
 COCOAPODS: 1.8.4

@@ -12,6 +12,7 @@ import GoogleMaps
 
 class ConfWasherBookingVC: Main {
 
+    //MARK:- Outlets
     @IBOutlet weak var btnSwipe: UIButton!
     @IBOutlet weak var rightSwipe: UIImageView!
     @IBOutlet weak var mapView: GMSMapView!
@@ -22,10 +23,27 @@ class ConfWasherBookingVC: Main {
     @IBOutlet var vwNote: CustomUIView!
     @IBOutlet var vwStartJob: CustomUIView!
     
+    @IBOutlet weak var lblLocation: UILabel!
+    @IBOutlet weak var lblUsername: UILabel!
+    @IBOutlet weak var lblNotes: UILabel!
+    @IBOutlet weak var lblVehicleName: UILabel!
+    @IBOutlet weak var lblPlateNo: UILabel!
+    @IBOutlet weak var lblVehicleType: CustomLabel!
+    @IBOutlet weak var lblPrice: UILabel!
+    @IBOutlet weak var tvNotes: CustomTextView!
+    
+    @IBOutlet weak var vwCancelJob: UIView!
+    
+    @IBOutlet weak var lblConfirmationMsg: UILabel!
+    
+    
+    //MARK:- Global Variables
     let locationManager = CLLocationManager()
     var flag = false
+    var locationName = "", username = "", notes = "", vehicleName = "", plateNo = "", vehicleType = "", price = "", status = "", washID = "", user_id = ""
+    var latitude = 0.0, longitude = 0.0
     
-    
+    //MARK:- View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,8 +77,34 @@ class ConfWasherBookingVC: Main {
         let blurView_action = UITapGestureRecognizer(target: self, action: #selector(blurViewTapped))
         self.blurView.addGestureRecognizer(blurView_action)
         
+        setData()
     }
     
+    //MARK:- Other Methods
+    func setData() {
+        lblLocation.text = locationName
+        lblUsername.text = username
+        lblNotes.text = notes
+        lblVehicleName.text = vehicleName
+        lblPlateNo.text = plateNo
+        lblVehicleType.text = vehicleType
+        lblPrice.text = price
+        tvNotes.text = notes
+        
+        mapView.camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: Float(15))
+        let marker = GMSMarker(position: CLLocationCoordinate2DMake(latitude,longitude))
+        marker.map = mapView
+        
+        if status == "Started" {
+            vwCancelJob.isHidden = true
+            btnSwipe.setTitle("SWIPE TO END", for: .normal)
+        }else {
+            vwCancelJob.isHidden = false
+            btnSwipe.setTitle("SWIPE TO START", for: .normal)
+        }
+    }
+    
+    //MARK:- Selector Methods
     @objc func blurViewTapped(gestureRecognizer: UITapGestureRecognizer){
         
         self.blurView.isHidden = true
@@ -88,13 +132,22 @@ class ConfWasherBookingVC: Main {
                 flag = true
                 
                 self.btnSwipe.layer.cornerRadius = 10
+                
+                if self.status == "Accepted" {
+                    self.lblConfirmationMsg.text = "Ready to start job?"
+                }else {
+                    self.lblConfirmationMsg.text = "Proceed to phototaking of vehicle to end the job ?"
+                }
+                
                 self.vwStartJob.isHidden = false
                 self.blurView.isHidden = false
+                
 
             }
         }
     }
     
+    //MARK:- Button Actions
     @IBAction func btnMore_ACtion(_ sender: Any) {
         self.vwMore.isHidden = false
         self.blurView.isHidden = false
@@ -112,7 +165,6 @@ class ConfWasherBookingVC: Main {
         self.blurView.isHidden = true
     }
     
-    
     @IBAction func btnBack_Action(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -123,6 +175,8 @@ class ConfWasherBookingVC: Main {
     }
     
     @IBAction func btnChat_Action(_ sender: Any) {
+        self.vwMore.isHidden = true
+        self.blurView.isHidden = true
         self.performSegue(withIdentifier: "toChat", sender: nil)
     }
     
@@ -132,58 +186,96 @@ class ConfWasherBookingVC: Main {
     }
     
     @IBAction func btnVehicleMud_Action(_ sender: Any) {
+        self.blurView.isHidden = true
+        self.vwCancel.isHidden = true
         self.performSegue(withIdentifier: "toPhoto", sender: "cakemud")
     }
-    func configureLocationServices() {
+    
+    @IBAction func btnUnableToLocate_Action(_ sender: UIButton) {
+        self.vwCancel.isHidden = true
+        callCancelWashAPI()
+    }
+    
+    @IBAction func btnConfirmJob_Action(_ sender: CustomButton) {
+        self.vwStartJob.isHidden = true
+        self.blurView.isHidden = true
         
-        let authorizationStatus = CLLocationManager.authorizationStatus()
-        if authorizationStatus == .notDetermined {
-            locationManager.requestAlwaysAuthorization()
-        } else {
+        if status == "Accepted" {
+            callStartJobAPI()
+        }else {
+            self.performSegue(withIdentifier: "toPhoto", sender: "complete")
+        }
+        
+    }
+    
+    //MARK:- Webservices
+    func callCancelWashAPI() {
+        self.view.endEditing(true)
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
             return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.CANCEL_WASH
+        let parameter : [String:String] = [
+            "token": UserModel.sharedInstance().authToken!,
+            "wash_id": washID
+        ]
+        
+        APIManager.shared.requestPostURL(serviceURL, param: parameter as [String : AnyObject] , success: { (response) in
+            if let jsonObject = response.result.value as? [String:AnyObject] {
+                print(jsonObject)
+                if let status = jsonObject["status"] as? Int{
+                    if status == 200{
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+            }
+        }) { (error) in
+            print(error)
         }
     }
     
-    func add_Pin(_ lat : Double , _ lng : Double){
-        let position = CLLocationCoordinate2DMake(lat,lng)
-        let marker = GMSMarker(position: position)
-        marker.map = mapView
+    func callStartJobAPI() {
+        self.view.endEditing(true)
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
+            return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.START_WASH
+        let parameter : [String:String] = [
+            "token": UserModel.sharedInstance().authToken!,
+            "wash_id": washID
+        ]
+        
+        APIManager.shared.requestPostURL(serviceURL, param: parameter as [String : AnyObject] , success: { (response) in
+            if let jsonObject = response.result.value as? [String:AnyObject] {
+                print(jsonObject)
+                if let status = jsonObject["status"] as? Int{
+                    if status == 200{
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+            }
+        }) { (error) in
+            print(error)
+        }
     }
     
+    //MARK:- Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toPhoto"{
             let vc = segue.destination as! VehiclePhotoSubmissionVC
             vc.isComeFrom = sender as! String
+            vc.washID = self.washID
+        }else if segue.identifier == "toChat"{
+            let vc = segue.destination as! ChatWashVC
+            vc.booking_id = washID
+            vc.custName = username
+            vc.cust_id = user_id
         }
     }
     
 }
 
-extension ConfWasherBookingVC: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        guard status == .authorizedWhenInUse else {
-            return
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.first else {
-            return
-        }
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        
-        let camera = GMSCameraPosition.camera(withLatitude: center.latitude,
-                                              longitude: center.longitude,
-                                              zoom: Float(15))
-        
-        mapView.camera = camera
-        add_Pin(center.latitude, center.longitude)
-        locationManager.stopUpdatingLocation()
-    }
-    
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("error:: (error)")
-    }
-    
-}
