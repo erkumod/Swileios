@@ -185,6 +185,10 @@ class Booking_washer_VC: Main {
                 destVC.washID = "\(washID)"
             }
             
+            if let unread_message_washer = dictData["unread_message_washer"] as? [[String:AnyObject]] {
+                destVC.unreadCnt = unread_message_washer.count
+            }
+            
         }else if segue.identifier == "toAvailable" {
             let dictData = arrAvailableList[sender as! Int]
             

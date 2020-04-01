@@ -163,7 +163,8 @@ class LoginVC: Main {
                                 UserModel.sharedInstance().user_type = user["user_type"] as? String
                                 
                                 UserModel.sharedInstance().synchroniseData()
-            
+                                (UIApplication.shared.delegate as? AppDelegate)?.callAddTokenAPI()
+                                (UIApplication.shared.delegate as? AppDelegate)?.callCheckWasherAPI()
                                 (UIApplication.shared.delegate as? AppDelegate)?.callProfileInfoAPI()
                                 (UIApplication.shared.delegate as? AppDelegate)?.ChangeToHome()
                             } else {

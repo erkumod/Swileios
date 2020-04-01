@@ -18,6 +18,7 @@ class SideMenuVC : UIViewController {
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var tblVeiwSideMenu: UITableView!
     
+    @IBOutlet weak var vwRightSwipe: UIView!
     @IBOutlet weak var ivRightSwipe: UIImageView!
     @IBOutlet weak var btnSwipe: UIButton!
     
@@ -36,6 +37,10 @@ class SideMenuVC : UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setProfileData()
+    }
+    
     func setProfileData() {
         if UserModel.sharedInstance().profile_image != nil{
             ivUserImage.kf.setImage(with: URL(string: "\(Constant.PHOTOURL)\(UserModel.sharedInstance().profile_image!)"))
@@ -51,9 +56,13 @@ class SideMenuVC : UIViewController {
             self.ivRightSwipe.addGestureRecognizer(swipeRight)
             
             ivRightSwipe.isHidden = false
+            btnSwipe.isHidden = false
+            vwRightSwipe.backgroundColor = UIColor(red: 78/255, green: 184/255, blue: 245/255, alpha: 1.0)
         }else {
             arrOptions = ["Wallet", "My Vehicles", "Rewards","Bookings", "Notifications", "Help Center","Join us"]
             ivRightSwipe.isHidden = true
+            btnSwipe.isHidden = true
+            vwRightSwipe.backgroundColor = UIColor.white
         }
     }
     

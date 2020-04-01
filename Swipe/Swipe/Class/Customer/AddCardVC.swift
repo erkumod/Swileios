@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Stripe
 
 class AddCardVC: Main, UIPickerViewDataSource  {
 
@@ -167,33 +168,57 @@ class AddCardVC: Main, UIPickerViewDataSource  {
             card_status = "Not Primary"
         }
         
-        let serviceURL = Constant.WEBURL + Constant.API.VIEW_CARD
         
-        let parameter : [String:String] = [
-            "token": UserModel.sharedInstance().authToken!,
-            "card_no": tfCardNumber.text!,
-            "expiry_month": tfExpiry.text!,
-            "expiry_year": tfExpiry.text!,
-            "name": tfName.text!,
-            "type": status,
-            "status": card_status,
-            "primary": "\(primary)"
-        ]
         
-        print(parameter)
-        APIManager.shared.requestPostURL(serviceURL, param: parameter as [String : AnyObject] , success: { (response) in
-            if let jsonObject = response.result.value as? [String:AnyObject] {
-                print(jsonObject)
-                if let status = jsonObject["status"] as? Int{
-                    if status == 200{
-                        self.navigationController?.popViewController(animated: true)
+        let stripeCard = STPCard()
+        
+        // Send the card info to Strip to get the token
+        stripeCard.number = "\(tfCardNumber.text!)"
+        stripeCard.cvc = "\(tfCVV.text!)"
+        
+        let mnth = self.selectedMonth
+        stripeCard.expMonth = UInt(mnth)
+        
+        let year = self.selectedYear
+        stripeCard.expYear = UInt(year)
+        
+        STPAPIClient.shared().createToken(with: stripeCard, completion: { (token, error) -> Void in
+            
+            if error == nil{
+        
+                let serviceURL = Constant.WEBURL + Constant.API.VIEW_CARD
+                let parameter : [String:String] = [
+                    "token": UserModel.sharedInstance().authToken!,
+                    "card_no": self.tfCardNumber.text!,
+                    "expiry_month": "\(self.selectedMonth)",
+                    "expiry_year": "\(self.selectedYear)",
+                    "name": self.tfName.text!,
+                    "type": self.status,
+                    "status": card_status,
+                    "stripe_card_id": "\(token!.tokenId)",
+                    "primary": "\(primary)"
+                ]
+                
+                print(parameter)
+                APIManager.shared.requestPostURL(serviceURL, param: parameter as [String : AnyObject] , success: { (response) in
+                    if let jsonObject = response.result.value as? [String:AnyObject] {
+                        print(jsonObject)
+                        if let status = jsonObject["status"] as? Int{
+                            if status == 200{
+                                self.navigationController?.popViewController(animated: true)
+                            }
+                            
+                        }
                     }
-                    
+                }) { (error) in
+                    print(error)
                 }
+                
+            }else {
+                self.view.makeToast(error.debugDescription)
             }
-        }) { (error) in
-            print(error)
-        }
+                
+        })
     }
     
 }

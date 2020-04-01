@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManager
 
 class RightCell : UITableViewCell{
     @IBOutlet weak var lblMsg: UILabel!
@@ -26,6 +27,9 @@ class ChatCustVC : Main {
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var tblChat: UITableView!
     
+    @IBOutlet weak var cnsBottomTV: NSLayoutConstraint!
+    @IBOutlet weak var cnsHeightTblChat: NSLayoutConstraint!
+    
     var booking_id = ""
     var washer_id = ""
     var washerName = ""
@@ -39,7 +43,23 @@ class ChatCustVC : Main {
         lblName.text = washerName
         timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(timerRun), userInfo: nil, repeats: true)
         
+       // IQKeyboardManager.shared().isEnabled = false
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatCustVC.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatCustVC.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+//        tblChat.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
+        
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        IQKeyboardManager.shared().isEnabled = true
+    }
+    
+//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+//        cnsHeightTblChat.constant = tblChat.contentSize.height
+//    }
     
     override func viewWillDisappear(_ animated: Bool) {
         if timer != nil{
@@ -49,6 +69,31 @@ class ChatCustVC : Main {
         }
     }
     
+    @objc func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            
+            DispatchQueue.main.async {
+                if self.arrDictChat.count > 0 {
+                    self.tblChat.scrollToRow(at: IndexPath(row: self.arrDictChat.count - 1, section: 0), at: .bottom, animated: true)
+                }
+                self.cnsBottomTV.constant = keyboardSize.height
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            
+            DispatchQueue.main.async {
+                self.tblChat.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                self.cnsBottomTV.constant = 0
+                self.view.layoutIfNeeded()
+            }
+            
+        }
+    }
+   
     @objc func timerRun() {
         callGetMessageAPI()
     }
@@ -109,7 +154,8 @@ class ChatCustVC : Main {
         
         let parameter : [String:String] = [
             "booking_id": booking_id,
-            "token":UserModel.sharedInstance().authToken!
+            "token":UserModel.sharedInstance().authToken!,
+            "user_type": "user"
         ]
         
         print(parameter)
@@ -121,6 +167,8 @@ class ChatCustVC : Main {
                         if let data = jsonObject["messageRes"] as? [[String:AnyObject]], data.count > 0{
                             self.arrDictChat = data
                             self.tblChat.reloadData()
+                            
+                            self.tblChat.scrollToRow(at: IndexPath(row: data.count - 1, section: 0), at: .bottom, animated: true)
                         }else{
                             self.arrDictChat.removeAll()
                             self.tblChat.reloadData()
@@ -133,14 +181,12 @@ class ChatCustVC : Main {
             print(error)
         }
     }
-
 }
 
 extension ChatCustVC : UITableViewDelegate, UITableViewDataSource{
     
-  
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
         return arrDictChat.count
     }
     
@@ -181,7 +227,6 @@ extension ChatCustVC : UITableViewDelegate, UITableViewDataSource{
                 
             }
             
-            
             return leftCell
         }else{
             
@@ -198,6 +243,12 @@ extension ChatCustVC : UITableViewDelegate, UITableViewDataSource{
                 df.timeZone = TimeZone.current
                 rightCell.lblTime.text = df.string(from: parsedStartDate!)
                 
+            }
+            
+            if let flag = arrDictChat[indexPath.row]["washer_flag"] as? String, flag == "read" {
+                rightCell.ivTick.image = UIImage(named: "read")
+            }else {
+                rightCell.ivTick.image = UIImage(named: "unread")
             }
             
             

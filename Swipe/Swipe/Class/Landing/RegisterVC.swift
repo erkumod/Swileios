@@ -21,6 +21,8 @@ class RegisterVC: Main {
     
     @IBOutlet weak var btnPass: UIButton!
     @IBOutlet weak var btnRePass: UIButton!
+    
+    //MARK:- Global Variables
     var togglePass = false
     var toggleRePass = false
     
@@ -30,11 +32,7 @@ class RegisterVC: Main {
         
     }
     
-
-    
-    
-    
-    
+    //MARK:- Button Actions
     @IBAction func btnBack_Action(_ sender: UIButton) {
         self.view.endEditing(true)
         self.navigationController?.popViewController(animated: true)

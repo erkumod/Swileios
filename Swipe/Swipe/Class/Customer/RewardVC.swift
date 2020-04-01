@@ -174,10 +174,20 @@ class RewardVC: Main {
                         
                     }
                     
-                    if let terms = jsonObject["terms"] as? [String] {
+                    if var terms = jsonObject["terms"] as? [String] {
                         print(terms)
-                        let strTerms = terms.joined(separator: "\n")
-                        self.lblTerms.text = strTerms
+                        var newStr = ""
+                        for i in 0..<terms.count {
+                            newStr = "\(newStr)\u{2022} \(terms[i])\n"
+                        }
+                        
+                        let paragraphStyle = NSMutableParagraphStyle()
+                        paragraphStyle.lineSpacing = 8
+                        let attrString = NSMutableAttributedString(string: newStr)
+                        attrString.addAttribute(.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+                        
+//                        let strTerms = terms.joined(separator: "\n")
+                        self.lblTerms.attributedText = attrString
                     }
                 }
             }
@@ -207,7 +217,7 @@ class RewardVC: Main {
         }
         
     }
-    
+
 }
 extension RewardVC : UIScrollViewDelegate {
     
@@ -266,15 +276,19 @@ extension RewardVC : UICollectionViewDelegate, UICollectionViewDataSource, UICol
                     cell.lblOff.text = "$3\nOFF"
                     if booking_count >= 4 {
                         cell.lblOff.backgroundColor = UIColor(red: 255/255, green: 193/255, blue: 7/255, alpha: 1.0)
+                        cell.lblOff.textColor = UIColor.black
                     }else {
                         cell.lblOff.backgroundColor = UIColor.white
+                        cell.lblOff.textColor = UIColor.lightGray
                     }
                 }else {
                     cell.lblOff.text = "$7\nOFF"
                     if booking_count >= 8 {
                         cell.lblOff.backgroundColor = UIColor(red: 255/255, green: 193/255, blue: 7/255, alpha: 1.0)
+                        cell.lblOff.textColor = UIColor.black
                     }else {
                         cell.lblOff.backgroundColor = UIColor.white
+                        cell.lblOff.textColor = UIColor.lightGray
                     }
                 }
                 

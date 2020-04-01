@@ -10,43 +10,23 @@ import UIKit
 import IQKeyboardManager
 import GoogleMaps
 import GooglePlaces
-//import GoogleSignIn
-//import FBSDKLoginKit
+import GoogleSignIn
+import FBSDKLoginKit
+import UserNotifications
+import Stripe
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
-
+    var deviceTokenString: String!
+    var navigationController : UINavigationController?
+    var storyboard:UIStoryboard? = nil
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        callProfileInfoAPI()
-        callLoginAPI()
-        
-        GMSServices.provideAPIKey("AIzaSyDU1bIWOnYJMYCS7rvLoSRonFPdozy7QRc")
-        GMSPlacesClient.provideAPIKey("AIzaSyDU1bIWOnYJMYCS7rvLoSRonFPdozy7QRc")
-        
-        UserModel.sharedInstance().selectedVehicleName = nil
-        UserModel.sharedInstance().selectedVehicleID = nil
-        UserModel.sharedInstance().selectedCardID = nil
-        UserModel.sharedInstance().selectedCardName = nil
-        UserModel.sharedInstance().selectedPromoCode = nil
-        UserModel.sharedInstance().selectedPromoType = nil
-        UserModel.sharedInstance().synchroniseData()
-        
-        LocationManager.sharedInstance.startLocationUpdating()
-        LocationManager.sharedInstance.beginLocationUpdating()
-        IQKeyboardManager.shared().isEnabled = true
-        
-        if UserModel.sharedInstance().user_id == nil{
-            ChangeToLogin()
-        }else{
-            ChangeToHome()
-        }
-        
-        return true
+
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -74,196 +54,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-    func ChangeToLogin() {
-        let homeSB = UIStoryboard(name: "Main", bundle: nil)
-        let desiredViewController = homeSB.instantiateViewController(withIdentifier: "MainNavigation") as! UINavigationController
-        let appdel = UIApplication.shared.delegate as! AppDelegate
-        let snapshot:UIView = (appdel.window?.snapshotView(afterScreenUpdates: true))!
-        desiredViewController.view.addSubview(snapshot)
-        appdel.window?.rootViewController = desiredViewController;
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        UIView.animate(withDuration: 0.3, animations: {() in
-            snapshot.layer.opacity = 0;
-            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5);
-        }, completion: {
-            (value: Bool) in
-            snapshot.removeFromSuperview();
-        });
-    }
-    
-    func ChangeToHome() {
-        let homeSB = UIStoryboard(name: "Main", bundle: nil)
-        let desiredViewController = homeSB.instantiateViewController(withIdentifier: "SideMenuNavigation") as! SideMenuNavigation
-        let appdel = UIApplication.shared.delegate as! AppDelegate
-        let snapshot:UIView = (appdel.window?.snapshotView(afterScreenUpdates: true))!
-        desiredViewController.view.addSubview(snapshot)
-        appdel.window?.rootViewController = desiredViewController;
-        
-        UIView.animate(withDuration: 0.3, animations: {() in
-            snapshot.layer.opacity = 0;
-            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5);
-        }, completion: {
-            (value: Bool) in
-            snapshot.removeFromSuperview();
-        });
-    }
-    
-    func ChangeToWasher() {
-        let homeSB = UIStoryboard(name: "Main", bundle: nil)
-        let desiredViewController = homeSB.instantiateViewController(withIdentifier: "WasherNavigation") as! WasherNavigation
-        let appdel = UIApplication.shared.delegate as! AppDelegate
-        let snapshot:UIView = (appdel.window?.snapshotView(afterScreenUpdates: true))!
-        desiredViewController.view.addSubview(snapshot)
-        appdel.window?.rootViewController = desiredViewController;
-        
-        UIView.animate(withDuration: 0.3, animations: {() in
-            snapshot.layer.opacity = 0;
-            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5);
-        }, completion: {
-            (value: Bool) in
-            snapshot.removeFromSuperview();
-        });
-    }
-    
-    func callLoginAPI() {
-        guard NetworkManager.shared.isConnectedToNetwork() else {
-            return
+        if url.description.hasPrefix("fb") {
+            return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation])
         }
-        
-        let serviceURL = Constant.WEBURL + Constant.API.LOGIN
-        
-        if UserModel.sharedInstance().email == nil{
-            return
-        }
-        
-        if UserModel.sharedInstance().password == nil{
-            return
-        }
-        
-        let parameter : [String:AnyObject] = ["email":UserModel.sharedInstance().email! as AnyObject , "password" : UserModel.sharedInstance().password! as AnyObject]
-        
-        APIManager.shared.requestNoLoaderPostURL(serviceURL, param: parameter , success: { (response) in
-            if let jsonObject = response.result.value as? [String:AnyObject] {
-                if let status = jsonObject["success"] as? Bool{
-                    if !status{
-                        print("Failed")
-                    }else{
-                        print(jsonObject)
-                        if let data = jsonObject["data"] as? [String:AnyObject] {
-                            if let user = data["user"] as? [String:AnyObject] {
-                                UserModel.sharedInstance().user_id = "\(user["id"] as! Int)"
-                                UserModel.sharedInstance().authToken = data["token"] as? String
-                                UserModel.sharedInstance().synchroniseData()
-                                self.callProfileInfoAPI()
-                            }
-                        }
-                    }
-                }
-            }
+        if url.description.hasPrefix("google"){
             
-        }) { (error) in
-            print(error)
-        }
-    }
-    
-    func callProfileInfoAPI() {
-        guard NetworkManager.shared.isConnectedToNetwork() else {
-//            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
-            return
-        }
-        if UserModel.sharedInstance().authToken == nil{
-            return
-        }
-        
-        let serviceURL = Constant.WEBURL + Constant.API.PROFILE_INFO
-        
-        let parameter  = "?token=\(UserModel.sharedInstance().authToken!)"
-        
-        APIManager.shared.requestNoLoaderGetURL(serviceURL + parameter, success: { (response) in
-            if let jsonObject = response.result.value as? [String:AnyObject] {
-                
-                if let profile = jsonObject["profile"] as? [String:AnyObject] {
-                    UserModel.sharedInstance().upvote_count = "\(profile["upvote_count"] as! Int)"
-                    UserModel.sharedInstance().downvote_count = "\(profile["downvote_count"] as! Int)"
-                    UserModel.sharedInstance().dob = profile["dob"] as? String
-                    UserModel.sharedInstance().gender = profile["gender"] as? String
-                    
-                    if let car = profile["primary_car"] as? [String:AnyObject], !car.isEmpty{
-                        UserModel.sharedInstance().primary_car = car
-                    }
-                    
-                    if let card = profile["primary_card"] as? [String:AnyObject], !card.isEmpty{
-                        UserModel.sharedInstance().primary_card = card
-                        UserModel.sharedInstance().user_id = card["user_id"] as? String
-                    }
-                    
-                    UserModel.sharedInstance().email = profile["email"] as? String
-                    UserModel.sharedInstance().mobileNo = profile["mobile"] as? String
-                    UserModel.sharedInstance().country_code = profile["country_code"] as? String
-                    UserModel.sharedInstance().name = profile["name"] as? String
-                    UserModel.sharedInstance().profile_image = profile["profile_pic"] as? String
-                    UserModel.sharedInstance().synchroniseData()
-                    NotificationCenter.default.post(name: Notification.Name("profile_updated"), object: nil)
-                }
-            }
-        }) { (error) in
-            print(error)
-        }
-    }
-    
-//    check_washer
-    func callCheckWasherAPI() {
-        guard NetworkManager.shared.isConnectedToNetwork() else {
-            //            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
-            return
-        }
-        if UserModel.sharedInstance().authToken == nil{
-            return
-        }
-        
-        let serviceURL = Constant.WEBURL + Constant.API.CHECK_WASHER
-        
-        let parameter  = "?token=\(UserModel.sharedInstance().authToken!)"
-        
-        APIManager.shared.requestNoLoaderGetURL(serviceURL + parameter, success: { (response) in
-            if let jsonObject = response.result.value as? [String:AnyObject] {
-                if let status = jsonObject["status"] as? Int, status == 200 {
-                    if let isWasher = jsonObject["washer"] as? Int, isWasher == 1 {
-                        UserModel.sharedInstance().isWasher = "1"
-                    }else {
-                        UserModel.sharedInstance().isWasher = "0"
-                    }
-                }else {
-                    UserModel.sharedInstance().isWasher = "0"
-                }
-                UserModel.sharedInstance().synchroniseData()
-            }else {
-                UserModel.sharedInstance().isWasher = "0"
-                UserModel.sharedInstance().synchroniseData()
-            }
-        }) { (error) in
-            print(error)
-        }
-    }
-}
+            return (GIDSignIn.sharedInstance()?.handle(url))!
+            
 
-extension UIApplication {
-    var statusBarUIView: UIView? {
-        if #available(iOS 13.0, *) {
-            let tag = 38482458
-            if let statusBar = keyWindow?.viewWithTag(tag) {
-                return statusBar
-            } else {
-                let statusBarView = UIView(frame: UIApplication.shared.statusBarFrame)
-                statusBarView.tag = tag
-                statusBarView.backgroundColor = AppColors.cyan
-                keyWindow?.addSubview(statusBarView)
-                return statusBarView
-            }
-        } else if responds(to: Selector(("statusBar"))) {
-            return value(forKey: "statusBar") as? UIView
-        } else {
-            return nil
         }
+        return true
     }
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+
+        if url.description.hasPrefix("fb") {
+           return FBSDKApplicationDelegate.sharedInstance().application(application,
+            open: url,
+            sourceApplication: sourceApplication,
+            annotation: annotation)
+        }
+        
+        if url.description.hasPrefix("google"){
+            
+            return GIDSignIn.sharedInstance().handle(url)
+            
+        }
+        return true
+        
+            
+    }
+    
+        
 }

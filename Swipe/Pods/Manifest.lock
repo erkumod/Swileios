@@ -1,30 +1,67 @@
 PODS:
   - Alamofire (4.9.1)
-  - GoogleMaps (3.7.0):
-    - GoogleMaps/Maps (= 3.7.0)
-  - GoogleMaps/Base (3.7.0)
-  - GoogleMaps/Maps (3.7.0):
+  - AppAuth (1.3.0):
+    - AppAuth/Core (= 1.3.0)
+    - AppAuth/ExternalUserAgent (= 1.3.0)
+  - AppAuth/Core (1.3.0)
+  - AppAuth/ExternalUserAgent (1.3.0)
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
+  - FBSDKCoreKit (4.38.1):
+    - Bolts (~> 1.9)
+  - FBSDKLoginKit (4.38.1):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.38.1):
+    - FBSDKCoreKit
+  - GoogleMaps (3.6.0):
+    - GoogleMaps/Maps (= 3.6.0)
+  - GoogleMaps/Base (3.6.0)
+  - GoogleMaps/Maps (3.6.0):
     - GoogleMaps/Base
-  - GooglePlaces (3.7.0):
-    - GoogleMaps/Base (= 3.7.0)
-  - IHProgressHUD (0.1.4)
+  - GooglePlaces (3.6.0):
+    - GoogleMaps/Base (= 3.6.0)
+  - GoogleSignIn (5.0.2):
+    - AppAuth (~> 1.2)
+    - GTMAppAuth (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GTMAppAuth (1.0.0):
+    - AppAuth/Core (~> 1.0)
+    - GTMSessionFetcher (~> 1.1)
+  - GTMSessionFetcher (1.3.0):
+    - GTMSessionFetcher/Full (= 1.3.0)
+  - GTMSessionFetcher/Core (1.3.0)
+  - GTMSessionFetcher/Full (1.3.0):
+    - GTMSessionFetcher/Core (= 1.3.0)
+  - IHProgressHUD (0.1.5)
   - IQKeyboardManager (6.5.4)
   - Kingfisher (4.10.1)
   - KMPlaceholderTextView (1.4.0)
   - SkyFloatingLabelTextField (3.8.0)
+  - Stripe (5.1.4):
+    - Stripe/Core (= 5.1.4)
+  - Stripe/Core (5.1.4)
   - SVProgressHUD (2.2.5)
   - Toast-Swift (4.0.1)
   - TransitionButton (0.5.2)
 
 DEPENDENCIES:
   - Alamofire
+  - FBSDKCoreKit (~> 4.38.0)
+  - FBSDKLoginKit (~> 4.38.0)
+  - FBSDKShareKit (~> 4.38.0)
   - GoogleMaps
   - GooglePlaces
-  - IHProgressHUD
+  - GoogleSignIn
+  - IHProgressHUD (from `https://github.com/Swiftify-Corp/IHProgressHUD.git`)
   - IQKeyboardManager
   - Kingfisher (~> 4.0)
   - KMPlaceholderTextView (~> 1.4.0)
   - SkyFloatingLabelTextField (~> 3.0)
+  - Stripe (~> 5.1.4)
   - SVProgressHUD
   - Toast-Swift (~> 4.0.0)
   - TransitionButton
@@ -32,30 +69,56 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - AppAuth
+    - Bolts
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - FBSDKShareKit
     - GoogleMaps
     - GooglePlaces
-    - IHProgressHUD
+    - GoogleSignIn
+    - GTMAppAuth
+    - GTMSessionFetcher
     - IQKeyboardManager
     - Kingfisher
     - KMPlaceholderTextView
     - SkyFloatingLabelTextField
+    - Stripe
     - SVProgressHUD
     - Toast-Swift
     - TransitionButton
 
+EXTERNAL SOURCES:
+  IHProgressHUD:
+    :git: https://github.com/Swiftify-Corp/IHProgressHUD.git
+
+CHECKOUT OPTIONS:
+  IHProgressHUD:
+    :commit: 894be798eb94e2b0b23806e50f6571407710b015
+    :git: https://github.com/Swiftify-Corp/IHProgressHUD.git
+
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
-  GoogleMaps: 55da829c68aa931f3ae982b9e341cc2f3d89c587
-  GooglePlaces: a62077320f9d64239245af63aa1aa136393ebeb6
-  IHProgressHUD: a01846bfbb581c761c79747c67b08387c3bdfae3
+  AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  FBSDKCoreKit: 8d47857400e2f5bdea697a80daff882e91c84ef6
+  FBSDKLoginKit: 4621c690d9dd8628031a4791497062183ea34b0d
+  FBSDKShareKit: 6ffe22f0a0618eb7424d4104ab0ef3ce9643d42a
+  GoogleMaps: 82f8fe307193bb4de6ef6bf9e88f1d624b718f9d
+  GooglePlaces: 1b9d29cf3e164903d873600f511f42acdfe85294
+  GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
+  GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
+  GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
+  IHProgressHUD: 55de0cd62cd65832e0d0047324ab0ca59d0bba11
   IQKeyboardManager: 72b359cd7e777e3a984cedbe05f8da45320cbb63
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   KMPlaceholderTextView: 2206c3df39979e9396e2d96fa9f427a8951121b0
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
+  Stripe: 6864be95b09092f05526bc2e0a50804bc556aa0d
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: 274cfed4eb1ec0a90a30c5222f9e6e9654c3ee33
+PODFILE CHECKSUM: 879c8bbaeff52c2cdb28f232ec958e20c68c8b68
 
 COCOAPODS: 1.8.4

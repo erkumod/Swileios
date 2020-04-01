@@ -99,7 +99,7 @@ class HomeVC: Main {
             let statusbarView = UIView(frame: app.statusBarFrame)
             statusbarView.backgroundColor = AppColors.cyan
             app.statusBarUIView?.addSubview(statusbarView)
-            
+            UIApplication.shared.keyWindow?.addSubview(statusbarView)
         } else {
             let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
             statusBar?.backgroundColor = AppColors.cyan
@@ -111,6 +111,19 @@ class HomeVC: Main {
         (UIApplication.shared.delegate as! AppDelegate).callProfileInfoAPI()
         (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
         (UIApplication.shared.delegate as! AppDelegate).callCheckWasherAPI()
+        
+        UIApplication.shared.statusBarUIView?.backgroundColor = .red
+//        if #available(iOS 13.0, *) {
+//            let app = UIApplication.shared
+//
+//            let statusbarView = UIView(frame: app.statusBarFrame)
+//            statusbarView.backgroundColor = AppColors.cyan
+//            app.statusBarUIView?.addSubview(statusbarView)
+//
+//        } else {
+//            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+//            statusBar?.backgroundColor = AppColors.cyan
+//        }
     }
     
     //MARK:- Selector Methods
@@ -122,7 +135,8 @@ class HomeVC: Main {
         }else if UserModel.sharedInstance().primary_car != nil {
             let brand_name = UserModel.sharedInstance().primary_car!["car_brand_name"] as! String
             let model_name = UserModel.sharedInstance().primary_car!["car_model_name"] as! String
-            lblPrimaryVehicle.text = "\(brand_name) \(model_name)"
+            let vehicleNo = UserModel.sharedInstance().primary_car!["vehicle_no"] as! String
+            lblPrimaryVehicle.text = "\(brand_name) \(model_name) (\(vehicleNo))"
         }else {
             lblPrimaryVehicle.text = "Vehicle"
         }

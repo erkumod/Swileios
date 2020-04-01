@@ -47,19 +47,25 @@ class ViewDeleteCardVC: Main {
             
             let exp_month = dictData["expiry_month"] as! String
             let exp_year = dictData["expiry_year"] as! String
-            lblExp.text = "\(exp_month)/\(exp_year)"
             
+            if exp_month.contains("/"){
+                lblExp.text = "\(exp_month)"
+            }else{
+                lblExp.text = "\(exp_month)/\(exp_year)"
+            }
             
             if dictData["primary"] as! String == "1"{
                 swtPrimary.setOn(true, animated: true)
                 swtPrimary.isUserInteractionEnabled = false
                 
                 lblPrimaryStatus.text = "Primary"
+                lblPrimaryStatus.isHidden = false
             }else{
                 swtPrimary.setOn(false, animated: true)
                 swtPrimary.isUserInteractionEnabled = true
                 
                 lblPrimaryStatus.text = "Not Primary"
+                lblPrimaryStatus.isHidden = true
             }
             
             lblCardNo.text = dictData["card_no"] as? String

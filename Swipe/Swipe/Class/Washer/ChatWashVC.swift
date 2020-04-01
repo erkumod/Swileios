@@ -21,6 +21,7 @@ class LeftWashCell : UITableViewCell{
 
 class ChatWashVC : Main {
     
+    @IBOutlet weak var cnsBottomTV: NSLayoutConstraint!
     @IBOutlet weak var tfMessage: CustomTextField!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var tblChat: UITableView!
@@ -38,6 +39,10 @@ class ChatWashVC : Main {
         lblName.text = custName
         timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(timerRun), userInfo: nil, repeats: true)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatWashVC.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatWashVC.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -45,6 +50,31 @@ class ChatWashVC : Main {
             if timer.isValid{
                 timer.invalidate()
             }
+        }
+    }
+    
+    @objc func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            
+            DispatchQueue.main.async {
+                if self.arrDictChat.count > 0 {
+                    self.tblChat.scrollToRow(at: IndexPath(row: self.arrDictChat.count - 1, section: 0), at: .bottom, animated: true)
+                }
+                self.cnsBottomTV.constant = keyboardSize.height
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            
+            DispatchQueue.main.async {
+                self.tblChat.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                self.cnsBottomTV.constant = 0
+                self.view.layoutIfNeeded()
+            }
+            
         }
     }
     
@@ -108,7 +138,8 @@ class ChatWashVC : Main {
         
         let parameter : [String:String] = [
             "booking_id": booking_id,
-            "token":UserModel.sharedInstance().authToken!
+            "token":UserModel.sharedInstance().authToken!,
+            "user_type": "washer"
         ]
         
         print(parameter)
@@ -120,6 +151,8 @@ class ChatWashVC : Main {
                         if let data = jsonObject["messageRes"] as? [[String:AnyObject]], data.count > 0{
                             self.arrDictChat = data
                             self.tblChat.reloadData()
+                            
+                            self.tblChat.scrollToRow(at: IndexPath(row: data.count - 1, section: 0), at: .bottom, animated: true)
                         }else{
                             self.arrDictChat.removeAll()
                             self.tblChat.reloadData()
@@ -195,6 +228,13 @@ extension ChatWashVC : UITableViewDelegate, UITableViewDataSource{
                 df.timeZone = TimeZone.current
                 RightWashCell.lblTime.text = df.string(from: parsedStartDate!)
             }
+            
+            if let flag = arrDictChat[indexPath.row]["flag"] as? String, flag == "read" {
+                RightWashCell.ivTick.image = UIImage(named: "read_white")
+            }else {
+                RightWashCell.ivTick.image = UIImage(named: "unread_white")
+            }
+            
             return RightWashCell
         }
         

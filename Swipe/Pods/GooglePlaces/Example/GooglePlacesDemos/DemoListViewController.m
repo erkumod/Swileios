@@ -86,21 +86,16 @@ static CGFloat kEdgeBuffer = 8;
   GMSAutocompleteBoundsMode boundsMode = kGMSAutocompleteBoundsModeBias;
   CLLocationCoordinate2D northEast = kCLLocationCoordinate2DInvalid;
   CLLocationCoordinate2D southWest = kCLLocationCoordinate2DInvalid;
-  GMSAutocompleteFilter *autocompleteFilter = [self autcompleteFilter];
 
   // Check for restriction bounds settings.
   if (_restrictionBoundsMap[@"Kansas"].on) {
     boundsMode = kGMSAutocompleteBoundsModeRestrict;
     northEast = CLLocationCoordinate2DMake(39.0, -95.0);
     southWest = CLLocationCoordinate2DMake(37.5, -100.0);
-    autocompleteFilter.origin = [[CLLocation alloc] initWithLatitude:northEast.latitude
-                                                           longitude:northEast.longitude];
   } else if (_restrictionBoundsMap[@"Canada"].on) {
     boundsMode = kGMSAutocompleteBoundsModeRestrict;
     northEast = CLLocationCoordinate2DMake(70.0, -60.0);
     southWest = CLLocationCoordinate2DMake(50.0, -140.0);
-    autocompleteFilter.origin = [[CLLocation alloc] initWithLatitude:northEast.latitude
-                                                           longitude:northEast.longitude];
   }
 
   // Create view controller with the autocomplete filters, bounds and selected place fields.
@@ -108,7 +103,7 @@ static CGFloat kEdgeBuffer = 8;
       [demo createViewControllerWithAutocompleteBoundsMode:boundsMode
                          autocompleteBoundsNorthEastCorner:northEast
                          autocompleteBoundsSouthWestCorner:southWest
-                                        autocompleteFilter:autocompleteFilter
+                                        autocompleteFilter:[self autcompleteFilter]
                                                placeFields:[self selectedPlaceFields]];
   [self.navigationController pushViewController:viewController animated:YES];
 }

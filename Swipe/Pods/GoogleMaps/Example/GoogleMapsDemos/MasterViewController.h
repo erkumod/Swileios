@@ -22,6 +22,6 @@
     UITableViewDataSource,
     UITableViewDelegate>
 
-@property(nonatomic, weak) DemoAppDelegate *appDelegate;
+@property(nonatomic, assign) DemoAppDelegate *appDelegate;
 
 @end

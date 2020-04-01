@@ -14,9 +14,14 @@ pod 'GoogleMaps'
 pod 'GooglePlaces'
 pod 'SkyFloatingLabelTextField', '~> 3.0'
 pod 'TransitionButton'
-pod 'IHProgressHUD'
+#pod 'IHProgressHUD'
+pod 'IHProgressHUD', :git => 'https://github.com/Swiftify-Corp/IHProgressHUD.git'
 pod 'Toast-Swift', '~> 4.0.0'
 pod 'SVProgressHUD'
-
+pod 'FBSDKCoreKit', '~>4.38.0'
+pod 'FBSDKLoginKit', '~>4.38.0'
+pod 'FBSDKShareKit', '~>4.38.0'
+pod 'GoogleSignIn'
+pod 'Stripe', '~> 5.1.4'
 
 end

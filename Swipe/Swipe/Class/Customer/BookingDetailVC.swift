@@ -49,9 +49,12 @@ class BookingDetailVC: Main {
     @IBOutlet weak var btnPendingCancelBooking: CustomButton!
     @IBOutlet weak var btnAcceptedCancelBooking: CustomButton!
     
+    
+    @IBOutlet weak var lblChatIndicator: CustomLabel!
+    
     //MARK:- Global Variables
     var isPromo = false
-    var washID = "", bookingStatus = "Accepted", bookingStartDate = "", bookingEndDate = "", vehicleName = "", vehicleType = "", address = "", promocode = "", farePrice = "", washerProfile = "", washerName = "", latitude = "", longitude = "", washerUpVoteCnt = 0, washerDownVoteCnt = 0, booking_Id = ""
+    var washID = "", bookingStatus = "Accepted", bookingStartDate = "", bookingEndDate = "", vehicleName = "", vehicleType = "", address = "", promocode = "", farePrice = "", washerProfile = "", washerName = "", latitude = "", longitude = "", washerUpVoteCnt = 0, washerDownVoteCnt = 0, booking_Id = "", unreadCnt = 0
     
     //MARK:- View Life Cycle Method
     override func viewDidLoad() {
@@ -62,6 +65,12 @@ class BookingDetailVC: Main {
         
         self.vwPopup.isHidden = true
         self.blurView.isHidden = true
+        
+        if unreadCnt == 0 {
+            lblChatIndicator.isHidden = true
+        }else {
+            lblChatIndicator.isHidden = false
+        }
         
         if bookingStartDate != "", bookingEndDate != "" {
             let df = DateFormatter()
@@ -185,6 +194,8 @@ class BookingDetailVC: Main {
     }
     
     @IBAction func btnChat_Action(_ sender: Any) {
+        unreadCnt = 0
+        lblChatIndicator.isHidden = true
         self.performSegue(withIdentifier: "toChat", sender: nil)
     }
     

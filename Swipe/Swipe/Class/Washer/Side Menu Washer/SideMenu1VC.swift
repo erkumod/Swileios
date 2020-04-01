@@ -32,6 +32,8 @@ class SideMenu1VC : UIViewController {
         super.viewDidLoad()
         setLayout()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.setData(notification:)), name: Notification.Name("profile_updated"), object: nil)
+        
         lblUpCnt.text = UserModel.sharedInstance().upvote_count
         lblDownCnt.text = UserModel.sharedInstance().downvote_count
         lblUserName.text = UserModel.sharedInstance().name
@@ -42,6 +44,21 @@ class SideMenu1VC : UIViewController {
         
         let swipeRight = UIPanGestureRecognizer(target: self, action: #selector(Swiped))
         self.ivRightSwipe.addGestureRecognizer(swipeRight)
+    }
+    
+    func setProfileData() {
+        lblUpCnt.text = UserModel.sharedInstance().upvote_count
+        lblDownCnt.text = UserModel.sharedInstance().downvote_count
+        lblUserName.text = UserModel.sharedInstance().name
+        
+        if UserModel.sharedInstance().profile_image != nil{
+            ivUserImage.kf.setImage(with: URL(string: "\(Constant.PHOTOURL)\(UserModel.sharedInstance().profile_image!)"))
+        }
+    }
+    
+    @objc func setData(notification: Notification) {
+        
+        setProfileData()
     }
     
     @objc func Swiped(gestureRecognizer: UIPanGestureRecognizer) -> Void {

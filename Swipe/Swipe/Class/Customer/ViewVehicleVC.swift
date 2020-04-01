@@ -152,7 +152,7 @@ extension ViewVehicleVC : UITableViewDelegate, UITableViewDataSource{
             self.tempDictData = self.arrCarData[indexPath.row]
             self.performSegue(withIdentifier: "toAdd", sender: "edit")
         }else{
-            UserModel.sharedInstance().selectedVehicleName = "\( (arrCarData[indexPath.row])["brand_name"] as! String ) \( (arrCarData[indexPath.row])["model_name"] as! String )"
+            UserModel.sharedInstance().selectedVehicleName = "\( (arrCarData[indexPath.row])["brand_name"] as! String ) \( (arrCarData[indexPath.row])["model_name"] as! String) (\((arrCarData[indexPath.row])["vehicle_no"] as! String))"
             UserModel.sharedInstance().selectedVehicleID = "\( (arrCarData[indexPath.row])["car_id"] as! Int )"
             UserModel.sharedInstance().synchroniseData()
             

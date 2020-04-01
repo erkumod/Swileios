@@ -41,6 +41,7 @@
 		1F66388023F80BDE00C7E311 /* HelpCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66387F23F80BDE00C7E311 /* HelpCenterVC.swift */; };
 		1F66388223F8100B00C7E311 /* JoinUsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66388123F8100B00C7E311 /* JoinUsVC.swift */; };
 		1F6F28CC23FD396100961EF9 /* ConfWasherBookingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6F28CB23FD396100961EF9 /* ConfWasherBookingVC.swift */; };
+		1F7955942428C1160092DA6D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F7955932428C1160092DA6D /* GoogleService-Info.plist */; };
 		1F812E572408F4AB00393A48 /* AvailWasherBookingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F812E562408F4AB00393A48 /* AvailWasherBookingVC.swift */; };
 		1FB3FF7E23EF1787002DB7C3 /* ViewVehicleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB3FF7D23EF1786002DB7C3 /* ViewVehicleVC.swift */; };
 		1FB9C58C240D0D47001B4EAF /* SwipeBoxDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9C58B240D0D47001B4EAF /* SwipeBoxDetailVC.swift */; };
@@ -86,7 +87,7 @@
 		1FE5BB982415001F003AC3D7 /* SetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BB972415001F003AC3D7 /* SetPasswordVC.swift */; };
 		1FE7E6A123F8466E00E7E402 /* BookingDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE7E6A023F8466E00E7E402 /* BookingDetailVC.swift */; };
 		1FFADE7423FFEC9F002BB455 /* RedemptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFADE7323FFEC9F002BB455 /* RedemptionVC.swift */; };
-		F57B7952F185B4D4DC751A87 /* Pods_Swipe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F8F6F8304E01AB97BDFEF5 /* Pods_Swipe.framework */; };
+		2D87C5E4F95F635AC4E062E2 /* Pods_Swipe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C530B3ABD7CB596C1C82735B /* Pods_Swipe.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +107,7 @@
 		1F1CCA142425487100C3A419 /* OTPVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVC.swift; sourceTree = "<group>"; };
 		1F2CB4A723FEF5AF0049067D /* Notification_WasherVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification_WasherVC.swift; sourceTree = "<group>"; };
 		1F2CB4A923FEF6BD0049067D /* SwipeBoxVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBoxVC.swift; sourceTree = "<group>"; };
+		1F33E9F2242933DF009A1A37 /* Swipe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swipe.entitlements; sourceTree = "<group>"; };
 		1F43877A23FBE9A2008BE798 /* SideMenu1VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenu1VC.swift; sourceTree = "<group>"; };
 		1F43877B23FBE9A2008BE798 /* WasherNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WasherNavigation.swift; sourceTree = "<group>"; };
 		1F43877E23FBED0B008BE798 /* Booking_washer_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booking_washer_VC.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 		1F66387F23F80BDE00C7E311 /* HelpCenterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterVC.swift; sourceTree = "<group>"; };
 		1F66388123F8100B00C7E311 /* JoinUsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinUsVC.swift; sourceTree = "<group>"; };
 		1F6F28CB23FD396100961EF9 /* ConfWasherBookingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfWasherBookingVC.swift; sourceTree = "<group>"; };
+		1F7955932428C1160092DA6D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1F812E562408F4AB00393A48 /* AvailWasherBookingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailWasherBookingVC.swift; sourceTree = "<group>"; };
 		1FB3FF7D23EF1786002DB7C3 /* ViewVehicleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewVehicleVC.swift; sourceTree = "<group>"; };
 		1FB4775A240E6BD4004E0087 /* Swipe_Bridge_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Swipe_Bridge_Header.h; sourceTree = "<group>"; };
@@ -182,9 +185,9 @@
 		1FE5BB972415001F003AC3D7 /* SetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPasswordVC.swift; sourceTree = "<group>"; };
 		1FE7E6A023F8466E00E7E402 /* BookingDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingDetailVC.swift; sourceTree = "<group>"; };
 		1FFADE7323FFEC9F002BB455 /* RedemptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedemptionVC.swift; sourceTree = "<group>"; };
-		27F8F6F8304E01AB97BDFEF5 /* Pods_Swipe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swipe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E8999F0CE26E53B7C56F1C3 /* Pods-Swipe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swipe.debug.xcconfig"; path = "Target Support Files/Pods-Swipe/Pods-Swipe.debug.xcconfig"; sourceTree = "<group>"; };
-		C0C38B4C6577A3E955348576 /* Pods-Swipe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swipe.release.xcconfig"; path = "Target Support Files/Pods-Swipe/Pods-Swipe.release.xcconfig"; sourceTree = "<group>"; };
+		45AFEF5CB8699846497AE2E7 /* Pods-Swipe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swipe.release.xcconfig"; path = "Target Support Files/Pods-Swipe/Pods-Swipe.release.xcconfig"; sourceTree = "<group>"; };
+		9A9FB2B96E2D057C029652D3 /* Pods-Swipe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swipe.debug.xcconfig"; path = "Target Support Files/Pods-Swipe/Pods-Swipe.debug.xcconfig"; sourceTree = "<group>"; };
+		C530B3ABD7CB596C1C82735B /* Pods_Swipe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swipe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,13 +195,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F57B7952F185B4D4DC751A87 /* Pods_Swipe.framework in Frameworks */,
+				2D87C5E4F95F635AC4E062E2 /* Pods_Swipe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00C41A4DBB154E00EB3715F7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C530B3ABD7CB596C1C82735B /* Pods_Swipe.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1F0AFABD23E9954A00923FAE /* Side Menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,8 +277,8 @@
 				1FFADE7323FFEC9F002BB455 /* RedemptionVC.swift */,
 				1F0F95902403EF2D00B135FB /* WasherProfileVC.swift */,
 				1F0C527D24041DAD00B4CFB9 /* WasherProfileDetailVC.swift */,
-				1F0C527F240420E700B4CFB9 /* BankAccountVC.swift */,
 				1F1CCA142425487100C3A419 /* OTPVC.swift */,
+				1F0C527F240420E700B4CFB9 /* BankAccountVC.swift */,
 				1F0C52812404343200B4CFB9 /* WasherStaticPagesVC.swift */,
 				1F43877923FBE9A2008BE798 /* Side Menu Washer */,
 			);
@@ -289,7 +300,7 @@
 				1FE388FC23E808430078BDE7 /* Swipe */,
 				1FE388FB23E808430078BDE7 /* Products */,
 				D3501DD471CB286533827C74 /* Pods */,
-				A4DDA9353F7D8A45291B80BB /* Frameworks */,
+				00C41A4DBB154E00EB3715F7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -304,6 +315,8 @@
 		1FE388FC23E808430078BDE7 /* Swipe */ = {
 			isa = PBXGroup;
 			children = (
+				1F33E9F2242933DF009A1A37 /* Swipe.entitlements */,
+				1F7955932428C1160092DA6D /* GoogleService-Info.plist */,
 				1FE3890F23E8222F0078BDE7 /* Font */,
 				1FE3892923E823430078BDE7 /* ThirdParty */,
 				1FE3891F23E823430078BDE7 /* Utility */,
@@ -411,19 +424,11 @@
 			path = Pickers;
 			sourceTree = "<group>";
 		};
-		A4DDA9353F7D8A45291B80BB /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				27F8F6F8304E01AB97BDFEF5 /* Pods_Swipe.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		D3501DD471CB286533827C74 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3E8999F0CE26E53B7C56F1C3 /* Pods-Swipe.debug.xcconfig */,
-				C0C38B4C6577A3E955348576 /* Pods-Swipe.release.xcconfig */,
+				9A9FB2B96E2D057C029652D3 /* Pods-Swipe.debug.xcconfig */,
+				45AFEF5CB8699846497AE2E7 /* Pods-Swipe.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -435,12 +440,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FE3890C23E808460078BDE7 /* Build configuration list for PBXNativeTarget "Swipe" */;
 			buildPhases = (
-				C795D2CE5976EBC8E0F93DB8 /* [CP] Check Pods Manifest.lock */,
+				0697A8DCF0854BEA9E8050D9 /* [CP] Check Pods Manifest.lock */,
 				1FE388F623E808430078BDE7 /* Sources */,
 				1FE388F723E808430078BDE7 /* Frameworks */,
 				1FE388F823E808430078BDE7 /* Resources */,
-				9F75F7F493973FE5402BFB00 /* [CP] Embed Pods Frameworks */,
-				17D439955689C34FF0D3B3FB /* [CP] Copy Pods Resources */,
+				155580A024B81A2CC000CB2A /* [CP] Embed Pods Frameworks */,
+				FC62E0B6AB0036E5237CEED2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -494,6 +499,7 @@
 				1FE3890823E808460078BDE7 /* LaunchScreen.storyboard in Resources */,
 				1FE3891B23E822370078BDE7 /* arialbd.ttf in Resources */,
 				1FE3891623E822370078BDE7 /* segoe_ui_bold.ttf in Resources */,
+				1F7955942428C1160092DA6D /* GoogleService-Info.plist in Resources */,
 				1FE3890523E808460078BDE7 /* Assets.xcassets in Resources */,
 				1FE3891923E822370078BDE7 /* segoe_ui_italic.ttf in Resources */,
 				1FE3891723E822370078BDE7 /* segoe_ui_bold_italic.ttf in Resources */,
@@ -506,41 +512,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		17D439955689C34FF0D3B3FB /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Swipe/Pods-Swipe-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Swipe/Pods-Swipe-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Swipe/Pods-Swipe-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9F75F7F493973FE5402BFB00 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Swipe/Pods-Swipe-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Swipe/Pods-Swipe-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Swipe/Pods-Swipe-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C795D2CE5976EBC8E0F93DB8 /* [CP] Check Pods Manifest.lock */ = {
+		0697A8DCF0854BEA9E8050D9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -560,6 +532,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		155580A024B81A2CC000CB2A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Swipe/Pods-Swipe-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Swipe/Pods-Swipe-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Swipe/Pods-Swipe-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FC62E0B6AB0036E5237CEED2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Swipe/Pods-Swipe-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Swipe/Pods-Swipe-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Swipe/Pods-Swipe-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -780,9 +786,10 @@
 		};
 		1FE3890D23E808460078BDE7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E8999F0CE26E53B7C56F1C3 /* Pods-Swipe.debug.xcconfig */;
+			baseConfigurationReference = 9A9FB2B96E2D057C029652D3 /* Pods-Swipe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Swipe/Swipe.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7Y4NL8RJ95;
 				INFOPLIST_FILE = Swipe/Info.plist;
@@ -791,7 +798,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.JK.swipe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JK.swipeapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Swipe/Swipe_Bridge_Header.h;
 				SWIFT_VERSION = 4.2;
@@ -801,9 +808,10 @@
 		};
 		1FE3890E23E808460078BDE7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C0C38B4C6577A3E955348576 /* Pods-Swipe.release.xcconfig */;
+			baseConfigurationReference = 45AFEF5CB8699846497AE2E7 /* Pods-Swipe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Swipe/Swipe.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7Y4NL8RJ95;
 				INFOPLIST_FILE = Swipe/Info.plist;
@@ -812,7 +820,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.JK.swipe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JK.swipeapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Swipe/Swipe_Bridge_Header.h;
 				SWIFT_VERSION = 4.2;

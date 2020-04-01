@@ -107,8 +107,6 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
         }
     }
 
-
-    
     /// A UIColor value that determines the text color of the title label when in the normal state
     @IBInspectable dynamic open var titleColor: UIColor = .gray {
         didSet {
@@ -122,8 +120,6 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
             updateLineView()
         }
     }
-    
-    
 
     /// A UIColor value that determines the color used for the title label and line when the error message is not `nil`
     @IBInspectable dynamic open var errorColor: UIColor = .red {
@@ -336,9 +332,6 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
         updateColors()
         addEditingChangedObserver()
         updateTextAligment()
-        
-        updateControl(true)
-        updateTitleLabel(true)
     }
 
     fileprivate func addEditingChangedObserver() {

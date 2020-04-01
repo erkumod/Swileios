@@ -36,12 +36,13 @@ class ConfWasherBookingVC: Main {
     
     @IBOutlet weak var lblConfirmationMsg: UILabel!
     
+    @IBOutlet weak var lblChatIndicator: CustomLabel!
     
     //MARK:- Global Variables
     let locationManager = CLLocationManager()
     var flag = false
     var locationName = "", username = "", notes = "", vehicleName = "", plateNo = "", vehicleType = "", price = "", status = "", washID = "", user_id = ""
-    var latitude = 0.0, longitude = 0.0
+    var latitude = 0.0, longitude = 0.0, unreadCnt = 0
     
     //MARK:- View Life Cycle Methods
     override func viewDidLoad() {
@@ -101,6 +102,12 @@ class ConfWasherBookingVC: Main {
         }else {
             vwCancelJob.isHidden = false
             btnSwipe.setTitle("SWIPE TO START", for: .normal)
+        }
+        
+        if unreadCnt == 0 {
+            lblChatIndicator.isHidden = true
+        }else {
+            lblChatIndicator.isHidden = false
         }
     }
     
@@ -177,6 +184,8 @@ class ConfWasherBookingVC: Main {
     @IBAction func btnChat_Action(_ sender: Any) {
         self.vwMore.isHidden = true
         self.blurView.isHidden = true
+        unreadCnt = 0
+        lblChatIndicator.isHidden = true
         self.performSegue(withIdentifier: "toChat", sender: nil)
     }
     
