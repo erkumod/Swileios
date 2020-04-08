@@ -16,13 +16,16 @@ class HelpCenterVC: Main {
 
     @IBOutlet weak var tblHelp: UITableView!
     
-    var arr = [String]()
+    var arrDictFAQ = [[String:AnyObject]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        callGetFAQListAPI()
         tblHelp.tableFooterView = UIView()
-        arr = ["What is Swipe ?" , "Is my Credit/Debit card information is safe?","Do i need to meet washer?","Why isn't my booking is accepted","How long does it take from start to end ?","Topic"]
     }
     
 
@@ -30,29 +33,57 @@ class HelpCenterVC: Main {
         (UIApplication.shared.delegate as! AppDelegate).ChangeToHome()
     }
 
+    func callGetFAQListAPI() {
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
+            return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.GET_FAQ_LIST
+        let parameter  = "?token=\(UserModel.sharedInstance().authToken!)"
+        
+        APIManager.shared.requestGetURL(serviceURL + parameter, success: { (response) in
+            if let jsonObject = response.result.value as? [[String:AnyObject]] , jsonObject.count > 0{
+                self.arrDictFAQ = jsonObject
+                self.tblHelp.reloadData()
+            }
+        }) { (error) in
+            print(error)
+        }
+    }
+ 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDetail"{
+            let vc = segue.destination as! HelpCenterDetailVC
+            vc.dictData = sender as! [String:AnyObject]
+        }
+    }
+    
+    
+    
 }
 
 extension HelpCenterVC : UITableViewDelegate, UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arr.count
+        return arrDictFAQ.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "HelpCell", for: indexPath) as! HelpCell
         
-        cell.lblTitle.text = arr[indexPath.row]
+        cell.lblTitle.text = (arrDictFAQ[indexPath.row])["question"] as? String
         
         return cell
         
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0{
-            self.performSegue(withIdentifier: "toDetail", sender: nil)
-        }
+        
+        self.performSegue(withIdentifier: "toDetail", sender: arrDictFAQ[indexPath.row])
+        
     }
     
 }

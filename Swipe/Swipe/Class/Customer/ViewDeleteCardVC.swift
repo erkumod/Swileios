@@ -54,6 +54,7 @@ class ViewDeleteCardVC: Main {
                 lblExp.text = "\(exp_month)/\(exp_year)"
             }
             
+            
             if dictData["primary"] as! String == "1"{
                 swtPrimary.setOn(true, animated: true)
                 swtPrimary.isUserInteractionEnabled = false

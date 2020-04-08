@@ -26,10 +26,10 @@ class HomeVC: Main {
     @IBOutlet weak var lblCardNo: UILabel!
     @IBOutlet weak var lblPrimaryVehicle: UILabel!
     
-    @IBOutlet weak var lblToday: UILabel!
-    @IBOutlet weak var lblStartTime: UILabel!
+//    @IBOutlet weak var lblToday: UILabel!
+//    @IBOutlet weak var lblStartTime: UILabel!
     
-    @IBOutlet weak var lblTomorrow: UILabel!
+//    @IBOutlet weak var lblTomorrow: UILabel!
     @IBOutlet weak var lblEndTime: UILabel!
     
     @IBOutlet weak var tvNotes: CustomTextView!
@@ -41,6 +41,21 @@ class HomeVC: Main {
     @IBOutlet weak var lblPriceStrike: UILabel!
     @IBOutlet weak var lblSGDPrice: UILabel!
     
+    
+    @IBOutlet weak var btnMinus: UIButton!
+    @IBOutlet weak var lblHour: UILabel!
+    @IBOutlet weak var btnPlus: UIButton!
+    
+    @IBOutlet weak var vwConfPopup: CustomUIView!
+    @IBOutlet weak var lblPopAddress: CustomLabel!
+    @IBOutlet weak var lblPopCardNumber: UILabel!
+    @IBOutlet weak var ivPopCard: CustomImageView!
+    @IBOutlet weak var lblPopVehicle: UILabel!
+    @IBOutlet weak var ivPopCarColor: CustomImageView!
+    @IBOutlet weak var lblPopVehicleAvail: CustomLabel!
+    @IBOutlet weak var lblPopEndtime: CustomLabel!
+    @IBOutlet weak var lblPopCost: CustomLabel!
+    
     //MARK:- Global Variables
     let locationManager = CLLocationManager()
     var geocoder = CLGeocoder()
@@ -48,7 +63,14 @@ class HomeVC: Main {
     var flag = false
     
     var selectedStartHour = "", selectedStartMin = "", selectedEndHour = "", selectedEndMin = "", startTime = "", endTime = "", startUTCDate = "", endUTCDate = "", farePrice = "20"
-    var latitude = 0.0, longitude = 0.0
+    var latitude = 0.0, longitude = 0.0, selectedHour = 1.0
+    
+    var vehicleID = ""
+    var cardID = ""
+    var promoCode = ""
+    var addressLine = ""
+    var strNotes = ""
+    var bookingDate = ""
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -72,47 +94,34 @@ class HomeVC: Main {
         let currentDate = Date()
         let df = DateFormatter()
         df.dateFormat = "hh:mm a"
-        self.lblEndTime.text = df.string(from: currentDate)
-        self.lblStartTime.text = df.string(from: currentDate)
+//        self.lblEndTime.text = df.string(from: currentDate)
+        //self.lblStartTime.text = df.string(from: currentDate)
         self.startTime = df.string(from: currentDate)
         self.endTime = df.string(from: currentDate)
         
         df.dateFormat = "HH"
         selectedStartHour = df.string(from: currentDate)
-        selectedEndHour = selectedStartHour
+        selectedEndHour = "\(Int(selectedStartHour)! + 1)"
         df.dateFormat = "mm"
         selectedStartMin = df.string(from: currentDate)
         selectedEndMin = selectedStartMin
         
+        setEndTime()
+        
         setTodayTomorrow()
         
         let swipeRight = UIPanGestureRecognizer(target: self, action: #selector(Swiped))
+        
         self.ivRightSwipe.addGestureRecognizer(swipeRight)
+        
+        let blurViewTap = UITapGestureRecognizer(target: self, action: #selector(blurViewTapped))
+        self.blurView.isUserInteractionEnabled = true
+        self.blurView.addGestureRecognizer(blurViewTap)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.setData(notification:)), name: Notification.Name("profile_updated"), object: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        if #available(iOS 13.0, *) {
-            let app = UIApplication.shared
-            
-            let statusbarView = UIView(frame: app.statusBarFrame)
-            statusbarView.backgroundColor = AppColors.cyan
-            app.statusBarUIView?.addSubview(statusbarView)
-            UIApplication.shared.keyWindow?.addSubview(statusbarView)
-        } else {
-            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
-            statusBar?.backgroundColor = AppColors.cyan
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        callGetWashPriceAPI()
-        (UIApplication.shared.delegate as! AppDelegate).callProfileInfoAPI()
-        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
-        (UIApplication.shared.delegate as! AppDelegate).callCheckWasherAPI()
-        
-        UIApplication.shared.statusBarUIView?.backgroundColor = .red
+//    override func viewDidAppear(_ animated: Bool) {
 //        if #available(iOS 13.0, *) {
 //            let app = UIApplication.shared
 //
@@ -124,26 +133,39 @@ class HomeVC: Main {
 //            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
 //            statusBar?.backgroundColor = AppColors.cyan
 //        }
-    }
+//    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        callGetWashPriceAPI()
+        (UIApplication.shared.delegate as! AppDelegate).callProfileInfoAPI()
+//        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
+        //(UIApplication.shared.delegate as! AppDelegate).callCheckWasherAPI()
+        
+        setStatusBarColor()
+    
+    }
+        
     //MARK:- Selector Methods
     @objc func setData(notification: Notification) {
         
         if UserModel.sharedInstance().selectedVehicleName != nil && UserModel.sharedInstance().selectedVehicleName != "" {
             lblPrimaryVehicle.text = UserModel.sharedInstance().selectedVehicleName!
-            
+            lblPopVehicle.text = UserModel.sharedInstance().selectedVehicleName!
         }else if UserModel.sharedInstance().primary_car != nil {
             let brand_name = UserModel.sharedInstance().primary_car!["car_brand_name"] as! String
             let model_name = UserModel.sharedInstance().primary_car!["car_model_name"] as! String
             let vehicleNo = UserModel.sharedInstance().primary_car!["vehicle_no"] as! String
             lblPrimaryVehicle.text = "\(brand_name) \(model_name) (\(vehicleNo))"
+            lblPopVehicle.text = "\(brand_name) \(model_name) (\(vehicleNo))"
         }else {
             lblPrimaryVehicle.text = "Vehicle"
+            lblPopVehicle.text = "Vehicle"
         }
         
         if UserModel.sharedInstance().selectedCardName != nil && UserModel.sharedInstance().selectedCardName != "" {
             let card_no = UserModel.sharedInstance().selectedCardName!
             lblCardNo.text = String(card_no.suffix(4))
+            lblPopCardNumber.text = "**** **** **** "+String(card_no.suffix(4))
             
             if card_no.isVisaCard {
                 imgCard.image = UIImage(named: "color_visa")
@@ -160,11 +182,12 @@ class HomeVC: Main {
             }else {
                 imgCard.image = UIImage(named: "default_card_new")
             }
+            ivPopCard.image = imgCard.image
             
         } else if UserModel.sharedInstance().primary_card != nil {
             let card_no = UserModel.sharedInstance().primary_card!["card_no"] as! String
             lblCardNo.text = String(card_no.suffix(4))
-            
+            lblPopCardNumber.text = "**** **** **** "+String(card_no.suffix(4))
             if card_no.isVisaCard {
                 imgCard.image = UIImage(named: "color_visa")
             }else if card_no.isMasterCard {
@@ -180,9 +203,10 @@ class HomeVC: Main {
             }else {
                 imgCard.image = UIImage(named: "default_card_new")
             }
-            
+            ivPopCard.image = imgCard.image
         } else {
             lblCardNo.text = "Card"
+            lblPopCardNumber.text = "Card"
         }
     }
     
@@ -197,14 +221,18 @@ class HomeVC: Main {
             lblTotalPrice.text = String(format: "%.2f", Double(farePrice)!)
             lblSGDPrice.text = "SGD"
             
+            lblPopCost.text = "SGD" + lblTotalPrice.text!
+            
             if UserModel.sharedInstance().selectedPromoType! == "Mini7" {
                 let tempPrice = Int(farePrice)! - 7
                 lblPrice.text = String(format: "%.2f", Double(tempPrice))
                 farePrice = "\(tempPrice)"
+                lblPopCost.text = "SGD" + String(format: "%.2f", Double(tempPrice))
             } else {
                 let tempPrice = Int(farePrice)! - 3
                 lblPrice.text = String(format: "%.2f", Double(tempPrice))
                 farePrice = "\(tempPrice)"
+                lblPopCost.text = "SGD" + String(format: "%.2f", Double(tempPrice))
             }
         }else {
             lblTotalPrice.isHidden = true
@@ -213,54 +241,46 @@ class HomeVC: Main {
             
             lblTotalPrice.text = ""
             lblSGDPrice.text = ""
+            lblPopCost.text = "SGD 20.00"
         }
     }
+    @IBAction func btnCloseConfPop_Action(_ sender: Any) {
+        self.blurView.isHidden = true
+        self.vwConfPopup.isHidden = true
+    }
     
-    @IBAction func btnSwipe_Action(_ sender: Any) {
-        generateStartEndTimes()
-        
-        var vehicleID = ""
-        if UserModel.sharedInstance().selectedVehicleID != nil && UserModel.sharedInstance().selectedVehicleID != "" {
-            vehicleID = UserModel.sharedInstance().selectedVehicleID!
-        }else if UserModel.sharedInstance().primary_car != nil {
-            vehicleID = "\(UserModel.sharedInstance().primary_car!["id"] as! Int)"
-        }
-        
-        var cardID = ""
-        if UserModel.sharedInstance().selectedCardID != nil && UserModel.sharedInstance().selectedCardID != "" {
-            cardID = UserModel.sharedInstance().selectedCardID!
-        }else if UserModel.sharedInstance().primary_card != nil {
-            cardID = "\(UserModel.sharedInstance().primary_card!["id"] as! Int)"
-        }
-        
-        var promoCode = ""
-        if UserModel.sharedInstance().selectedPromoCode != nil && UserModel.sharedInstance().selectedPromoCode != "" {
-            promoCode = UserModel.sharedInstance().selectedPromoCode!
-        }
-        
-        let addressLine = self.tfSource.text!
-        let strNotes = self.tvNotes.text!
-        
-        let df = DateFormatter()
-        df.dateFormat = "dd-MM-yyyy"
-        let bookingDate = df.string(from: Date())
-        
-        if !checkStartEndTimings(){
-            flag = false
-        }else if vehicleID == "" {
+    @IBAction func btnConfirmConfPop_Action(_ sender: Any) {
+
+        if self.vehicleID == "" {
             flag = false
             CommonFunctions.shared.showToast(self.view, "Please select vehicle")
-        }else if cardID == "" {
+        }else if self.cardID == "" {
             flag = false
             CommonFunctions.shared.showToast(self.view, "Please select card")
-        }else if addressLine == "" {
+        }else if self.addressLine == "" {
             flag = false
             CommonFunctions.shared.showToast(self.view, "Please select location")
         }else {
             flag = true
-            callBookCarWashAPI(vehicleID, cardID, addressLine, strNotes, promoCode, bookingDate)
+            callBookCarWashAPI(self.vehicleID, self.cardID, self.addressLine, self.strNotes, self.promoCode, self.bookingDate)
         }
+        
+        self.blurView.isHidden = true
+        self.vwConfPopup.isHidden = true
+        
     }
+    
+    @IBAction func btnSwipe_Action(_ sender: Any) {
+        self.vwConfPopup.isHidden = false
+        self.blurView.isHidden = false
+        set_Booking()
+    }
+    
+    @objc func blurViewTapped(gestureRecognizer: UITapGestureRecognizer) -> Void {
+        self.vwConfPopup.isHidden = true
+        self.blurView.isHidden = true
+    }
+    
     @objc func Swiped(gestureRecognizer: UIPanGestureRecognizer) -> Void {
         
         if (gestureRecognizer.state == UIGestureRecognizer.State.began || gestureRecognizer.state == UIGestureRecognizer.State.changed) && !flag {
@@ -281,52 +301,68 @@ class HomeVC: Main {
                 gestureRecognizer.view!.center = CGPoint(x : gestureRecognizer.view!.center.x, y:gestureRecognizer.view!.center.y)
                 print("reached")
                 flag = true
-                
-                generateStartEndTimes()
-                
-                var vehicleID = ""
-                if UserModel.sharedInstance().selectedVehicleID != nil && UserModel.sharedInstance().selectedVehicleID != "" {
-                    vehicleID = UserModel.sharedInstance().selectedVehicleID!
-                }else if UserModel.sharedInstance().primary_car != nil {
-                    vehicleID = "\(UserModel.sharedInstance().primary_car!["id"] as! Int)"
-                }
-                
-                var cardID = ""
-                if UserModel.sharedInstance().selectedCardID != nil && UserModel.sharedInstance().selectedCardID != "" {
-                    cardID = UserModel.sharedInstance().selectedCardID!
-                }else if UserModel.sharedInstance().primary_card != nil {
-                    cardID = "\(UserModel.sharedInstance().primary_card!["id"] as! Int)"
-                }
-                
-                var promoCode = ""
-                if UserModel.sharedInstance().selectedPromoCode != nil && UserModel.sharedInstance().selectedPromoCode != "" {
-                    promoCode = UserModel.sharedInstance().selectedPromoCode!
-                }
-                
-                let addressLine = self.tfSource.text!
-                let strNotes = self.tvNotes.text!
-                
-                let df = DateFormatter()
-                df.dateFormat = "dd-MM-yyyy"
-                let bookingDate = df.string(from: Date())
-                
-                if !checkStartEndTimings(){
-                    flag = false
-                }else if vehicleID == "" {
-                    flag = false
-                    CommonFunctions.shared.showToast(self.view, "Please select vehicle")
-                }else if cardID == "" {
-                    flag = false
-                    CommonFunctions.shared.showToast(self.view, "Please select card")
-                }else if addressLine == "" {
-                    flag = false
-                    CommonFunctions.shared.showToast(self.view, "Please select location")
-                }else {
-                    flag = true
-                    callBookCarWashAPI(vehicleID, cardID, addressLine, strNotes, promoCode, bookingDate)
-                }
+                self.vwConfPopup.isHidden = false
+                self.blurView.isHidden = false
+                set_Booking()
             }
         }
+    }
+    
+    func set_Booking(){
+        generateStartEndTimes()
+       
+        if UserModel.sharedInstance().selectedVehicleID != nil && UserModel.sharedInstance().selectedVehicleID != "" {
+            self.vehicleID = UserModel.sharedInstance().selectedVehicleID!
+        }else if UserModel.sharedInstance().primary_car != nil {
+            self.vehicleID = "\(UserModel.sharedInstance().primary_car!["id"] as! Int)"
+        }
+        
+       
+        if UserModel.sharedInstance().selectedCardID != nil && UserModel.sharedInstance().selectedCardID != "" {
+            self.cardID = UserModel.sharedInstance().selectedCardID!
+        }else if UserModel.sharedInstance().primary_card != nil {
+            self.cardID = "\(UserModel.sharedInstance().primary_card!["id"] as! Int)"
+        }
+        
+
+        if UserModel.sharedInstance().selectedPromoCode != nil && UserModel.sharedInstance().selectedPromoCode != "" {
+            self.promoCode = UserModel.sharedInstance().selectedPromoCode!
+        }
+        
+        self.addressLine = self.tfSource.text!
+        self.strNotes = self.tvNotes.text!
+        
+        let df = DateFormatter()
+        df.dateFormat = "dd-MM-yyyy"
+        self.bookingDate = df.string(from: Date())
+        
+    }
+    
+    func setEndTime() {
+        
+        let arr = "\(selectedHour)".components(separatedBy: ".")
+        if arr[1] == "0" {
+            lblHour.text = "\(arr[0]) hr"
+        }else {
+            lblHour.text = "\(arr[0]) hr 30 min"
+        }
+        
+        lblPopVehicleAvail.text = lblHour.text
+        
+        let calendar = Calendar.current
+        let date = calendar.date(byAdding: .minute, value: Int(selectedHour * 60.0), to: Date())
+        let df = DateFormatter()
+        df.dateFormat = "hh:mm a"
+        endTime = df.string(from: date!)
+        lblEndTime.text = df.string(from: date!)
+        
+        self.lblPopEndtime.text = "\(lblEndTime.text!.split(separator: ":")[0])hr" + " \(lblEndTime.text!.split(separator: ":")[1].split(separator: " ")[0])min"
+        
+        df.dateFormat = "HH"
+        self.selectedEndHour = df.string(from: date!)
+        df.dateFormat = "mm"
+        self.selectedEndMin = df.string(from: date!)
+        
     }
     
     //MARK:- Button Actions
@@ -343,7 +379,7 @@ class HomeVC: Main {
         blurView.isHidden = true
         vwNotes.isHidden = true
     }
-    
+                       
     @IBAction func btnNote_ACtion(_ sender: Any) {
         blurView.isHidden = false
         vwNotes.isHidden = false
@@ -367,7 +403,7 @@ class HomeVC: Main {
             
             let df = DateFormatter()
             df.dateFormat = "hh:mm a"
-            self.lblStartTime.text = df.string(from: value!)
+            //self.lblStartTime.text = df.string(from: value!)
             self.startTime = df.string(from: value!)
             
             df.dateFormat = "HH"
@@ -407,6 +443,29 @@ class HomeVC: Main {
         self.performSegue(withIdentifier: "toVehicle", sender: nil)
     }
     
+    @IBAction func btnPlus_Action(_ sender: UIButton) {
+        if selectedHour < 6.0 {
+            selectedHour += 0.5
+            btnMinus.isEnabled = true
+        }else {
+            btnPlus.isEnabled = false
+        }
+        
+        setEndTime()
+    }
+    
+    @IBAction func btnMinus_Action(_ sender: UIButton) {
+        if selectedHour > 1 {
+            selectedHour -= 0.5
+            btnPlus.isEnabled = true
+        }else {
+            btnMinus.isEnabled = false
+        }
+        
+        setEndTime()
+    }
+    
+    //MARK:- UITextFieldDelegate Methods
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == tfSource{
             let placePickerController = GMSAutocompleteViewController()
@@ -421,9 +480,9 @@ class HomeVC: Main {
     //MARK:- Other Functions
     func setTodayTomorrow() {
         if Int(self.selectedEndHour)! >= Int(self.selectedStartHour)! {
-            self.lblTomorrow.text = "Today"
+            //self.lblTomorrow.text = "Today"
         }else {
-            self.lblTomorrow.text = "Tomorrow"
+            //self.lblTomorrow.text = "Tomorrow"
         }
     }
     
@@ -515,37 +574,37 @@ class HomeVC: Main {
         }
     }
     
-    func getAddress(lat : Double , long : Double) {
-        let geoCoder = CLGeocoder()
-        tfSource.text = ""
-        var address = ""
-        let loc: CLLocation = CLLocation(latitude:lat, longitude: long)
-        
-        geoCoder.reverseGeocodeLocation(loc, completionHandler:
-            {(placemarks, error) in
-                if (error != nil){
-                    print("reverse geodcode fail: \(error!.localizedDescription)")}
-                if let pm = placemarks as? [CLPlacemark]{
-                    if pm.count > 0 {
-                        let pm = placemarks![0]
-                        let addressString : String = ""
-                        if pm.subLocality != nil {
-                            address = address + pm.subLocality! + ", "}
-                        if pm.thoroughfare != nil {
-                            address = address + pm.thoroughfare! + ", "}
-                        if pm.locality != nil {
-                            address = address + pm.locality! + ", "}
-                        if pm.country != nil {
-                            address = address + pm.country!
-                        }
-                        self.tfSource.text = address
-                      
-                        print(addressString)
-                    }
-                }
-        })
-    }
-    
+//    func getAddress(lat : Double , long : Double) {
+//        let geoCoder = CLGeocoder()
+//        tfSource.text = ""
+//        var address = ""
+//        let loc: CLLocation = CLLocation(latitude:lat, longitude: long)
+//
+//        geoCoder.reverseGeocodeLocation(loc, completionHandler:
+//            {(placemarks, error) in
+//                if (error != nil){
+//                    print("reverse geodcode fail: \(error!.localizedDescription)")}
+//                if let pm = placemarks as? [CLPlacemark]{
+//                    if pm.count > 0 {
+//                        let pm = placemarks![0]
+//                        let addressString : String = ""
+//                        if pm.subLocality != nil {
+//                            address = address + pm.subLocality! + ", "}
+//                        if pm.thoroughfare != nil {
+//                            address = address + pm.thoroughfare! + ", "}
+//                        if pm.locality != nil {
+//                            address = address + pm.locality! + ", "}
+//                        if pm.country != nil {
+//                            address = address + pm.country!
+//                        }
+//                        self.tfSource.text = address
+//
+//                        print(addressString)
+//                    }
+//                }
+//        })
+//    }
+//
     func add_Pin(_ lat : Double , _ lng : Double){
         let position = CLLocationCoordinate2DMake(lat,lng)
         let marker = GMSMarker(position: position)
@@ -655,6 +714,8 @@ class HomeVC: Main {
                         UserModel.sharedInstance().selectedPromoType = nil
                         UserModel.sharedInstance().synchroniseData()
                         CommonFunctions.shared.showToast(self.view, jsonObject["message"] as! String)
+                    }else if status == 402 {
+                        self.showAlertView(jsonObject["message"] as? String)
                     }
                 }
             }
@@ -696,7 +757,6 @@ extension HomeVC: CLLocationManagerDelegate {
                                               zoom: Float(15))
         
         mapView.camera = camera
-        getAddress(lat: center.latitude, long: center.longitude)
         add_Pin(center.latitude, center.longitude)
         self.latitude = Double(center.latitude)
         self.longitude = Double(center.longitude)

@@ -54,7 +54,7 @@ class BookingDetailVC: Main {
     
     //MARK:- Global Variables
     var isPromo = false
-    var washID = "", bookingStatus = "Accepted", bookingStartDate = "", bookingEndDate = "", vehicleName = "", vehicleType = "", address = "", promocode = "", farePrice = "", washerProfile = "", washerName = "", latitude = "", longitude = "", washerUpVoteCnt = 0, washerDownVoteCnt = 0, booking_Id = "", unreadCnt = 0
+    var washID = "", bookingStatus = "Accepted", bookingStartDate = "", bookingEndDate = "", vehicleName = "", vehicleType = "", address = "", promocode = "", farePrice = "", washerID = "", washerProfile = "", washerName = "", latitude = "", longitude = "", washerUpVoteCnt = 0, washerDownVoteCnt = 0, booking_Id = "", unreadCnt = 0
     
     //MARK:- View Life Cycle Method
     override func viewDidLoad() {
@@ -203,7 +203,7 @@ class BookingDetailVC: Main {
         if segue.identifier == "toChat"{
            let vc = segue.destination as! ChatCustVC
             vc.booking_id = booking_Id
-            vc.washer_id = washID
+            vc.washer_id = washerID
             vc.washerName = washerName
         }
     }

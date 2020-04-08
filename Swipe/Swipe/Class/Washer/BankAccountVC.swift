@@ -18,6 +18,7 @@ class BankAccountVC: Main {
     @IBOutlet weak var btnCondition1: UIButton!
     @IBOutlet weak var btnCondition2: UIButton!
     
+    @IBOutlet weak var vwImage: CustomUIView!
     var condition1Flag = false
     var condition2Flag = false
     
@@ -40,8 +41,8 @@ class BankAccountVC: Main {
         }
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handle_ImageUpload(_:)))
-        self.ivBankPhoto.isUserInteractionEnabled = true
-        self.ivBankPhoto.addGestureRecognizer(tap)
+        self.vwImage.isUserInteractionEnabled = true
+        self.vwImage.addGestureRecognizer(tap)
         
     }
     

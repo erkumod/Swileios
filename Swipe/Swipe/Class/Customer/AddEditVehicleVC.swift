@@ -329,6 +329,7 @@ class AddEditVehicleVC: Main {
             }, origin: tfBrandName)
             return false
         }else if textField == tfColor{
+            self.view.endEditing(true)
             ActionSheetStringPicker.show(withTitle: "Select Color", rows: self.arrColor, initialSelection: 0, doneBlock: {
                 picker, indexes, values in
                 

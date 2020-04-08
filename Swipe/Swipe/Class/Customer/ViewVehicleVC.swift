@@ -40,7 +40,7 @@ class ViewVehicleVC: Main {
     
     override func viewWillAppear(_ animated: Bool) {
         callCarListAPI()
-        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
+//        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
     }
     
     //MARK:- Button Actions

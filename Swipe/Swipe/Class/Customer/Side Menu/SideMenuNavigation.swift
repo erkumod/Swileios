@@ -27,6 +27,7 @@ class SideMenuNavigation: ENSideMenuNavigationController, ENSideMenuDelegate {
         sideMenu?.allowPanGesture = true
         // make navigation bar showing over side menu
         // view.bringSubviewToFront(navigationBar)
+        
     }
 
     //MARK: - ENSideMenu Delegate

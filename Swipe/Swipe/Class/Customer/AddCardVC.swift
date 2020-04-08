@@ -168,8 +168,6 @@ class AddCardVC: Main, UIPickerViewDataSource  {
             card_status = "Not Primary"
         }
         
-        
-        
         let stripeCard = STPCard()
         
         // Send the card info to Strip to get the token
@@ -215,7 +213,10 @@ class AddCardVC: Main, UIPickerViewDataSource  {
                 }
                 
             }else {
-                self.view.makeToast(error.debugDescription)
+                
+                if error.debugDescription.contains("Your card number is incorrect"){
+                    self.showAlertView("Your card's number is invalid")
+                }
             }
                 
         })

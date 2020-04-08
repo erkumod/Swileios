@@ -11,8 +11,6 @@ import UIKit
 class EditProfileVC: Main {
 
     //MARK:- Outlets
-    @IBOutlet weak var vwLogout: UIView!
-    @IBOutlet weak var blurView: UIImageView!
     
     @IBOutlet weak var ivProfile: CustomImageView!
     @IBOutlet weak var lblName: UILabel!
@@ -47,11 +45,6 @@ class EditProfileVC: Main {
         self.ivProfile.isUserInteractionEnabled = true
         self.ivProfile.addGestureRecognizer(tap)
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        blurView.isHidden = true
-        vwLogout.isHidden = true
     }
 
     //MARK:- Selector Methods
@@ -92,22 +85,17 @@ class EditProfileVC: Main {
     }
     
     @IBAction func btnLogOut_Action(_ sender: Any) {
-        blurView.isHidden = false
-        vwLogout.isHidden = false
+        self.showAlertView("Are you sure you want to logout?", defaultTitle: "Yes", cancelTitle: "No") { (finish) in
+            if finish{
+                print("Yes")
+                self.callLogoutAPI()
+            }else{
+                print("No")
+            }
+        }
+        //
     }
     
-    @IBAction func btnCancel_Action(_ sender: Any) {
-        blurView.isHidden = true
-        vwLogout.isHidden = true
-    }
-    
-    @IBAction func btnLogout_Action(_ sender: Any) {
-        blurView.isHidden = true
-        vwLogout.isHidden = true
-        UserModel.sharedInstance().removeData()
-        UserModel.sharedInstance().synchroniseData()
-        (UIApplication.shared.delegate as! AppDelegate).ChangeToLogin()
-    }
     
     @IBAction func btnChangePassword_Action(_ sender: Any) {
         self.performSegue(withIdentifier: "toPassword", sender: nil)
@@ -172,6 +160,28 @@ class EditProfileVC: Main {
                         (UIApplication.shared.delegate as! AppDelegate).callProfileInfoAPI()
                         self.showAlertView("Profile Updates Successfully.")
                     }
+                }
+            }
+        }) { (error) in
+            print(error)
+        }
+    }
+    
+    func callLogoutAPI() {
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
+            return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.LOGOUT
+        let parameter  = "?token=\(UserModel.sharedInstance().authToken!)&os=ios"
+        
+        APIManager.shared.requestGetURL(serviceURL + parameter, success: { (response) in
+            if let jsonObject = response.result.value as? [String:AnyObject] {
+                if let success = jsonObject["success"] as? Int, success == 1 {
+                    UserModel.sharedInstance().removeData()
+                    UserModel.sharedInstance().synchroniseData()
+                    (UIApplication.shared.delegate as! AppDelegate).ChangeToLogin()
                 }
             }
         }) { (error) in

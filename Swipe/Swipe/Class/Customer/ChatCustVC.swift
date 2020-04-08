@@ -35,6 +35,7 @@ class ChatCustVC : Main {
     var washerName = ""
     var timer = Timer()
     var arrDictChat = [[String:AnyObject]]()
+    var isNotification = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +52,11 @@ class ChatCustVC : Main {
         
 //        tblChat.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController!.isNavigationBarHidden  = true
+        setStatusBarColor()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -103,7 +109,12 @@ class ChatCustVC : Main {
     }
     
     @IBAction func btnBack_Action(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        if isNotification {
+            (UIApplication.shared.delegate as! AppDelegate).ChangeToHome()
+        }else {
+            self.navigationController?.popViewController(animated: true)
+        }
+        
     }
     
     func callSendMessageAPI() {

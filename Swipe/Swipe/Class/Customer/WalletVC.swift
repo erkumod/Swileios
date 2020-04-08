@@ -42,7 +42,7 @@ class WalletVC: Main {
     
     override func viewWillAppear(_ animated: Bool) {
         callGetCardListAPI()
-        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
+//        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
     }
     
     //MARK:- Button Actions
@@ -110,9 +110,9 @@ extension WalletVC : UITableViewDelegate, UITableViewDataSource{
         let card_no = (arrCardData[indexPath.row])["card_no"] as! String
         cell.lblNo.text = String(card_no.suffix(4))
         
-        if (arrCardData[indexPath.row])["primary"] as! String == "1"{
+        if let isPrimary = (arrCardData[indexPath.row])["primary"] as? String, isPrimary == "1" {
             cell.lbPrimary.isHidden = false
-        }else{
+        }else {
             cell.lbPrimary.isHidden = true
         }
         

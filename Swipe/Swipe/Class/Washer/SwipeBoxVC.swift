@@ -114,7 +114,7 @@ class SwipeBoxVC: Main {
                             self.vw3.backgroundColor = UIColor(hexString: "#4EB8F5")
                             self.vw4.backgroundColor = UIColor(hexString: "#4EB8F5")
                             self.vw5.backgroundColor = UIColor(hexString: "#4EB8F5")
-                        }else  {
+                        }else if completedCount >= 6{
                             self.vw1.backgroundColor = UIColor(hexString: "#4EB8F5")
                             self.vw2.backgroundColor = UIColor(hexString: "#4EB8F5")
                             self.vw3.backgroundColor = UIColor(hexString: "#4EB8F5")
@@ -124,8 +124,16 @@ class SwipeBoxVC: Main {
                             
                             self.btnRedeem.isUserInteractionEnabled = true
                             self.vwRedeem.backgroundColor = UIColor(hexString: "#4EB8F5")
+                        }else {
+                            self.vw1.backgroundColor = UIColor.white
+                            self.btnRedeem.isUserInteractionEnabled = false
+                            self.vwRedeem.backgroundColor = UIColor(hexString: "#AAAAAA")
                         }
                         
+                    }else {
+                        self.vw1.backgroundColor = UIColor.white
+                        self.btnRedeem.isUserInteractionEnabled = false
+                        self.vwRedeem.backgroundColor = UIColor(hexString: "#AAAAAA")
                     }
                     
                     if let arrRedemption = jsonObject["redemption_history"] as? [[String:AnyObject]] {
@@ -138,10 +146,17 @@ class SwipeBoxVC: Main {
                 }else {
                     self.arrRedemptionHistory.removeAll()
                     self.tblView.reloadData()
+                    self.vw1.backgroundColor = UIColor.white
+                    self.btnRedeem.isUserInteractionEnabled = false
+                    self.vwRedeem.backgroundColor = UIColor(hexString: "#AAAAAA")
                 }
             }else {
                 self.arrRedemptionHistory.removeAll()
                 self.tblView.reloadData()
+                
+                self.vw1.backgroundColor = UIColor.white
+                self.btnRedeem.isUserInteractionEnabled = false
+                self.vwRedeem.backgroundColor = UIColor(hexString: "#AAAAAA")
             }
         }) { (error) in
             print(error)

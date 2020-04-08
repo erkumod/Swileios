@@ -172,7 +172,9 @@ class JoinUsVC: Main {
                                 if status == 200{
                                     self.blurView.isHidden = false
                                     self.vwConfirm.isHidden = false
-                                    (UIApplication.shared.delegate as! AppDelegate).callCheckWasherAPI()
+                                    UserModel.sharedInstance().isWasher = "1"
+                                    UserModel.sharedInstance().synchroniseData()
+                                    (UIApplication.shared.delegate as! AppDelegate).ChangeToHome()
                                 }
                             }
                         }

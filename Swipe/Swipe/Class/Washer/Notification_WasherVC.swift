@@ -29,7 +29,7 @@ class Notification_WasherVC: Main {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
+//        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
         callGetNotificationListAPI()
     }
     
@@ -92,6 +92,12 @@ class Notification_WasherVC: Main {
         }
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDetail"{
+            let vc = segue.destination as! WasherNotificationDetailVC
+            vc.data = sender as! [String:AnyObject]
+        }
+    }
     
 }
 extension Notification_WasherVC : UITableViewDelegate,UITableViewDataSource{
@@ -112,6 +118,12 @@ extension Notification_WasherVC : UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     
+        let data = arrNotificationList[indexPath.row]
+        
+        if data["page"] as! String == "cancle_booking"{
+            self.performSegue(withIdentifier: "toDetail", sender: arrNotificationList[indexPath.row])
+        }
         
     }
 }

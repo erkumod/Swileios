@@ -28,12 +28,13 @@ class AvailWasherBookingVC: Main {
     @IBOutlet weak var lblDistance: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
     
+    @IBOutlet weak var lblEndTime: UILabel!
     
     
     //MARK:- Global Variables
     let locationManager = CLLocationManager()
     var flag = false
-    var locationName = "", username = "", vehicleType = "", price = "", washID = ""
+    var locationName = "", username = "", vehicleType = "", price = "", washID = "", endTime = "", startTime = ""
     var latitude = 0.0, longitude = 0.0, distance = 0.0
     var total_washes = 0
     
@@ -57,8 +58,7 @@ class AvailWasherBookingVC: Main {
         
         btnSwipe.layer.cornerRadius = 10
         
-        let swipeRight = UIPanGestureRecognizer(target: self, action: #selector(Swiped))
-        self.rightSwipe.addGestureRecognizer(swipeRight)
+        callGetConfirmedListAPI()
         
         setData()
         
@@ -72,6 +72,24 @@ class AvailWasherBookingVC: Main {
         lblVehicleType.text = vehicleType
         lblPrice.text = price
         lblDistance.text = String (format: "%.2fKm away from your location", distance)
+        
+        let df = DateFormatter()
+        df.dateFormat = "EEE MMM dd HH:mm:ss Z yyyy"
+        df.locale = Locale(identifier: "en_US_POSIX")
+        df.timeZone = TimeZone(abbreviation: "UTC")
+        let parsedStartDate = df.date(from: startTime)
+        let parsedEndDate = df.date(from: endTime)
+        
+        df.dateFormat = "hh:mm a"
+        df.timeZone = TimeZone.current
+        let convertedEndTime = df.string(from: parsedEndDate!)
+        
+        let sameDay = Calendar.current.isDate(parsedStartDate!, inSameDayAs: parsedEndDate!)
+        if sameDay {
+            lblEndTime.text = "Today, \(convertedEndTime)"
+        }else {
+            lblEndTime.text = "Tomorrow, \(convertedEndTime)"
+        }
         
         mapView.camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: Float(15))
         let marker = GMSMarker(position: CLLocationCoordinate2DMake(latitude,longitude))
@@ -174,6 +192,40 @@ class AvailWasherBookingVC: Main {
                             self.navigationController?.popViewController(animated: true)
                         }
                     }
+                }
+            }
+        }) { (error) in
+            print(error)
+        }
+    }
+    
+    func callGetConfirmedListAPI() {
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
+            return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.CONFIRMED_WASHES
+        let parameter  = "?token=\(UserModel.sharedInstance().authToken!)&lat=\(LocationManager.sharedInstance.latitude)&lon=\(LocationManager.sharedInstance.longitude)"
+        
+        APIManager.shared.requestGetURL(serviceURL + parameter, success: { (response) in
+            if let jsonObject = response.result.value as? [String:AnyObject] {
+                if let status = jsonObject["status"] as? Int, status == 200 {
+                    if let data = jsonObject["accepted_wash"] as? [[String:AnyObject]], data.count >= 2{
+                        print(data)
+                        self.btnSwipe.backgroundColor = .lightGray
+                        self.btnSwipe.isEnabled = false
+                    }else{
+                        self.btnSwipe.backgroundColor = UIColor(red: 78/255, green: 184/255, blue: 245/255, alpha: 1.0)
+                        self.btnSwipe.isEnabled = true
+                        let swipeRight = UIPanGestureRecognizer(target: self, action: #selector(self.Swiped))
+                        self.rightSwipe.addGestureRecognizer(swipeRight)
+                    }
+                }else {
+                    self.btnSwipe.backgroundColor = UIColor(red: 78/255, green: 184/255, blue: 245/255, alpha: 1.0)
+                    self.btnSwipe.isEnabled = true
+                    let swipeRight = UIPanGestureRecognizer(target: self, action: #selector(self.Swiped))
+                    self.rightSwipe.addGestureRecognizer(swipeRight)
                 }
             }
         }) { (error) in

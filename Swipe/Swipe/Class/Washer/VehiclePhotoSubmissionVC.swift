@@ -208,6 +208,8 @@ class VehiclePhotoSubmissionVC: Main {
                         if let jsonObject = response.result.value as? [String:AnyObject] {
                             if let status = jsonObject["status"] as? Int{
                                 if status == 200{
+                                    UserModel.sharedInstance().started_Booking_id = nil
+                                    UserModel.sharedInstance().synchroniseData()
                                     self.navigationController?.popToRootViewController(animated: true)
                                 }
                             }

@@ -25,13 +25,17 @@ class NotificationVC: Main {
     //MARK:- Global Variables
     var arrNotificationList = [[String:AnyObject]]()
     
+    var isNotification = false
     //MARK:- View Life Cycle Method
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.isNavigationBarHidden = true
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
+//        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
         callGetNotificationListAPI()
     }
     
@@ -108,6 +112,13 @@ class NotificationVC: Main {
             print(error)
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDetail"{
+            let vc = segue.destination as! NotificationDetailVC
+            vc.data = sender as! [String:AnyObject]
+        }
+    }
 }
 
 extension NotificationVC : UITableViewDelegate,UITableViewDataSource{
@@ -129,5 +140,41 @@ extension NotificationVC : UITableViewDelegate,UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        let data = arrNotificationList[indexPath.row]
+        
+        if data["page"] as! String == "complete_booking"{
+            self.performSegue(withIdentifier: "toDetail", sender: arrNotificationList[indexPath.row])
+        }else if data["page"] as! String == "start_wash"{
+            self.performSegue(withIdentifier: "toDetail", sender: arrNotificationList[indexPath.row])
+        }else if data["page"] as! String == "cancle_wash"{
+            self.performSegue(withIdentifier: "toDetail", sender: arrNotificationList[indexPath.row])
+        }else if data["page"] as! String == "wash_accept"{
+            self.performSegue(withIdentifier: "toDetail", sender: arrNotificationList[indexPath.row])
+        }else if data["page"] as! String == "reedeem_stamp"{
+            self.performSegue(withIdentifier: "toDetail", sender: arrNotificationList[indexPath.row])
+        }
+        
+        
+        //self.performSegue(withIdentifier: "toDetail", sender: arrNotificationList[indexPath.row])
+        
+        
+//        let dictData = arrNotificationList[indexPath.row]
+//        if dictData["page"] as! String == "complete_booking" {
+//            let destVC = self.storyboard?.instantiateViewController(withIdentifier: "BookingVC") as! BookingVC
+//            destVC.isScheduled = false
+//            self.navigationController?.pushViewController(destVC, animated: true)
+//        }else if dictData["page"] as! String == "wash_accept" {
+//            let destVC = self.storyboard?.instantiateViewController(withIdentifier: "BookingVC") as! BookingVC
+//            destVC.isScheduled = true
+//            self.navigationController?.pushViewController(destVC, animated: true)
+//        }else if dictData["page"] as! String == "start_wash" {
+//            let destVC = self.storyboard?.instantiateViewController(withIdentifier: "BookingVC") as! BookingVC
+//            destVC.isScheduled = true
+//            self.navigationController?.pushViewController(destVC, animated: true)
+//        }else if dictData["page"] as! String == "reedeem_stamp" {
+//            let destVC = self.storyboard?.instantiateViewController(withIdentifier: "RewardVC") as! RewardVC
+//            destVC.isFromNotification = true
+//            self.navigationController?.pushViewController(destVC, animated: true)
+//        }
     }
 }

@@ -29,6 +29,7 @@ class ChangePasswordVC: Main {
 
     @IBAction func btnForgot_Action(_ sender: Any) {
         self.view.endEditing(true)
+        self.performSegue(withIdentifier: "toForgot", sender: nil)
         
     }
     

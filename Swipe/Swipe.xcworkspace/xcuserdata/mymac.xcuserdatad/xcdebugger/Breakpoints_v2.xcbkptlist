@@ -7,34 +7,80 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A25E10D8-5B22-4212-9152-7CA8ECF6D249"
-            shouldBeEnabled = "Yes"
+            uuid = "53AD7D2C-DA7B-4260-97DF-CA153D3AB35C"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Swipe/Class/Washer/BankAccountVC.swift"
-            timestampString = "606578526.9229569"
+            filePath = "Swipe/Class/Washer/SwipeBoxVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "91"
             endingLineNumber = "91"
-            landmarkName = "handle_ImageUpload(_:)"
+            landmarkName = "callWasherRewardData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "53AD7D2C-DA7B-4260-97DF-CA153D3AB35C - 39c25caa4025ce8b"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Swipe.SwipeBoxVC.callWasherRewardData() -&gt; ()"
+                  moduleName = "Swipe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mymac/Documents/Project/Kumud/iOS%20-%20Swipe/Apr/01/Swipe/Swipe/Class/Washer/SwipeBoxVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "91"
+                  endingLineNumber = "91"
+                  offsetFromSymbolStart = "924">
+               </Location>
+               <Location
+                  uuid = "53AD7D2C-DA7B-4260-97DF-CA153D3AB35C - b2aa7b0ae1efe1db"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any&gt;) -&gt; () in Swipe.SwipeBoxVC.callWasherRewardData() -&gt; ()"
+                  moduleName = "Swipe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mymac/Documents/Project/Kumud/iOS%20-%20Swipe/Apr/01/Swipe/Swipe/Class/Washer/SwipeBoxVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "228">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "41C5BC75-32F4-451E-8FB8-59BDE6257570"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Swipe/Class/Customer/HomeVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "474"
+            endingLineNumber = "474"
+            landmarkName = "textFieldShouldBeginEditing(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "AE1A66F8-E83E-4817-8852-D7B75D46F634"
+            uuid = "7319CC18-CFF3-4DB4-94AC-70F5201A99C0"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Swipe/Class/Washer/BankAccountVC.swift"
-            timestampString = "606578542.1949461"
+            filePath = "Swipe/Class/Washer/Booking_washer_VC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "btnComplete_Booking_Action(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

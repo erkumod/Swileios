@@ -52,12 +52,14 @@ class RewardVC: Main {
     var arrPromoList = [[String:AnyObject]]()
     var arrPromoHistoryList = [[String:AnyObject]]()
     var booking_count = 0
+    var isFromNotification = false
     
     //MARK:- View Life Cycle Method
     override func viewDidLoad() {
         super.viewDidLoad()
         
         consWidthScreen.constant = self.view.frame.size.width
+        
         scrView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
         btnRedemption.setTitleColor(AppColors.cyan, for: .normal)
         btnAvailable.setTitleColor(UIColor.lightGray, for: .normal)
@@ -65,7 +67,23 @@ class RewardVC: Main {
         lblRedemBtm.isHidden = false
         lblAvailBtm.isHidden = true
         lblHistoryBtm.isHidden = true
-        callGetRedemptionAPI()
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if  isFromNotification {
+            DispatchQueue.main.async {
+                self.scrView.setContentOffset(CGPoint(x: self.view.frame.size.width, y:0), animated: true)
+                self.view.layoutIfNeeded()
+                self.callGetPromoListAPI()
+            }
+            
+            
+        }else {
+            
+            callGetRedemptionAPI()
+        }
     }
     
     //MARK:- Button Actions

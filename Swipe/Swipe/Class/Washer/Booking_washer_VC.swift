@@ -43,43 +43,85 @@ class Booking_washer_VC: Main {
     @IBOutlet weak var tblConfirmed: UITableView!
     @IBOutlet weak var tblAvailable: UITableView!
     
+    @IBOutlet weak var lblWashCnt: UILabel!
+    
+    @IBOutlet weak var vwAlert: CustomUIView!
+    @IBOutlet weak var blurView: UIImageView!
+    
     //MARK:- Global Variables
-    var isConfirmed = false
+    var isConfirmed = true
     var arrAvailableList = [[String:AnyObject]]()
     var arrConfirmedList = [[String:AnyObject]]()
+    var isWasherAPICalled = false
+    var isNotification = false
 
     //MARK:- View Life Cycle Method
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        isConfirmed = true
-        consWidthScreen.constant = self.view.frame.size.width
-        //consHeightScreen.constant = self.view.frame.size.height - 140
-        scrView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
         btnConfirmed.setTitleColor(AppColors.cyan, for: .normal)
         btnAvailable.setTitleColor(UIColor.lightGray, for: .normal)
         lblConfirm.isHidden = false
         lblAvailable.isHidden = true
-        callGetConfirmedListAPI()
+
+        self.view.addSubview(vwAlert)
+        self.vwAlert.frame.size.width = self.view.frame.size.width - 20
+        self.vwAlert.frame = CGRect(x: 15, y: self.view.frame.size.height - 220, width: self.view.frame.size.width - 30, height: 181)
+        self.vwAlert.isHidden = true
+        self.blurView.isHidden = true
+        consWidthScreen.constant = self.view.frame.size.width
+        
+        
+        
+        self.navigationController?.isNavigationBarHidden = true
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        callCheckWasherAPI()
+        self.vwAlert.isHidden = true
+        self.blurView.isHidden = true
+        
+        //setTab()
+        
+        consWidthScreen.constant = self.view.frame.size.width
+        //consHeightScreen.constant = self.view.frame.size.height - 140
+        
+        
+    }
+    
+    func setTab(){
+        if isConfirmed {
+            scrView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
+            callGetConfirmedListAPI()
+        }else {
+            callGetAvailableListAPI()
+            scrView.setContentOffset(CGPoint(x: self.view.frame.size.width, y:0), animated: true)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if #available(iOS 13.0, *) {
-            let app = UIApplication.shared
-            let statusbarView = UIView(frame: app.statusBarFrame)
-            statusbarView.backgroundColor = AppColors.cyan
-            app.statusBarUIView?.addSubview(statusbarView)
-        } else {
-            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
-            statusBar?.backgroundColor = AppColors.cyan
-        }
+        
+        setStatusBarColor()
+        
+//        if #available(iOS 13.0, *) {
+//            let app = UIApplication.shared
+//            let statusbarView = UIView(frame: app.statusBarFrame)
+//            statusbarView.backgroundColor = AppColors.cyan
+//            app.statusBarUIView?.addSubview(statusbarView)
+//        } else {
+//            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+//            statusBar?.backgroundColor = AppColors.cyan
+//        }
     }
     
     //MARK:- Button Actions
     @IBAction func btnSideMenu_Action(_ sender: Any) {
-        toggleSideMenuView()
+        if isNotification {
+            (UIApplication.shared.delegate as! AppDelegate).ChangeToWasher()
+            toggleSideMenuView()
+        }else {
+            toggleSideMenuView()
+        }
     }
     
     @IBAction func btnComfirmed_Action(_ sender: Any) {
@@ -92,6 +134,16 @@ class Booking_washer_VC: Main {
         isConfirmed = false
         callGetAvailableListAPI()
         scrView.setContentOffset(CGPoint(x: self.view.frame.size.width, y:0), animated: true)
+    }
+    
+    @IBAction func btnComplete_Booking_Action(_ sender: Any) {
+        self.vwAlert.isHidden = true
+        self.blurView.isHidden = true
+        for i in 0..<self.arrConfirmedList.count{
+            if UserModel.sharedInstance().started_Booking_id == "\((self.arrConfirmedList[i])["id"] as! Int)"{
+                self.performSegue(withIdentifier: "toConfirm", sender: i)
+            }
+        }
     }
     
     //MARK:- Webservices
@@ -141,14 +193,68 @@ class Booking_washer_VC: Main {
                         print(data)
                         self.arrConfirmedList = data
                         self.tblConfirmed.reloadData()
+                        self.lblWashCnt.text = "\(self.arrConfirmedList.count)/2 Washes"
+    
+                        if UserModel.sharedInstance().started_Booking_id != nil {
+                            self.vwAlert.isHidden = false
+                            self.blurView.isHidden = false
+                        }
                     }else{
                         self.arrConfirmedList.removeAll()
                         self.tblConfirmed.reloadData()
+                        self.lblWashCnt.text = "0/2 Washes"
                     }
                 }else {
                     self.arrConfirmedList.removeAll()
                     self.tblConfirmed.reloadData()
+                    self.lblWashCnt.text = "0/2 Washes"
                 }
+            }
+        }) { (error) in
+            print(error)
+        }
+    }
+    
+    func callCheckWasherAPI() {
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            //            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
+            return
+        }
+        if UserModel.sharedInstance().authToken == nil{
+            return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.CHECK_WASHER
+        
+        let parameter  = "?token=\(UserModel.sharedInstance().authToken!)"
+        
+        APIManager.shared.requestNoLoaderGetURL(serviceURL + parameter, success: { (response) in
+            if let jsonObject = response.result.value as? [String:AnyObject] {
+                if let status = jsonObject["status"] as? Int, status == 200 {
+                    if let isWasher = jsonObject["washer"] as? Int, isWasher == 1 {
+                        if let is_Started = jsonObject["is_startedWash"] as? Int, is_Started > 0 {
+                            self.isWasherAPICalled = true
+                            UserModel.sharedInstance().started_Booking_id = "\(is_Started)"
+                            UserModel.sharedInstance().synchroniseData()
+                            self.setTab()
+                        }else{
+                            self.setTab()
+                        }
+                        UserModel.sharedInstance().isWasher = "1"
+                        self.setTab()
+                    }else {
+                        UserModel.sharedInstance().isWasher = "0"
+                        self.setTab()
+                    }
+                }else {
+                    UserModel.sharedInstance().isWasher = "0"
+                    self.setTab()
+                }
+                UserModel.sharedInstance().synchroniseData()
+            }else {
+                self.setTab()
+                UserModel.sharedInstance().isWasher = "0"
+                UserModel.sharedInstance().synchroniseData()
             }
         }) { (error) in
             print(error)
@@ -169,6 +275,9 @@ class Booking_washer_VC: Main {
             destVC.vehicleType = dictData["type"] as! String
             destVC.price = dictData["fare"] as! String
             destVC.user_id = dictData["user_id"] as! String
+            destVC.startTime = dictData["start_time"] as! String
+            destVC.endTime = dictData["end_time"] as! String
+            
             if let status = dictData["status"] as? String, status != "" {
                 destVC.status = status
             }
@@ -197,6 +306,8 @@ class Booking_washer_VC: Main {
             destVC.username = dictData["user_name"] as! String
             destVC.vehicleType = dictData["type"] as! String
             destVC.price = dictData["fare"] as! String
+            destVC.startTime = dictData["start_time"] as! String
+            destVC.endTime = dictData["end_time"] as! String
             
             if let latitude = dictData["lat"] as? String, latitude != "" {
                 destVC.latitude = Double(latitude)!

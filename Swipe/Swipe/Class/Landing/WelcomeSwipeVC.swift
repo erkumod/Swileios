@@ -27,17 +27,17 @@ class WelcomeSwipeVC: Main {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if #available(iOS 13.0, *) {
-            let app = UIApplication.shared
-            
-            let statusbarView = UIView(frame: app.statusBarFrame)
-            statusbarView.backgroundColor = AppColors.cyan
-            app.statusBarUIView?.addSubview(statusbarView)
-            
-        } else {
-            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
-            statusBar?.backgroundColor = AppColors.cyan
-        }
+//        if #available(iOS 13.0, *) {
+//            let app = UIApplication.shared
+//            
+//            let statusbarView = UIView(frame: app.statusBarFrame)
+//            statusbarView.backgroundColor = AppColors.cyan
+//            app.statusBarUIView?.addSubview(statusbarView)
+//            
+//        } else {
+//            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+//            statusBar?.backgroundColor = AppColors.cyan
+//        }
     }
     
     @IBAction func btnFB_Action(_ sender: UIButton) {

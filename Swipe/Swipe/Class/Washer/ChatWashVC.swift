@@ -31,6 +31,7 @@ class ChatWashVC : Main {
     var custName = ""
     var timer = Timer()
     var arrDictChat = [[String:AnyObject]]()
+    var isNotification = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,11 @@ class ChatWashVC : Main {
 
         NotificationCenter.default.addObserver(self, selector: #selector(ChatWashVC.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController!.isNavigationBarHidden  = true
+        setStatusBarColor()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -78,6 +84,8 @@ class ChatWashVC : Main {
         }
     }
     
+    
+    
     @objc func timerRun() {
         callGetMessageAPI()
     }
@@ -87,7 +95,12 @@ class ChatWashVC : Main {
     }
     
     @IBAction func btnBack_Action(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        if isNotification {
+            (UIApplication.shared.delegate as! AppDelegate).ChangeToHome()
+        }else {
+            self.navigationController?.popViewController(animated: true)
+        }
+        
     }
     
     func callSendMessageAPI() {

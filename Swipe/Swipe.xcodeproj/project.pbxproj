@@ -21,6 +21,7 @@
 		1F1226E22406CB18009336D0 /* WasherHelpCenterDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1226E02406CB18009336D0 /* WasherHelpCenterDetailVC.swift */; };
 		1F1226E32406CB18009336D0 /* WasherHelpCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1226E12406CB18009336D0 /* WasherHelpCenterVC.swift */; };
 		1F1CCA152425487100C3A419 /* OTPVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1CCA142425487100C3A419 /* OTPVC.swift */; };
+		1F1D6526243E3EDD00027D78 /* WasherNotificationDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D6525243E3EDD00027D78 /* WasherNotificationDetailVC.swift */; };
 		1F2CB4A823FEF5AF0049067D /* Notification_WasherVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CB4A723FEF5AF0049067D /* Notification_WasherVC.swift */; };
 		1F2CB4AA23FEF6BD0049067D /* SwipeBoxVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CB4A923FEF6BD0049067D /* SwipeBoxVC.swift */; };
 		1F43877C23FBE9A2008BE798 /* SideMenu1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43877A23FBE9A2008BE798 /* SideMenu1VC.swift */; };
@@ -47,6 +48,7 @@
 		1FB9C58C240D0D47001B4EAF /* SwipeBoxDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9C58B240D0D47001B4EAF /* SwipeBoxDetailVC.swift */; };
 		1FB9C58E240D1299001B4EAF /* BookingHistoryDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9C58D240D1299001B4EAF /* BookingHistoryDetailVC.swift */; };
 		1FBB2E11242237810000B9E2 /* ChatWashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBB2E10242237800000B9E2 /* ChatWashVC.swift */; };
+		1FBBD819243DBDE500DBFCDE /* NotificationDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBBD818243DBDE500DBFCDE /* NotificationDetailVC.swift */; };
 		1FCB946D23F6C23800A340AD /* RewardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB946C23F6C23800A340AD /* RewardVC.swift */; };
 		1FCEBF34240544C400A7077B /* VehiclePhotoSubmissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCEBF33240544C400A7077B /* VehiclePhotoSubmissionVC.swift */; };
 		1FE388FE23E808430078BDE7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE388FD23E808430078BDE7 /* AppDelegate.swift */; };
@@ -105,6 +107,7 @@
 		1F1226E02406CB18009336D0 /* WasherHelpCenterDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WasherHelpCenterDetailVC.swift; sourceTree = "<group>"; };
 		1F1226E12406CB18009336D0 /* WasherHelpCenterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WasherHelpCenterVC.swift; sourceTree = "<group>"; };
 		1F1CCA142425487100C3A419 /* OTPVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVC.swift; sourceTree = "<group>"; };
+		1F1D6525243E3EDD00027D78 /* WasherNotificationDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasherNotificationDetailVC.swift; sourceTree = "<group>"; };
 		1F2CB4A723FEF5AF0049067D /* Notification_WasherVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification_WasherVC.swift; sourceTree = "<group>"; };
 		1F2CB4A923FEF6BD0049067D /* SwipeBoxVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBoxVC.swift; sourceTree = "<group>"; };
 		1F33E9F2242933DF009A1A37 /* Swipe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swipe.entitlements; sourceTree = "<group>"; };
@@ -133,6 +136,7 @@
 		1FB9C58B240D0D47001B4EAF /* SwipeBoxDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBoxDetailVC.swift; sourceTree = "<group>"; };
 		1FB9C58D240D1299001B4EAF /* BookingHistoryDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingHistoryDetailVC.swift; sourceTree = "<group>"; };
 		1FBB2E10242237800000B9E2 /* ChatWashVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatWashVC.swift; sourceTree = "<group>"; };
+		1FBBD818243DBDE500DBFCDE /* NotificationDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailVC.swift; sourceTree = "<group>"; };
 		1FCB946C23F6C23800A340AD /* RewardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardVC.swift; sourceTree = "<group>"; };
 		1FCEBF33240544C400A7077B /* VehiclePhotoSubmissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclePhotoSubmissionVC.swift; sourceTree = "<group>"; };
 		1FE388FA23E808430078BDE7 /* Swipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swipe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -251,6 +255,7 @@
 				1F5AC62523ED56660000986B /* AccountSettingVC.swift */,
 				1FCB946C23F6C23800A340AD /* RewardVC.swift */,
 				1F0DE65B23F7CB85000B64DE /* NotificationVC.swift */,
+				1FBBD818243DBDE500DBFCDE /* NotificationDetailVC.swift */,
 				1F66387F23F80BDE00C7E311 /* HelpCenterVC.swift */,
 				1F0F958C2403E35600B135FB /* HelpCenterDetailVC.swift */,
 				1F66388123F8100B00C7E311 /* JoinUsVC.swift */,
@@ -273,6 +278,7 @@
 				1F43878423FC1CC1008BE798 /* EarningVC.swift */,
 				1FB9C58B240D0D47001B4EAF /* SwipeBoxDetailVC.swift */,
 				1F2CB4A723FEF5AF0049067D /* Notification_WasherVC.swift */,
+				1F1D6525243E3EDD00027D78 /* WasherNotificationDetailVC.swift */,
 				1F2CB4A923FEF6BD0049067D /* SwipeBoxVC.swift */,
 				1FFADE7323FFEC9F002BB455 /* RedemptionVC.swift */,
 				1F0F95902403EF2D00B135FB /* WasherProfileVC.swift */,
@@ -610,6 +616,7 @@
 				1F5AC62823EDBC830000986B /* PromoCodeVC.swift in Sources */,
 				1F0F95912403EF2D00B135FB /* WasherProfileVC.swift in Sources */,
 				1FE3895D23E83C720078BDE7 /* ForgotVC.swift in Sources */,
+				1FBBD819243DBDE500DBFCDE /* NotificationDetailVC.swift in Sources */,
 				1F43878123FBFD1D008BE798 /* EnterVC.swift in Sources */,
 				1FE3895623E823430078BDE7 /* DistancePickerView.m in Sources */,
 				1F0DE65E23F7EE48000B64DE /* BookingVC.swift in Sources */,
@@ -636,6 +643,7 @@
 				1F0AFAC023E9954B00923FAE /* SideMenuVC.swift in Sources */,
 				1F0C52822404343200B4CFB9 /* WasherStaticPagesVC.swift in Sources */,
 				1FE3894723E823430078BDE7 /* APIManager.swift in Sources */,
+				1F1D6526243E3EDD00027D78 /* WasherNotificationDetailVC.swift in Sources */,
 				1FE3894A23E823430078BDE7 /* UserModel.swift in Sources */,
 				1FE3894823E823430078BDE7 /* extension.swift in Sources */,
 				1F0C527E24041DAD00B4CFB9 /* WasherProfileDetailVC.swift in Sources */,
