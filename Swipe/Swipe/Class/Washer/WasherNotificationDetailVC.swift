@@ -59,6 +59,26 @@ class WasherNotificationDetailVC: Main {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func btnDelete_Action(_ sender: Any) {
+        callDeleteNotificationAPI()
+    }
     
+    func callDeleteNotificationAPI() {
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
+            return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.DELETE_NOTIFICATION_MSG
+        let parameter : [String:String] = ["token": UserModel.sharedInstance().authToken!, "notification_id": "\(data["id"] as! Int)"]
+        
+        APIManager.shared.requestPostURL(serviceURL, param: parameter as [String : AnyObject] , success: { (response) in
+            if let jsonObject = response.result.value as? [String:AnyObject] {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }) { (error) in
+            print(error)
+        }
+    }
 
 }

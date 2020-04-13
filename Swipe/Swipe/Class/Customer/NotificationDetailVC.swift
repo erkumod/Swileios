@@ -21,15 +21,19 @@ class NotificationDetailVC: Main {
         if !data.isEmpty{
             print(data)
             
-            if data["page"] as! String == "complete_booking"{
-                lblMsg.attributedText = attributedString("Yay! Your vehicle has been cleaned!\n\nYou can rate your Shine Specialist and check out your vehicle photos in “Bookings” > “History” tab.")
-            }else if data["page"] as! String == "start_wash"{
-                lblMsg.attributedText = attributedString("Yes! We have found a Shine Specialist for you!\n\nYou can check your booking status in “Bookings” > “Scheduled” tab..")
-            }else if data["page"] as! String == "cancle_wash"{
-                lblMsg.attributedText = attributedString("Oops, seems like your booking has been cancelled by the Shine Specialist. However, we are still actively looking for another Shine Specialist for you. Hang on tight! ")
-            }else if data["page"] as! String == "wash_accept"{
-                lblMsg.attributedText = attributedString("Yes! We have found a shine specialist for you!\nYou can check your booking status in “Bookings” > “Scheduled” tab. ")
-            }else if data["page"] as! String == "reedeem_stamp"{
+//            if data["page"] as! String == "complete_booking"{
+//                lblMsg.attributedText = attributedString("Yay! Your vehicle has been cleaned!\n\nYou can rate your Shine Specialist and check out your vehicle photos in “Bookings” > “History” tab.")
+//            }else if data["page"] as! String == "start_wash"{
+//                lblMsg.attributedText = attributedString("Yes! We have found a Shine Specialist for you!\n\nYou can check your booking status in “Bookings” > “Scheduled” tab..")
+//            }else if data["page"] as! String == "cancle_wash"{
+//                lblMsg.attributedText = attributedString("Oops, seems like your booking has been cancelled by the Shine Specialist. However, we are still actively looking for another Shine Specialist for you. Hang on tight! ")
+//            }else if data["page"] as! String == "wash_accept"{
+//                lblMsg.attributedText = attributedString("Yes! We have found a shine specialist for you!\nYou can check your booking status in “Bookings” > “Scheduled” tab. ")
+//            }else
+            
+            lblMsg.attributedText = attributedString(data["notification_desc"] as! String)
+            
+            if data["page"] as! String == "reedeem_stamp"{
                 
                 if (data["notification_desc"] as! String).contains("$3"){
                     lblMsg.attributedText = attributedString("Congratulations!\nYou have successfully redeemed $3 off!\nT&C applies.")
@@ -72,6 +76,27 @@ class NotificationDetailVC: Main {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func btnDelete_Action(_ sender: Any) {
+        callDeleteNotificationAPI()
+    }
     
+    func callDeleteNotificationAPI() {
+        guard NetworkManager.shared.isConnectedToNetwork() else {
+            CommonFunctions.shared.showToast(self.view, "Please check your internet connection")
+            return
+        }
+        
+        let serviceURL = Constant.WEBURL + Constant.API.DELETE_NOTIFICATION_MSG
+        let parameter : [String:String] = ["token": UserModel.sharedInstance().authToken!, "notification_id": "\(data["id"] as! Int)"]
+        
+        APIManager.shared.requestPostURL(serviceURL, param: parameter as [String : AnyObject] , success: { (response) in
+            if let jsonObject = response.result.value as? [String:AnyObject] {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }) { (error) in
+            print(error)
+        }
+    }
 
+    
 }

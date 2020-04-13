@@ -163,6 +163,7 @@ class BookingDetailVC: Main {
     func add_Pin(_ lat : Double , _ lng : Double){
         mapView.camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lng, zoom: Float(15))
         let marker = GMSMarker(position: CLLocationCoordinate2DMake(lat,lng))
+        marker.map = nil
         marker.map = mapView
     }
 

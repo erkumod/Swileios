@@ -86,10 +86,9 @@ class HomeVC: Main {
         //locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
         
-        let padding = UIEdgeInsets(top:0, left: 5, bottom: 305, right: 5)
-        mapView.padding = padding
-        mapView.settings.myLocationButton = true
-        mapView.isMyLocationEnabled = true
+
+        
+        
         
         let currentDate = Date()
         let df = DateFormatter()
@@ -140,8 +139,30 @@ class HomeVC: Main {
         (UIApplication.shared.delegate as! AppDelegate).callProfileInfoAPI()
 //        (UIApplication.shared.delegate as! AppDelegate).callLoginAPI()
         //(UIApplication.shared.delegate as! AppDelegate).callCheckWasherAPI()
-        
+
         setStatusBarColor()
+        
+        if UserModel.sharedInstance().selectedPromoCode != nil && UserModel.sharedInstance().selectedPromoCode != "" {
+        
+            if  UserModel.sharedInstance().selectedPromoType != nil && UserModel.sharedInstance().selectedPromoType != "" {
+                let padding = UIEdgeInsets(top:0, left: 5, bottom: 335, right: 5)
+                mapView.padding = padding
+                mapView.settings.myLocationButton = true
+                mapView.isMyLocationEnabled = true
+            }else{
+                let padding = UIEdgeInsets(top:0, left: 5, bottom: 335, right: 5)
+                mapView.padding = padding
+                mapView.settings.myLocationButton = true
+                mapView.isMyLocationEnabled = true
+            }
+        }else{
+            let padding = UIEdgeInsets(top:0, left: 5, bottom: 310, right: 5)
+            mapView.padding = padding
+            mapView.settings.myLocationButton = true
+            mapView.isMyLocationEnabled = true
+        }
+
+        
     
     }
         
@@ -212,7 +233,17 @@ class HomeVC: Main {
     
     func setPrice() {
         if UserModel.sharedInstance().selectedPromoCode != nil && UserModel.sharedInstance().selectedPromoCode != "" {
-            lblPromo.text = UserModel.sharedInstance().selectedPromoCode!
+            
+            if  UserModel.sharedInstance().selectedPromoType != nil && UserModel.sharedInstance().selectedPromoType != "" {
+                if UserModel.sharedInstance().selectedPromoType == "Mini3"{
+                    lblPromo.text = "$3 off"
+                }else if UserModel.sharedInstance().selectedPromoType == "Mini7"{
+                    lblPromo.text = "$7 off"
+                }else{
+                    lblPromo.text = UserModel.sharedInstance().selectedPromoCode!
+                }
+                
+            }
             
             lblTotalPrice.isHidden = false
             lblSGDPrice.isHidden = false
@@ -356,7 +387,7 @@ class HomeVC: Main {
         endTime = df.string(from: date!)
         lblEndTime.text = df.string(from: date!)
         
-        self.lblPopEndtime.text = "\(lblEndTime.text!.split(separator: ":")[0])hr" + " \(lblEndTime.text!.split(separator: ":")[1].split(separator: " ")[0])min"
+        self.lblPopEndtime.text = lblEndTime.text//"\(lblEndTime.text!.split(separator: ":")[0])hr" + " \(lblEndTime.text!.split(separator: ":")[1].split(separator: " ")[0])min"
         
         df.dateFormat = "HH"
         self.selectedEndHour = df.string(from: date!)
@@ -604,8 +635,9 @@ class HomeVC: Main {
 //                }
 //        })
 //    }
-//
+
     func add_Pin(_ lat : Double , _ lng : Double){
+        mapView.clear()
         let position = CLLocationCoordinate2DMake(lat,lng)
         let marker = GMSMarker(position: position)
         marker.map = mapView
@@ -652,7 +684,6 @@ class HomeVC: Main {
                 }
             }
         })
-        
     }
     
     //MARK:- Web Service Calling
@@ -713,7 +744,7 @@ class HomeVC: Main {
                         UserModel.sharedInstance().selectedPromoCode = nil
                         UserModel.sharedInstance().selectedPromoType = nil
                         UserModel.sharedInstance().synchroniseData()
-                        CommonFunctions.shared.showToast(self.view, jsonObject["message"] as! String)
+                        //CommonFunctions.shared.showToast(self.view, jsonObject["message"] as! String)
                     }else if status == 402 {
                         self.showAlertView(jsonObject["message"] as? String)
                     }
@@ -735,6 +766,7 @@ class HomeVC: Main {
         }
     }
 }
+
 extension HomeVC: CLLocationManagerDelegate {
     // 2
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -743,13 +775,14 @@ extension HomeVC: CLLocationManagerDelegate {
             return
         }
         
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
         guard let location = locations.first else {
             return
         }
+        
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         
         let camera = GMSCameraPosition.camera(withLatitude: center.latitude,
@@ -764,7 +797,6 @@ extension HomeVC: CLLocationManagerDelegate {
         
         locationManager.stopUpdatingLocation()
     }
-    
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("error:: (error)")
@@ -822,6 +854,16 @@ extension HomeVC: GMSAutocompleteViewControllerDelegate {
         latitude = place.coordinate.latitude
         longitude = place.coordinate.longitude
         
+        
+        let camera = GMSCameraPosition.camera(withLatitude: place.coordinate.latitude,
+                                                     longitude: place.coordinate.longitude,
+                                                     zoom: Float(15))
+               
+       mapView.camera = camera
+       add_Pin(place.coordinate.latitude, place.coordinate.longitude)
+       self.latitude = Double(place.coordinate.latitude)
+       self.longitude = Double(place.coordinate.longitude)
+
         let location = CLLocation(latitude: latitude, longitude: longitude)
         geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
             if let error = error {

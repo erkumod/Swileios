@@ -33,6 +33,10 @@ class EditProfileVC: Main {
             tfEmail.text = UserModel.sharedInstance().email!
         }
         
+        if UserModel.sharedInstance().mobileNo != nil{
+            tfMobile.text = UserModel.sharedInstance().mobileNo!
+        }
+        
         if UserModel.sharedInstance().email != nil{
             tfEmail.text = UserModel.sharedInstance().email!
         }
@@ -85,7 +89,7 @@ class EditProfileVC: Main {
     }
     
     @IBAction func btnLogOut_Action(_ sender: Any) {
-        self.showAlertView("Are you sure you want to logout?", defaultTitle: "Yes", cancelTitle: "No") { (finish) in
+        self.showAlertViewCus("Are you sure you want to logout?", defaultTitle: "Yes", cancelTitle: "No") { (finish) in
             if finish{
                 print("Yes")
                 self.callLogoutAPI()

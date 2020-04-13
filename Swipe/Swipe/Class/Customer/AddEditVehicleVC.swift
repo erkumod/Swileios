@@ -246,7 +246,12 @@ class AddEditVehicleVC: Main {
                     if status == 200{
                         self.navigationController?.popViewController(animated: true)
                     }
-                    
+                }else{
+                    if let status = jsonObject["success"] as? Int{
+                        if status == 0{
+                            self.showAlertView(((jsonObject["error"] as! [String:AnyObject])["vehicle_no"] as! [String])[0])
+                        }
+                    }
                 }
             }
         }) { (error) in
